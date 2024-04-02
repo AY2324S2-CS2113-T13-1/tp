@@ -21,4 +21,8 @@ public class Problem {
     public double getAnswer() {
         return answer;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }

@@ -1,7 +1,7 @@
 package seedu.duke;
 
 import java.util.Scanner;
-
+import java.util.ArrayList;
 /**
  * Represents the user interface for interacting with the chatbot.
  */
@@ -42,13 +42,14 @@ public class Ui {
     /**
      * Displays a greeting message.
      */
+
     public void greet() {
         this.showLine();
-        String logo = " ____        _       \n" +
-                "|  _ \\ _   _| | _____\n" +
-                "| | | | | | | |/ / _ \\\n" +
-                "| |_| | |_| |   <  __/\n" +
-                "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "__   __       _   _      ____            _\n" +
+                "|  \\/  | __ _| |_| |__  / ___| ___ _ __ (_)_   _ ___\n" +
+                "| |\\/| |/ _` | __| '_ \\| |  _ / _ \\ '_ \\| | | | / __|\n" +
+                "| |  | | (_| | |_| | | | |_| |  __/ | | | | |_| \\__ \\\n" +
+                "|_|  |_|\\__,_|\\__|_| |_|\\____|\\___|_| |_|_|\\__,_|___/\n";
         System.out.println(logo);
         System.out.println("Hello! I'm " + name);
         System.out.println("Type 'help' to see the instructions. \n");
@@ -82,6 +83,15 @@ public class Ui {
             break;
         }
         this.showLine();
+    }
+
+    // records input
+    public void printRecords(ArrayList<Record> records, boolean showProbDetails) {
+        for (Record record : records) {
+            showLine();
+            record.print(showProbDetails);
+        }
+        showLine();
     }
 
     // invalid input
