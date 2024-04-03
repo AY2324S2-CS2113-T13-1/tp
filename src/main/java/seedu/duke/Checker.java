@@ -10,8 +10,8 @@ public class Checker {
     private int correctNumber;
     private double accuracy;
     private long time;
-    List<Problem> wrongProblem= new ArrayList<>();
-    List<String> wrongAnswer = new ArrayList<>();
+    private List<Problem> wrongProblem= new ArrayList<>();
+    private List<String> wrongAnswer = new ArrayList<>();
 
     public Checker(Test test){
         assert test != null: "Input null test!";
@@ -50,8 +50,7 @@ public class Checker {
             if (checkCorrectness(problem, answer)) {
                 correctNumber++;
                 isCorrect[i] = true;
-            }
-            else {
+            } else {
                 wrongAnswer.add(userInput);
                 wrongProblem.add(problem);
             }
