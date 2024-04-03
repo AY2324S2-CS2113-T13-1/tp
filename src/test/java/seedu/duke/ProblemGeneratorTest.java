@@ -86,11 +86,11 @@ public class ProblemGeneratorTest {
         System.out.println("Pass numberTest!");
         digitTest();
         System.out.println("Pass digitTest!");
-        caculateTest();
-        System.out.println("Pass cacultation test!");
+        calculateTest();
+        System.out.println("Pass calculation test!");
     }
 
-    private static void caculateTest() {
+    private static void calculateTest() {
         ProblemGenerator pb = new ProblemGenerator();
         StringBuilder formula = new StringBuilder();
         formula.append(10);
@@ -100,6 +100,6 @@ public class ProblemGeneratorTest {
         formula.append(5);
         formula.append("*");
         formula.append(3);
-        assertEquals(Caculator.caculate(pb, formula),85);
+        assertEquals(Calculator.calculate(formula),85);
     }
 }

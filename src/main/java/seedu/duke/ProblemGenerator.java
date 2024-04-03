@@ -140,7 +140,7 @@ public class ProblemGenerator {
             descriptionBuilder = division_check(descriptionBuilder);
 
 
-            answer = Caculator.caculate(descriptionBuilder);
+            answer = Calculator.calculate(descriptionBuilder);
             String  description =descriptionBuilder.toString();
 
 
