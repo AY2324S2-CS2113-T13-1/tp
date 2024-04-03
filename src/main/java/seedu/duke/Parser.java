@@ -83,7 +83,7 @@ public class Parser {
             //ui.records(command);
             break;
         case "help":
-            ui.help(command);
+            ui.help(description);
             break;
         case "exit":
             ui.exit();
