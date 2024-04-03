@@ -8,9 +8,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProblemGeneratorTest {
-    public static String[] commands = {"generate -t + -n 1 -d 1", "generate -t - -n 2 -d 2",
-        "generate -t * -n 3 -d 3", "generate -t / -n 4 -d 4"};
-    public static void operatorTest() {
+    public static String[] commands = {"generate -t + -n 1 -d 2 -l 2", "generate -t - -n 2 -d 3 -l 3",
+        "generate -t * -n 3 -d 4 -l 4", "generate -t / -n 4 -d 5 -l 5"};
+    @org.junit.jupiter.api.Test
+    public void operatorTest() {
         for (String command: commands) {
             ProblemGenerator pb = new ProblemGenerator();
             Test test = pb.typeChoose(command);
@@ -34,26 +35,25 @@ public class ProblemGeneratorTest {
             }
         }
     }
-    private static HashMap<String, String> parseCommand(String command) {
+    private HashMap<String, String> parseCommand(String command) {
         return ProblemGenerator.parseCommand(command);
     }
 
-    private static int[] parseNumbers(String problem) {
+    private ArrayList<Integer> parseNumbers(String problem) {
 
-        // 使用正则表达式匹配数字
-        Pattern pattern = Pattern.compile("\\d+");
+        // 使用正则表达式匹配数字和运算符
+        Pattern pattern = Pattern.compile("-?\\d+");
         Matcher matcher = pattern.matcher(problem);
 
         // 提取匹配到的数字
-        int[] numbers = new int[2];
-        int index = 0;
-        while (matcher.find() && index < 2) {
-            numbers[index] = Integer.parseInt(matcher.group());
-            index++;
+        ArrayList<Integer> numbers = new ArrayList<>();
+        while (matcher.find()) {
+            numbers.add(Integer.parseInt(matcher.group()));
         }
         return numbers;
     }
-    public static void numberTest() {
+    @org.junit.jupiter.api.Test
+    public void numberTest() {
         for (String command: commands) {
             HashMap<String, String> parsedCommand = parseCommand(command);
             ProblemGenerator pb = new ProblemGenerator();
@@ -62,35 +62,39 @@ public class ProblemGeneratorTest {
             assertEquals(Integer.parseInt(parsedCommand.get("number")), problems.size());
         }
     }
-
-    public static void digitTest() {
+    @org.junit.jupiter.api.Test
+    public void digitTest() {
         for (String command: commands) {
             HashMap<String, String> parsedCommand = parseCommand(command);
             ProblemGenerator pb = new ProblemGenerator();
             Test test = pb.typeChoose(command);
             ArrayList<Problem> problems = test.getProblem();
             for (Problem problem: problems) {
-                int[] numbers = parseNumbers(problem.unsolved());
+                ArrayList<Integer> numbers = parseNumbers(problem.unsolved());
                 for (int number: numbers) {
                     assertTrue(Integer.parseInt(parsedCommand.get("maximumDigits")) >= (int) Math.log10(number) + 1);
                 }
             }
         }
     }
+    @org.junit.jupiter.api.Test
+    public void lengthTest() {
+        for (String command: commands) {
+            HashMap<String, String> parsedCommand = parseCommand(command);
+            ProblemGenerator pb = new ProblemGenerator();
+            Test test = pb.typeChoose(command);
+            ArrayList<Problem> problems = test.getProblem();
+            for (Problem problem: problems) {
+                ArrayList<Integer> numbers = parseNumbers(problem.unsolved());
+                assertEquals(numbers.size(), Integer.parseInt(parsedCommand.get("length")),
+                        "length" + problem.unsolved() + "is incorrect");
+            }
 
-
-    public static void main(String[] args) {
-        operatorTest();
-        System.out.println("Pass operatorTest!");
-        numberTest();
-        System.out.println("Pass numberTest!");
-        digitTest();
-        System.out.println("Pass digitTest!");
-        calculateTest();
-        System.out.println("Pass calculation test!");
+        }
     }
 
-    private static void calculateTest() {
+    @org.junit.jupiter.api.Test
+    public void calculateTest() {
         ProblemGenerator pb = new ProblemGenerator();
         StringBuilder formula = new StringBuilder();
         formula.append(10);

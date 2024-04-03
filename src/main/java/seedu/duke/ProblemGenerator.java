@@ -90,49 +90,18 @@ public class ProblemGenerator {
         Test test = new Test(op, maxDigit, number,length);
 
         for (int i = 0; i < number; i++) {
-/*
-            String description;
-            double answer;
-            int max = (int) Math.pow(10, maxDigit);
-            int op1 = (int) (Math.random() * max);
-            int op2 = (int) (Math.random() * max);
-            String tempOperator = operations.get((int) (Math.random() * operations.size()));
-
-
-            switch (tempOperator) {
-            case ("+"):
-                answer = op1 + op2;
-                break;
-            case ("-"):
-                answer = op1 - op2;
-                break;
-            case ("*"):
-                answer = op1 * op2;
-                break;
-            case ("/"):
-                if (op2 == 0) {
-                    continue;
-                }
-                answer = (double) op1 / op2;
-                break;
-            default:
-                continue;
-            }
-
-            description = op1 + tempOperator + op2 + "=";
-*/
 
             StringBuilder descriptionBuilder = new StringBuilder();
             double answer;
             int max = (int) Math.pow(10, maxDigit);
 
             for (int j = 0;j<length;j++){
-                int temp_random_number = (int) (Math.random() * max);
-                descriptionBuilder.append(temp_random_number);
+                int tempRandomNumber = (int) (Math.random() * max);
+                descriptionBuilder.append(tempRandomNumber);
 
                 if(j != length - 1){
-                    String temp_random_operator = operations.get((int) (Math.random() * operations.size()));
-                    descriptionBuilder.append(temp_random_operator);
+                    String tempRandomOperator = operations.get((int) (Math.random() * operations.size()));
+                    descriptionBuilder.append(tempRandomOperator);
                 }
             }
 

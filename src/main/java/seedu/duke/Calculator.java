@@ -68,8 +68,7 @@ public class Calculator {
                 while( !opStack.empty()){
                     if(!prior(op,opStack.peek()) ){
                         suffix.add(opStack.pop());
-                    }
-                    else {
+                    } else {
                         break;
                     }
                 }
@@ -127,8 +126,7 @@ public class Calculator {
                 Integer num = Integer.parseInt(sb.substring(numStart,numEnd)) ;
                 formula.add(num);
                 i = numEnd;
-            }
-            else{
+            } else{
                 formula.add (Character.toString(sb.charAt(i)) );
                 i++;
             }
