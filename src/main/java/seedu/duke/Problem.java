@@ -18,7 +18,6 @@ public class Problem {
         return description + "__";
     }
 
-    public String getDescription() {return description;}
 
     public double getAnswer() {
         return answer;
