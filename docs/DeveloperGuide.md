@@ -10,6 +10,8 @@ the overall UML diagram looks like this
 
 ![RUNOOB](../assets/images/mathGenius.png)
 ### problemGenerator Component
+API: ![ProblemGenerator.java](../src/main/java/seedu/duke/ProblemGenerator.java)
+
 the main idea in the design of problemGenerator is that it take 3 parameters and generate a test which include some number of problems
 
 
@@ -28,7 +30,7 @@ if user missed some parameters ,defaultOptions() function will use pre-set defau
 
 
 ### Checker Component  
-**API：`Checker.java`**   
+**API：![Checker.java](../src/main/java/seedu/duke/Checker.java)**   
 **How the `Checker` work:**  
 1. Every `Checker` was created with a `Test` class.   
 2. The `Checker` will ask user's input and compare the answer up to 2 decimal tolerance.   
@@ -38,7 +40,7 @@ if user missed some parameters ,defaultOptions() function will use pre-set defau
     
 **`Pseudo code` for reference:**  
 ```
-# the brief psedue code for how to check the answer
+# the brief pseudo code for how to check the answer
 
 correct = 0
 isCorrect = []
@@ -66,11 +68,36 @@ API: ![Record.java](../src/main/java/seedu/duke/Record.java)
 The Record component:
 
 - a snapshot of a completed problem sets, including the individual problems, the date it was solved, the time taken to solve the problem set, and the accuracy of the attempt.
-- \[Proposed\] records the specifics of each problem, including whether the answer is correct or not, for organized or filtered viewing of past records.
+- records the specifics of each problem, the unique ID(created using Java's default hashcode) of the problem set, for organized or filtered viewing of past records.
+- For the viewing of a record, users may choose whether to display the problem set specifics or not using the `showProbDetails` parameter.
+- When writing a record to external file, it's written into a single line in the format of "/dateTime(format:yyyy-MM-dd HH:mm:ss) /speed /accuracy /problemSetID /problems". For problems, each problem is separated by a space and is formatted in "/problemDescription,/problemAnswer"
 
 ### Record Component - Implementation
 
-- \[Proposed\] Store in each Record object a referential Test object for storing specifics of the attempted Problem Set.
+- Store in each Record object an ArrayList of Problems objects for storing specifics of the attempted Problem Set.
+- When a problemSet solving is saved to a record **for the first time**, the corresponding Record object will create a unique ID for the problem set using Java's built-in hashCode method. When loading this record in the future and re-saving the data, the same ID will be used and no new IDs will be generated. This is achieved by using two different constructors for these two different situations.
+
+**Code Snippet**
+```
+// the two different constructors
+public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet) {
+    setSpeed(speed);
+    setAccuracy(accuracy);
+    setDateTime(dateTime);
+    setProbSet(probSet);
+    psIndex = probSet.hashCode();
+}
+
+public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet, int psIndex) {
+    setSpeed(speed);
+    setAccuracy(accuracy);
+    setDateTime(dateTime);
+    setProbSet(probSet);
+    setPsIndex(psIndex);
+}
+
+```
+- the `writeLine` method is used when writing a record to the external file, and the `print` method is used by the UI component when displaying a record to the user.
 
 ### Storage Component - Design
 
@@ -80,14 +107,18 @@ The Storage Component:
 
 - Read / Write to external file at appropriate runtime to enable data persistence throughout multiple usages of the software.
 - a unique and strict format for external file formatting for proper loading data as well as input file corruption detection.
-- \[Proposed\] incorporate the UI, Parser component for proper user feedback regarding the save/load process
+- incorporate the UI, Parser component for proper user feedback regarding the save/load process.
+- stores a list of Record objects for reading / writing, each Record is stored on a single, separate line. Formatting of each line is explained in the Record section.
+- The record list can be sorted by multiple parameters, including dateTime, speed, accuracy, problem set ID. This is used by the UI component to display users' past records in any order they desire. 
 
 ### Storage Component - Implementation
 
 - Uses a list of Record objects to store all past attempts
-- \[Proposed\] Use a hashing method to write / read properly all information of test object
+- Uses Java's built-in BufferedReader, FileReader, BufferedWriter, FileWriter to write / read properly all information of all problem sets
+- sortRecords method sorts the Record list based on 4 different parameters(each representing sort by datetime, speed, accuracy, problemSet ID). each parameter have 3 different values: 0, 1, 2. 0 means to not sort by this parameter, 1 means to sort(decreasing order), 2 means to sort in reverse(increasing order). These 4 parameters are determined by the user input, and interpreted by the Parser component.
 
 ### Testcase Component
+
    # Proposed Implementation
  The proposed test mechanism is facilitated by ProblemGeneratorTest, CheckerTest. It check the correctness of the generated problemsets' types,
 number of questions and max digits, by comparing the generated output to the user input.

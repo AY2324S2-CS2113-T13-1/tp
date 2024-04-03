@@ -23,6 +23,13 @@ public class Ui {
             "Generate problem sets: \t" + "gen -t [type] -n [number] -d [maximum digits]";
     private static final String HELP_COMMAND =
             "Help function: \t" + "help [type], type can be 'gen'/'command'/...";
+    private static final String RECORDS_COMMAND =
+            "View past records(in-brackets parameters are optional): \t" + "records [-d] [-s] [-a] [-p] [-details]\n" +
+                    "[-d]: sort the records based on dateTime in increasing order. Add r to reverse order (-dr)\n" +
+                    "[-s]: sort the records based on speed in increasing order. Add r to reverse order (-sr)\n" +
+                    "[-a]: sort the records based on accuracy in increasing order. Add r to reverse order (-ar)\n" +
+                    "[-p]: sort the records based on problemSetID in increasing order. Add r to reverse order (-pr)\n" +
+                    "[-details]: show the details of the problem set(each individual problem).";
     private final String name;
     private final Scanner scanner = new Scanner(System.in);
 
@@ -79,6 +86,9 @@ public class Ui {
         case "generate":
             System.out.println(GEN_COMMAND);
             System.out.println(INPUT_INSTRUCTION);
+            break;
+        case "records":
+            System.out.println(RECORDS_COMMAND);
             break;
         default:
             break;

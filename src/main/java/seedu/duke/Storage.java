@@ -32,25 +32,28 @@ public class Storage {
     }
 
     public static ArrayList<Record> sortRecords(int dateSortOp, int spdSortOp, int accSortOp, int probSortOp) {
+        int notSortOp = 0;
+        int toSort = 1;
+        int reverseSortOp = 2;
         ArrayList<Record> sortedRecords = new ArrayList<>(records);
-        if (dateSortOp != 0) {
+        if (dateSortOp != notSortOp) {
             sortedRecords.sort(Comparator.comparing(Record::getDateTime));
-            if(dateSortOp == 2) {
+            if(dateSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
-        } else if(spdSortOp != 0) {
+        } else if(spdSortOp != notSortOp) {
             sortedRecords.sort(Comparator.comparing(Record::getSpeed));
-            if(spdSortOp == 2) {
+            if(spdSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
-        } else if(accSortOp != 0) {
+        } else if(accSortOp != notSortOp) {
             sortedRecords.sort(Comparator.comparing(Record::getDateTime));
-            if(accSortOp == 2) {
+            if(accSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
-        } else if(probSortOp != 0) {
+        } else if(probSortOp != notSortOp) {
             sortedRecords.sort(Comparator.comparing(Record::getPsIndex));
-            if(probSortOp == 2) {
+            if(probSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
         }
@@ -63,9 +66,11 @@ public class Storage {
      * @throws Exception exception is thrown whenever the input format is corrupt.
      */
     public static void processLine(String line) throws Exception {
+        int minimumLength = 4;
+
         String[] words = line.split(" ");
 
-        if (words.length < 4 ) {
+        if (words.length < minimumLength ) {
             throw new Exception();
         }
 
@@ -77,7 +82,7 @@ public class Storage {
 
         ArrayList<Problem> probSet = new ArrayList<>();
 
-        for (int i = 5; i < words.length; i++) {
+        for (int i = minimumLength + 1; i < words.length; i++) {
             String[] term = words[i].split(",");
             probSet.add(new Problem(term[0], Double.parseDouble(term[1])));
         }
