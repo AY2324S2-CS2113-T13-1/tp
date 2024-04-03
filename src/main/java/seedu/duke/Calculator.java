@@ -5,9 +5,9 @@ import java.util.Stack;
 
 import static java.lang.Character.isDigit;
 
-public class Caculator {
+public class Calculator {
 
-    public static double caculate( StringBuilder sb) {
+    public static double calculate( StringBuilder sb) {
         Stack<Double> numStack = new Stack<> ();
         Stack<String> opStack = new Stack<> ();
 
@@ -20,7 +20,7 @@ public class Caculator {
 
                 double num2 = numStack.pop();
                 double num1 = numStack.pop();
-                double result = caculateTwo(num1,num2,(String)object);
+                double result = calculateTwo(num1,num2,(String)object);
                 numStack.push(result);
             }
         }
@@ -28,7 +28,7 @@ public class Caculator {
         return numStack.pop();
     }
 
-    private static double caculateTwo(double num1, double num2, String op) {
+    private static double calculateTwo(double num1, double num2, String op) {
 
         double answer ;
         switch (op) {
