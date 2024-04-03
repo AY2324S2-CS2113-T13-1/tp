@@ -1,7 +1,7 @@
 package seedu.duke;
 
 import java.util.Scanner;
-
+import java.util.ArrayList;
 /**
  * Represents the user interface for interacting with the chatbot.
  */
@@ -10,14 +10,15 @@ public class Ui {
     // Pre-defined sentences
     private static final String PROBLEM_FORM =
             "Please type the number and difficulty you like in following form: \n" +
-                    "< generate -t [type] -n [number] -d [maximum digit] >";
+                    "< generate -t [type] -n [number] -d [maximum digit] -l [length of formula] >";
     private static final String INPUT_INSTRUCTION =
             "Input Instructions:\n" +
-                    "[type]: can be + - * /, you can combine any of them.\n" +
+                    "[operators]: can be + - * /, you can combine any of them.\n" +
                     "[number]: number of problem set generated\n" +
                     "[maximum digit]: how big can the calculation be\n\n" +
-                    "For example: generate -t + -n 10 -d 2\n" +
-                    "-> generate 10 problems with + and - operator, and the maximum number of digits is 2 (99 max)";
+                    "For example: generate -t + -n 10 -d 2 -l 2\n" +
+                    "-> generate 10 problems with + and - operator, each has 2 numbers taking operations\n"+
+                    "and the maximum number of digits is 2 (99 max)";
     private static final String GEN_COMMAND =
             "Generate problem sets: \t" + "gen -t [type] -n [number] -d [maximum digits]";
     private static final String HELP_COMMAND =
@@ -42,13 +43,14 @@ public class Ui {
     /**
      * Displays a greeting message.
      */
+
     public void greet() {
         this.showLine();
-        String logo = " ____        _       \n" +
-                "|  _ \\ _   _| | _____\n" +
-                "| | | | | | | |/ / _ \\\n" +
-                "| |_| | |_| |   <  __/\n" +
-                "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "__   __       _   _      ____            _\n" +
+                "|  \\/  | __ _| |_| |__  / ___| ___ _ __ (_)_   _ ___\n" +
+                "| |\\/| |/ _` | __| '_ \\| |  _ / _ \\ '_ \\| | | | / __|\n" +
+                "| |  | | (_| | |_| | | | |_| |  __/ | | | | |_| \\__ \\\n" +
+                "|_|  |_|\\__,_|\\__|_| |_|\\____|\\___|_| |_|_|\\__,_|___/\n";
         System.out.println(logo);
         System.out.println("Hello! I'm " + name);
         System.out.println("Type 'help' to see the instructions. \n");
@@ -82,6 +84,15 @@ public class Ui {
             break;
         }
         this.showLine();
+    }
+
+    // records input
+    public void printRecords(ArrayList<Record> records, boolean showProbDetails) {
+        for (Record record : records) {
+            showLine();
+            record.print(showProbDetails);
+        }
+        showLine();
     }
 
     // invalid input
