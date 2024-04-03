@@ -1,16 +1,17 @@
 package seedu.duke;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 /**
  * Represents the user interface for interacting with the chatbot.
  */
 public class Ui {
 
     // Pre-defined sentences
-    private static final String PROBLEM_FORM =
-            "Please type the number and difficulty you like in following form: \n" +
-                    "< generate -t [type] -n [number] -d [maximum digit] -l [length of formula] >";
+    // private static final String PROBLEM_FORM =
+    //         "To generate a problem set: Input the number and difficulty like below: \n" +
+    //                 "< generate -t [type] -n [number] -d [maximum digit] -l [length of formula] >";
     private static final String INPUT_INSTRUCTION =
             "Input Instructions:\n" +
                     "[operators]: can be + - * /, you can combine any of them.\n" +
@@ -30,6 +31,10 @@ public class Ui {
                     "[-a]: sort the records based on accuracy in increasing order. Add r to reverse order (-ar)\n" +
                     "[-p]: sort the records based on problemSetID in increasing order. Add r to reverse order (-pr)\n" +
                     "[-details]: show the details of the problem set(each individual problem).";
+
+    // msg for other classes
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     private final String name;
     private final Scanner scanner = new Scanner(System.in);
 
@@ -43,8 +48,8 @@ public class Ui {
     }
 
     static void missingMessage(String parameters){
-        String message = "parameter missing! using default" ;
-        System.out.println("parameter missing! using default "+parameters);
+        // String message = "parameter missing! using default" ;
+        System.out.println("Parameter missing! Using default " + parameters);
     }
 
     /**
@@ -59,10 +64,10 @@ public class Ui {
                 "| |  | | (_| | |_| | | | |_| |  __/ | | | | |_| \\__ \\\n" +
                 "|_|  |_|\\__,_|\\__|_| |_|\\____|\\___|_| |_|_|\\__,_|___/\n";
         System.out.println(logo);
-        System.out.println("Hello! I'm " + name);
+        System.out.println("Hello! I'm " + name + "!");
         System.out.println("Type 'help' to see the instructions. \n");
         this.showLine();
-        System.out.println(PROBLEM_FORM);
+        // System.out.println(PROBLEM_FORM);
     }
 
     public String readCommand() {
@@ -93,7 +98,12 @@ public class Ui {
         default:
             break;
         }
-        this.showLine();
+        showLine();
+    }
+
+    // print functions
+    public void print(String string) {
+        System.out.println(string);
     }
 
     // records input
@@ -105,6 +115,18 @@ public class Ui {
         showLine();
     }
 
+    public void printRecords(boolean showProbDetails, Record record) {
+        System.out.println("Date Time: " + record.getDateTime().format(formatter));
+        System.out.println("ProblemSet ID: " + record.getPsIndex());
+        if (showProbDetails) {
+            for (Problem problem : record.getProbSet()) {
+                System.out.println("    " + problem.getDescription());
+            }
+        }
+        System.out.println("Speed: " + record.getSpeed() + "s");
+        System.out.println("Accuracy: " + record.getAccuracy() * 100 + "%");
+    }
+
     // invalid input
 
     /**
@@ -112,6 +134,10 @@ public class Ui {
      */
     public void invalidCommand() {
         System.out.println("Invalid command! Please try again.");
+    }
+
+    public void invalidParameter(String parameter) {
+        System.out.println("Invalid parameter: " + parameter);
     }
 
     public void exit() {

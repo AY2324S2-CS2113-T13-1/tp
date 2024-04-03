@@ -14,6 +14,7 @@ public class Duke {
         ui.greet();
 
         Storage.readFile();
+        ui.showLine();
 
         String command = ui.readCommand();
 

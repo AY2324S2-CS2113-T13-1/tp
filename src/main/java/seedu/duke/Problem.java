@@ -11,13 +11,12 @@ public class Problem {
     }
 
     public String solved() {
-        return description + answer;
+        return description + '=' + answer;
     }
 
     public String unsolved() {
         return description + "__";
     }
-
 
     public double getAnswer() {
         return answer;

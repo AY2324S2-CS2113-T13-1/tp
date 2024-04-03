@@ -18,28 +18,29 @@ public class Parser {
                 probShowDetails = true;
             } else if (token.startsWith("-s")) {
                 spdSortOp = 1;
-                if(token.length() == 3 && token.endsWith("r")){
+                if (token.length() == 3 && token.endsWith("r")) {
                     spdSortOp = 2;
                 }
             } else if (token.startsWith("-d")) {
                 dateSortOp = 1;
-                if(token.length() == 3 && token.endsWith("r")){
+                if (token.length() == 3 && token.endsWith("r")) {
                     dateSortOp = 2;
                 }
             } else if (token.startsWith("-a")) {
                 dateSortOp = 1;
-                if(token.length() == 3 && token.endsWith("r")){
+                if (token.length() == 3 && token.endsWith("r")) {
                     dateSortOp = 2;
                 }
-            } else if(token.startsWith("-p")) {
+            } else if (token.startsWith("-p")) {
                 probSortOp = 1;
-                if(token.length() == 3 && token.endsWith("r")){
+                if (token.length() == 3 && token.endsWith("r")) {
                     probSortOp = 2;
                 }
             }
         }
         ui.printRecords(Storage.sortRecords(dateSortOp, spdSortOp, accSortOp, probSortOp), probShowDetails);
     }
+
     public static void parse(String command, Ui ui) {
 
         /*
@@ -65,22 +66,23 @@ public class Parser {
         case "": // by default, it will be "gen"
         case "gen":
         case "generate":
-            //ProblemGenerator ;
             ProblemGenerator pb = new ProblemGenerator();
             Test test = pb.typeChoose(command);
             Checker checker = new Checker(test);
             checker.getUserAnswer();
-            String accRate = String.format("%.2f", checker.getAccuracy()*100);
-            System.out.println("Acc: " + accRate +"%");
-            System.out.println("Spend Time: " + checker.getTime() + "s");
+            String accRate = String.format("%.2f", checker.getAccuracy() * 100);
+            ui.print("Acc: " + accRate + "%");
+            ui.print("Spend Time: " + checker.getTime() + "s");
             List<String> wrongAnswer = checker.getWrongAnswer();
             List<Problem> wrongProblem = checker.getWrongProblem();
-            System.out.println("The following problem you have solved are wrong:\n");
-            for(int i=0;i<wrongProblem.size();i++){
+            ui.print("The following " + wrongProblem.size() + " answers you gave are wrong: \n");
+
+            for (int i = 0; i < wrongProblem.size(); i++) {
                 Problem problem = wrongProblem.get(i);
-                System.out.println("Your answer: "+ problem.getDescription()+" = "+wrongAnswer.get(i));
-                System.out.println("Correct Answer: "+problem.solved());
+                ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
+                ui.print("Correct Answer: " + problem.solved());
             }
+
             // Storage write to file
             double speed = (double) test.getNumber() / checker.getTime();
             Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
