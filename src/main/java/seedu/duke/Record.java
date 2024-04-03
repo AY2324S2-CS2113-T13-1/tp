@@ -35,9 +35,9 @@ public class Record {
         setPsIndex(psIndex);
     }
 
-    // public void print(boolean showProbDetails) {
-    // ui.printRecords(showProbDetails, this);
-    // }
+//    public void print(boolean showProbDetails) {
+//        ui.printRecords(showProbDetails, this);
+//    }
 
     public void print(boolean showProbDetails) {
         System.out.println("Date Time: " + getDateTime().format(formatter));
