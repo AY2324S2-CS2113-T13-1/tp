@@ -5,6 +5,41 @@ import java.util.List;
 
 public class Parser {
 
+
+    public static void parseRecord(String description, Ui ui) {
+        String[] tokens = description.split(" ");
+        int spdSortOp = 0;
+        int dateSortOp = 0;
+        int accSortOp = 0;
+        int probSortOp = 0;
+        boolean probShowDetails = false;
+        for (String token : tokens) {
+            if (token.equals("-details")) {
+                probShowDetails = true;
+            } else if (token.startsWith("-s")) {
+                spdSortOp = 1;
+                if(token.length() == 3 && token.endsWith("r")){
+                    spdSortOp = 2;
+                }
+            } else if (token.startsWith("-d")) {
+                dateSortOp = 1;
+                if(token.length() == 3 && token.endsWith("r")){
+                    dateSortOp = 2;
+                }
+            } else if (token.startsWith("-a")) {
+                dateSortOp = 1;
+                if(token.length() == 3 && token.endsWith("r")){
+                    dateSortOp = 2;
+                }
+            } else if(token.startsWith("-p")) {
+                probSortOp = 1;
+                if(token.length() == 3 && token.endsWith("r")){
+                    probSortOp = 2;
+                }
+            }
+        }
+        ui.printRecords(Storage.sortRecords(dateSortOp, spdSortOp, accSortOp, probSortOp), probShowDetails);
+    }
     public static void parse(String command, Ui ui) {
 
         /*
@@ -48,9 +83,13 @@ public class Parser {
             }
             // Storage write to file
             double speed = (double) test.getNumber() / checker.getTime();
-            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy()));
+            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
             Storage.writeFile();
 
+            break;
+        case "records":
+            parseRecord(description, ui);
+            //ui.records(command);
             break;
         case "help":
             ui.help(command);

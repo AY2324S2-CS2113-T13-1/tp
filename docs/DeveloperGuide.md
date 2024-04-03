@@ -36,7 +36,7 @@ if user missed some parameters ,defaultOptions() function will use pre-set defau
 4. The accuracy and the user's answers will be stored for UI or other class to access with the specific function.   
 5. The checker will also store the times that user use to caculate for the problemset.  
     
-**`Psedue code` for reference:**  
+**`Pseudo code` for reference:**  
 ```
 # the brief psedue code for how to check the answer
 
@@ -89,35 +89,47 @@ The Storage Component:
 
 ### Testcase Component
    # Proposed Implementation
-     The proposed test mechanism is facilitated by ProblemGeneratorTest, CheckerTest. It check the correctness of the generated problemsets' types,
-    number of questions and max digits, by comparing the generated output to the user input.
+ The proposed test mechanism is facilitated by ProblemGeneratorTest, CheckerTest. It check the correctness of the generated problemsets' types,
+number of questions and max digits, by comparing the generated output to the user input.
 
-ProblemGeneratorTest#operatorTest() — Test if the input operator type is align with the generated one.
-ProblemGeneratorTest#numberTest() — Test if the input number of questions is align with the generated number of questions.
-ProblemGeneratorTest#digitTest() — Test if the input max digits is align with the generated one.
-ProblemGeneratorTest#parseCommand() — parse the input command to fit in the program.
-ProblemGeneratorTest#parseNumber() — parse out the operands from a given problem.
+    ProblemGeneratorTest#operatorTest() — Test if the input operator type is align with the generated one.
+    ProblemGeneratorTest#numberTest() — Test if the input number of questions is align with the generated number of questions.
+    ProblemGeneratorTest#digitTest() — Test if the input max digits is align with the generated one.
+    ProblemGeneratorTest#parseCommand() — parse the input command to fit in the program.
+    ProblemGeneratorTest#parseNumber() — parse out the operands from a given problem.
 
 Given below is an example usage scenario and how the test behaves.
 
-    Step 1. The user launch the ProblemGeneratorTest and run the operator testcase. The ProblemGeneratorTest#operatorTest() will loop through all the 
-    commands in the data member "commands" and allocate each commands to its corresponding test case. During this process, a ProblemGenerator pb is 
-    generated, and the problem sets it generates by calling ProblemGenerator#typeChoose will be store in variable #test#, then the problem set will be
-    extracted using Test#getProblem(). After that, for every problem in the generated problem set, the assertTrue will check if the type of these problem 
-    matches with the user input type. If all of them matches, it will successfully output the generated dataset, else, it will output the problem with 
-    incorrect format.
+Step 1. The user launch the ProblemGeneratorTest and run the operator testcase. The ProblemGeneratorTest#operatorTest() will loop through all the 
+commands in the data member "commands" and allocate each commands to its corresponding test case. During this process, a ProblemGenerator pb is 
+generated, and the problem sets it generates by calling ProblemGenerator#typeChoose will be store in variable #test#, then the problem set will be
+extracted using Test#getProblem(). After that, for every problem in the generated problem set, the assertTrue will check if the type of these problem 
+matches with the user input type. If all of them matches, it will successfully output the generated dataset, else, it will output the problem with 
+incorrect format.
 
-    Step 2. The user launch the ProblemGeneratorTest and run the number testcase. The ProblemGeneratorTest#numberTest() will loop through all the commands
-    in the data member #commands# and call ProblemGeneratorTest#parseCommand to parse the input command to get a hashmap with the input type, number and digits
-    information. Then generate a new ProblemGenerator and use ProblemGenerator#typeChoose to collect the generated problem, then use assertEquals to compare 
-    the user input number with the generated number of questions.
-    
-    Step 3. The user launch the ProblemGeneratorTest and run the digit testcase. The ProblemGeneratorTest#digitTest() will loop through all the commands
-    in the data member #commands# and call ProblemGeneratorTest#parseCommand to parse the input command to get a hashmap with the input type, number and digits
-    information. Then generate a new ProblemGenerator and use ProblemGenerator#typeChoose to collect the generated problem,then for every problem, call 
-    ProblemGeneratorTest#parseNumbers to extract the digits in the problem, then use assertTrue to verify if the input max digit is greater or equal to the digits
-    of every operands in the generated problems.
+Step 2. The user launch the ProblemGeneratorTest and run the number testcase. The ProblemGeneratorTest#numberTest() will loop through all the commands
+in the data member #commands# and call ProblemGeneratorTest#parseCommand to parse the input command to get a hashmap with the input type, number and digits
+information. Then generate a new ProblemGenerator and use ProblemGenerator#typeChoose to collect the generated problem, then use assertEquals to compare 
+the user input number with the generated number of questions.
 
+Step 3. The user launch the ProblemGeneratorTest and run the digit testcase. The ProblemGeneratorTest#digitTest() will loop through all the commands
+in the data member #commands# and call ProblemGeneratorTest#parseCommand to parse the input command to get a hashmap with the input type, number and digits
+information. Then generate a new ProblemGenerator and use ProblemGenerator#typeChoose to collect the generated problem,then for every problem, call 
+ProblemGeneratorTest#parseNumbers to extract the digits in the problem, then use assertTrue to verify if the input max digit is greater or equal to the digits
+of every operands in the generated problems.
+
+The features going to be implement:
+  testcases for generating long problem sets questions and check answer, as well as the testcases for UI, Checker, and Storage.
+
+Details for implementation:
+1. Testcases for generating long problem sets questions:
+   implement specific input and call assertTrue to verify if the generated long problem sets has the desired format.
+2. Testcases for checker :
+   provide answer to sample testcases and verify if the checker output the accurate correctness.
+3. Testcases for UI:
+   verify the UI output's correctness.
+4. Storage:
+   verify if the record file is created, and the content in the file is correct.
 
 ## Product scope
 ### Target user profile
