@@ -3,27 +3,33 @@ package seedu.duke;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static java.lang.Character.isDigit;
+
 public class ProblemGenerator {
 
     static final String DEFAULT_NUMBER = "10";
     static final String DEFAULT_MAX_DIGITS = "2";
-
     static final String DEFAULT_OPERATORS = "+-*/";
+    static final String DEFAULT_LENGTH = "2";
 
     public static HashMap<String, String> parseCommand(String command) {
         HashMap<String, String> options = new HashMap<>();
         String[] tokens = command.split("\\s+");
 
         for (int i = 0; i < tokens.length; i++) {
-
+            if(i==tokens.length-1){
+                break;
+            }
             if (tokens[i].equals("-t")) {
                 options.put("operators", tokens[i + 1]);
             } else if (tokens[i].equals("-n")) {
                 options.put("number", tokens[i + 1]);
             } else if (tokens[i].equals("-d")) {
                 options.put("maximumDigits", tokens[i + 1]);
-
+            } else if (tokens[i].equals("-l")){
+                options.put("length", tokens[i + 1]);
             }
+
         }
 
         defaultOptions(command, options);
@@ -44,6 +50,10 @@ public class ProblemGenerator {
             options.put("maximumDigits", DEFAULT_MAX_DIGITS);
             Ui.missingMessage("maximumDigits");
         }
+        if(!command.contains("-l")){
+            options.put("length", DEFAULT_LENGTH);
+            Ui.missingMessage("length");
+        }
 
     }
 
@@ -58,6 +68,8 @@ public class ProblemGenerator {
 
         int maxDigit = Integer.parseInt(parameter.get("maximumDigits"));
         String op = parameter.get("operators");
+
+        int length  = Integer.parseInt(parameter.get("length"));
 
         ArrayList<String> operations = new ArrayList<>();
 
@@ -75,11 +87,11 @@ public class ProblemGenerator {
         }
 
 
-        //ArrayList<Problem> test = new ArrayList<>();
-        Test test = new Test(op, maxDigit, number);
+
+        Test test = new Test(op, maxDigit, number,length);
 
         for (int i = 0; i < number; i++) {
-
+/*
             String description;
             double answer;
             int max = (int) Math.pow(10, maxDigit);
@@ -109,6 +121,27 @@ public class ProblemGenerator {
             }
 
             description = op1 + tempOperator + op2 + "=";
+*/
+
+            StringBuilder descriptionBuilder = new StringBuilder();
+            double answer;
+            int max = (int) Math.pow(10, maxDigit);
+
+            for (int j = 0;j<length;j++){
+                int temp_random_number = (int) (Math.random() * max);
+                descriptionBuilder.append(temp_random_number);
+
+                if(j != length - 1){
+                    String temp_random_operator = operations.get((int) (Math.random() * operations.size()));
+                    descriptionBuilder.append(temp_random_operator);
+                }
+            }
+
+            descriptionBuilder = division_check(descriptionBuilder);
+
+
+            answer = Caculator.caculate(descriptionBuilder);
+            String  description =descriptionBuilder.toString();
 
 
             Problem p = new Problem(description, answer);
@@ -118,6 +151,31 @@ public class ProblemGenerator {
 
         }
         return test;
+    }
+
+
+    private StringBuilder division_check(StringBuilder sb) {
+        // change the divisor to a non-zero one-digit number
+
+        for (int i = 0; i < sb.length(); i++) {
+            if (sb.charAt(i) == '/') {
+
+                int numStart = i + 1;
+                int numEnd = numStart;
+                while (numEnd < sb.length() && isDigit(sb.charAt(numEnd))) {
+                    numEnd++;
+                }
+                int divisor = 0;
+
+                while(divisor == 0){
+                    divisor = (int) (Math.random()*10);// divisor should be 1 to 9 with equal probability
+                }
+                sb.replace(numStart, numEnd, Integer.toString(divisor));
+            }
+        }
+
+        return sb;
+
     }
 
 
