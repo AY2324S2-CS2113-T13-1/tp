@@ -9,13 +9,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Class for reading & writing input/output to file
  */
 public class Storage {
 
-    private static String filePath = "recordList.txt";
+    private static final String filePath = "recordList.txt";
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -29,6 +31,31 @@ public class Storage {
         records.clear();
     }
 
+    public static ArrayList<Record> sortRecords(int dateSortOp, int spdSortOp, int accSortOp, int probSortOp) {
+        ArrayList<Record> sortedRecords = new ArrayList<>(records);
+        if (dateSortOp != 0) {
+            sortedRecords.sort(Comparator.comparing(Record::getDateTime));
+            if(dateSortOp == 2) {
+                Collections.reverse(sortedRecords);
+            }
+        } else if(spdSortOp != 0) {
+            sortedRecords.sort(Comparator.comparing(Record::getSpeed));
+            if(spdSortOp == 2) {
+                Collections.reverse(sortedRecords);
+            }
+        } else if(accSortOp != 0) {
+            sortedRecords.sort(Comparator.comparing(Record::getDateTime));
+            if(accSortOp == 2) {
+                Collections.reverse(sortedRecords);
+            }
+        } else if(probSortOp != 0) {
+            sortedRecords.sort(Comparator.comparing(Record::getPsIndex));
+            if(probSortOp == 2) {
+                Collections.reverse(sortedRecords);
+            }
+        }
+        return sortedRecords;
+    }
 
     /**
      * Method for processing a line of input
@@ -38,7 +65,7 @@ public class Storage {
     public static void processLine(String line) throws Exception {
         String[] words = line.split(" ");
 
-        if (words.length != 4 ) {
+        if (words.length < 4 ) {
             throw new Exception();
         }
 
@@ -46,7 +73,16 @@ public class Storage {
         double speed = Double.parseDouble(words[2]);
         double accuracy = Double.parseDouble(words[3]);
 
-        Record record = new Record(dateTime, speed, accuracy);
+        int psIndex = Integer.parseInt(words[4]);
+
+        ArrayList<Problem> probSet = new ArrayList<>();
+
+        for (int i = 5; i < words.length; i++) {
+            String[] term = words[i].split(",");
+            probSet.add(new Problem(term[0], Double.parseDouble(term[1])));
+        }
+
+        Record record = new Record(dateTime, speed, accuracy, probSet, psIndex);
         addRecord(record);
     }
 

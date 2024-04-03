@@ -36,7 +36,7 @@ if user missed some parameters ,defaultOptions() function will use pre-set defau
 4. The accuracy and the user's answers will be stored for UI or other class to access with the specific function.   
 5. The checker will also store the times that user use to caculate for the problemset.  
     
-**`Psedue code` for reference:**  
+**`Pseudo code` for reference:**  
 ```
 # the brief psedue code for how to check the answer
 
