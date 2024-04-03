@@ -21,7 +21,7 @@ public class Checker {
     }
 
     Boolean checkCorrectness(Problem problem, double answer){
-        return Math.abs(problem.getAnswer() - answer) < 0.01;
+        return Math.abs(problem.getAnswer().get(0) - answer) < 0.01;
     }
 
 

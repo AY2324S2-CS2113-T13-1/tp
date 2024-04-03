@@ -66,17 +66,22 @@ public class Parser {
         case "generate":
             //ProblemGenerator ;
             ProblemGenerator pb = new ProblemGenerator();
-            Test test = pb.typeChoose(command);
-            Checker checker = new Checker(test);
+            Test problemTest = pb.typeChoose(command);
+            Checker checker = new Checker(problemTest);
             checker.getUserAnswer();
             System.out.println("Acc: " + checker.getAccuracy());
             System.out.println("Spend Time: " + checker.getTime() + "s");
 
             // Storage write to file
-            double speed = (double) test.getNumber() / checker.getTime();
-            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
+            double speed = (double) problemTest.getNumber() / checker.getTime();
+            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), problemTest.getProblem()));
             Storage.writeFile();
 
+            break;
+        case"Equation":
+        case"E":
+            EquationGenerator eg = new EquationGenerator();
+            EquationTest equationTest = eg.typeChoose(command);
             break;
         case "records":
             parseRecord(description, ui);

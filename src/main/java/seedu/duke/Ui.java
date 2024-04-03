@@ -37,7 +37,7 @@ public class Ui {
 
     static void missingMessage(String parameters){
         String message = "parameter missing! using default" ;
-        System.out.println("parameter missing! using default "+parameters);
+        System.out.println(message +parameters);
     }
 
     /**

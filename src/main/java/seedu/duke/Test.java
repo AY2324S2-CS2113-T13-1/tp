@@ -7,7 +7,6 @@ public class Test {
     String operators;
     int maxDigits;
     int number;
-
     int length;
     ArrayList<Problem> problemList = new ArrayList<>();
 
