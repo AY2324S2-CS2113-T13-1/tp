@@ -6,11 +6,18 @@
 
 ## Design & implementation
 
-the overall UML diagram looks like this
+### The Overall UML Diagram:
 
-![](../assets/images/mathGenius.png)
+![UML Diagram](../assets/images/mathGenius.png)    
+
+
+### The overall Sequence Diagram:
+![Sequence Diagram](../assets/images/sequenceDiagram.png)    
+
+
+
 ### problemGenerator Component
-API: ![ProblemGenerator.java](../src/main/java/seedu/duke/ProblemGenerator.java)
+API: [ProblemGenerator.java](../src/main/java/seedu/duke/ProblemGenerator.java)
 
 the main idea in the design of problemGenerator is that it take 4 parameters and generate a test which include some number of problems
 
@@ -31,13 +38,14 @@ if user missed some parameters ,defaultOptions() function will use pre-set defau
 the answer of the problem is calculated by calculator class while generating a problem, answer is stored in the problem class
 
 ### Checker Component  
-**API：![Checker.java](../src/main/java/seedu/duke/Checker.java)**   
+**API：[Checker.java](../src/main/java/seedu/duke/Checker.java)**   
 **How the `Checker` work:**  
 1. Every `Checker` was created with a `Test` class.   
 2. The `Checker` will ask user's input and compare the answer up to 2 decimal tolerance.   
 3. If the user input is not a number, the answer will automatically viewed as a incorrect answer.   
 4. The accuracy and the user's answers will be stored for UI or other class to access with the specific function.   
 5. The checker will also store the times that user use to caculate for the problemset.  
+6. The checker will also store the questions that user gave a wrong answer as well as the wrong answer.
     
 **`Pseudo code` for reference:**  
 ```
@@ -45,26 +53,31 @@ the answer of the problem is calculated by calculator class while generating a p
 
 correct = 0
 isCorrect = []
+wrongProblem = []
+wrongAnswer = []
 for problem in problem set: 
     UI.PrintProblem
     answer <- user_input
-    if answer - problem.answer < 0.01
+    if answer - problem.answer < teleranceRange
         correct <- correct+1
         isCorrect.append("1")
     else
         isCorrect.append("0")
+        wrongProblem.append(problem)
+        wrongAnswer.append(userInput)
         continue
 
 ```
 **next to be added for `Checker.java`:**  
 1. Support check on more types of problems (i.e Quadratic equation of one variable)   
 2. Give some explanation of the math problems.   
+3. Store the answer in array format to hand the function and matrix answer.
    
 * To be added
 
 ### Record Component - Design
 
-API: ![Record.java](../src/main/java/seedu/duke/Record.java)
+API: [Record.java](../src/main/java/seedu/duke/Record.java)
 
 The Record component:
 
@@ -102,7 +115,7 @@ public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<P
 
 ### Storage Component - Design
 
-API: ![Storage.java](../src/main/java/seedu/duke/Storage.java)
+API: [Storage.java](../src/main/java/seedu/duke/Storage.java)
 
 The Storage Component:
 
