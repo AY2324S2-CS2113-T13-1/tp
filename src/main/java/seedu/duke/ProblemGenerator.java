@@ -6,7 +6,6 @@ import java.util.HashMap;
 import static java.lang.Character.isDigit;
 
 public class ProblemGenerator {
-
     static final String DEFAULT_NUMBER = "10";
     static final String DEFAULT_MAX_DIGITS = "2";
     static final String DEFAULT_OPERATORS = "+-*/";
@@ -138,7 +137,6 @@ public class ProblemGenerator {
             }
 
             descriptionBuilder = division_check(descriptionBuilder);
-
 
             answer = Calculator.calculate(descriptionBuilder);
             String  description =descriptionBuilder.toString();
