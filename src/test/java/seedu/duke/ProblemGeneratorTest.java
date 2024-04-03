@@ -86,5 +86,20 @@ public class ProblemGeneratorTest {
         System.out.println("Pass numberTest!");
         digitTest();
         System.out.println("Pass digitTest!");
+        caculateTest();
+        System.out.println("Pass cacultation test!");
+    }
+
+    private static void caculateTest() {
+        ProblemGenerator pb = new ProblemGenerator();
+        StringBuilder formula = new StringBuilder();
+        formula.append(10);
+        formula.append("+");
+        formula.append(5);
+        formula.append("*");
+        formula.append(5);
+        formula.append("*");
+        formula.append(3);
+        assertEquals(Caculator.caculate(pb, formula),85);
     }
 }
