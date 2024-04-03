@@ -8,26 +8,27 @@
 
 the overall UML diagram looks like this
 
-![RUNOOB](../assets/images/mathGenius.png)
+![](../assets/images/mathGenius.png)
 ### problemGenerator Component
 API: ![ProblemGenerator.java](../src/main/java/seedu/duke/ProblemGenerator.java)
 
-the main idea in the design of problemGenerator is that it take 3 parameters and generate a test which include some number of problems
+the main idea in the design of problemGenerator is that it take 4 parameters and generate a test which include some number of problems
 
 
 when the gengerator is triggered, users enter a command like this:
 
-    generate -t [operators] -n [number] -d [maximum digit]
+    generate -t [operators] -n [number] -d [maximum digit] -l[length]
 for example , user can enter:
 
-    generate -t +-*/ -n 10 -d 2
+    generate -t +-*/ -n 10 -d 2 -l 3
 
 in which case the parseCommand() will take the command and pass the parameters to generete().
 
-generate() function will choose two random number with max digits of 2, take a random operation from the operation set of  $+,-,*,/$ to form a single problem ,and loop the execution for 10 times to form a test
+generate() function will choose 3 random operand with max digits of 2, take a random operation from the operation set of  $+,-,*,/$ to form a single problem ,and loop the execution for 10 times to form a test
 
 if user missed some parameters ,defaultOptions() function will use pre-set default options and invoke UI to print a message for every missing parameter
 
+the answer of the problem is calculated by calculator class while generating a problem, answer is stored in the problem class
 
 ### Checker Component  
 **API：![Checker.java](../src/main/java/seedu/duke/Checker.java)**   

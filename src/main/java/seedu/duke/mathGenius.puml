@@ -104,6 +104,19 @@
     }
 
 
+    class Calculator {
+        + calculate(sb: StringBuilder): double
+        - calculateTwo(num1: double, num2: double, op: String): double
+        - toSuffix(formula: ArrayList<Object>): ArrayList<Object>
+        - prior(op1: String, op2: String): boolean
+        - getPriority(op: String): int
+        - toFormula(sb: StringBuilder): ArrayList<Object>
+    }
+
+
+
+
+
 Test --> Problem: contains
 ProblemGenerator --> Test: create
 
@@ -117,6 +130,6 @@ Parser --> Record
 Parser --> Checker
 Duke --> Ui
 Duke --> Parser
-
+ProblemGenerator --> Calculator: get answer
 Duke --> Storage:readfrom
 @enduml
