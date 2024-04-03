@@ -11,9 +11,10 @@ public class Duke {
 
     public static void run() {
 
+        ui.greet();
+
         Storage.readFile();
 
-        ui.greet();
         String command = ui.readCommand();
 
         while (!command.equals("exit")) {
@@ -24,7 +25,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        assert false : "dummy assertion set to fail";
+        //assert false : "dummy assertion set to fail";
         run();
     }
 }
