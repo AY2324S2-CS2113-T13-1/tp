@@ -25,7 +25,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        //assert false : "dummy assertion set to fail";
+        assert true : "dummy assertion set to fail";
         run();
     }
 }

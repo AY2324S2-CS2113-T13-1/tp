@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Parser {
 
@@ -69,9 +70,17 @@ public class Parser {
             Test test = pb.typeChoose(command);
             Checker checker = new Checker(test);
             checker.getUserAnswer();
-            System.out.println("Acc: " + checker.getAccuracy());
+            String accRate = String.format("%.2f", checker.getAccuracy()*100);
+            System.out.println("Acc: " + accRate +"%");
             System.out.println("Spend Time: " + checker.getTime() + "s");
-
+            List<String> wrongAnswer = checker.getWrongAnswer();
+            List<Problem> wrongProblem = checker.getWrongProblem();
+            System.out.println("The following problem you have solved are wrong:\n");
+            for(int i=0;i<wrongProblem.size();i++){
+                Problem problem = wrongProblem.get(i);
+                System.out.println("Your answer: "+ problem.getDescription()+" = "+wrongAnswer.get(i));
+                System.out.println("Correct Answer: "+problem.solved());
+            }
             // Storage write to file
             double speed = (double) test.getNumber() / checker.getTime();
             Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
