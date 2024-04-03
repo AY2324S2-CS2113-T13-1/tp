@@ -1,16 +1,17 @@
 package seedu.duke;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Class for reading & writing input/output to file
@@ -101,14 +102,14 @@ public class Storage {
                 while ((line = reader.readLine()) != null) {
                     processLine(line);
                 }
-                System.out.println("past records successfully loaded!");
+                System.out.println("Storage: Past records successfully loaded!");
             } catch (Exception e) {
                 clearRecords();
-                System.out.println("past record save file corrupt! Records cleared!");
+                System.out.println("Storage: Past record save file corrupt! Records cleared!");
             }
         } catch (IOException e) {
             clearRecords();
-            System.out.println("no past records found. Starting anew!");
+            System.out.println("Storage: No past records found. Starting anew!");
         }
     }
 
