@@ -35,7 +35,7 @@ public class Checker {
         for (int i = 0; i < test.getNumber(); i++) {
             Problem problem = test.getProblem().get(i);
             ui.print(problem.unsolved());
-            // userInput = ui.readCommand();
+            userInput = ui.readCommand();
             userAnswer[i] = userInput;
             double answer = Double.NEGATIVE_INFINITY;
             try {

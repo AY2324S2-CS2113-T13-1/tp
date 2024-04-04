@@ -11,7 +11,7 @@ public class Problem {
     }
 
     public String solved() {
-        return description + '=' + answer;
+        return description + " = " + answer;
     }
 
     public String unsolved() {
