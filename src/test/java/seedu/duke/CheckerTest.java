@@ -1,8 +1,6 @@
 package seedu.duke;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 public class CheckerTest {
     private Checker checker;
     @org.junit.jupiter.api.Test
@@ -25,18 +23,5 @@ public class CheckerTest {
         boolean result = checker.checkCorrectness(problem, 4.0);
         assertFalse(result, "Expected false for incorrect answer");
     }
-
-/*
-    This case may be unavailable currently since there's no access to the user answer
-    May need access to user answer and allow modification for testing purpose.
-*/
-
-//    public static void testGetWrongAnswer() {
-//        Checker checker = new Checker(new Test("+",1,2,1));
-//        checker.getUserAnswer();
-//        List<String> wrongAnswer = checker.getWrongAnswer();
-//        assertNotNull(wrongAnswer, "Expected non-null list of wrong answers");
-//        assertFalse(wrongAnswer.isEmpty(), "Expected non-empty list of wrong answers");
-//    }
 
 }
