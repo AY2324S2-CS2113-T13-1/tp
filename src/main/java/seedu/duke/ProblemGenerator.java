@@ -17,7 +17,7 @@ public class ProblemGenerator {
         String[] tokens = command.split("\\s+");
 
         for (int i = 0; i < tokens.length; i++) {
-            if(i==tokens.length-1){
+            if (i == tokens.length - 1) {
                 break;
             }
             if (tokens[i].equals("-t")) {
@@ -26,7 +26,7 @@ public class ProblemGenerator {
                 options.put("number", tokens[i + 1]);
             } else if (tokens[i].equals("-d")) {
                 options.put("maximumDigits", tokens[i + 1]);
-            } else if (tokens[i].equals("-l")){
+            } else if (tokens[i].equals("-l")) {
                 options.put("length", tokens[i + 1]);
             }
 
@@ -50,7 +50,7 @@ public class ProblemGenerator {
             options.put("maximumDigits", DEFAULT_MAX_DIGITS);
             Ui.missingMessage("maximumDigits");
         }
-        if(!command.contains("-l")){
+        if (!command.contains("-l")) {
             options.put("length", DEFAULT_LENGTH);
             Ui.missingMessage("length");
         }
@@ -69,7 +69,7 @@ public class ProblemGenerator {
         int maxDigit = Integer.parseInt(parameter.get("maximumDigits"));
         String op = parameter.get("operators");
 
-        int length  = Integer.parseInt(parameter.get("length"));
+        int length = Integer.parseInt(parameter.get("length"));
 
         ArrayList<String> operations = new ArrayList<>();
 
@@ -87,8 +87,7 @@ public class ProblemGenerator {
         }
 
 
-
-        Test test = new Test(op, maxDigit, number,length);
+        Test test = new Test(op, maxDigit, number, length);
 
         for (int i = 0; i < number; i++) {
 
@@ -96,11 +95,11 @@ public class ProblemGenerator {
             double answer;
             int max = (int) Math.pow(10, maxDigit);
 
-            for (int j = 0;j<length;j++){
+            for (int j = 0; j < length; j++) {
                 int tempRandomNumber = (int) (Math.random() * max);
                 descriptionBuilder.append(tempRandomNumber);
 
-                if(j != length - 1){
+                if (j != length - 1) {
                     String tempRandomOperator = operations.get((int) (Math.random() * operations.size()));
                     descriptionBuilder.append(tempRandomOperator);
                 }
@@ -110,13 +109,12 @@ public class ProblemGenerator {
 
 
             answer = Calculator.calculate(descriptionBuilder);
-            String  description =descriptionBuilder.toString();
+            String description = descriptionBuilder.toString();
 
 
             Problem p = new Problem(description, answer);
             System.out.println((i + 1) + ". " + p.unsolved());
             test.addToTest(p);
-
 
         }
         return test;
@@ -136,16 +134,13 @@ public class ProblemGenerator {
                 }
                 int divisor = 0;
 
-                while(divisor == 0){
-                    divisor = (int) (Math.random()*10);// divisor should be 1 to 9 with equal probability
+                while (divisor == 0) {
+                    divisor = (int) (Math.random() * 10);// divisor should be 1 to 9 with equal probability
                 }
                 sb.replace(numStart, numEnd, Integer.toString(divisor));
             }
         }
 
         return sb;
-
     }
-
-
 }
