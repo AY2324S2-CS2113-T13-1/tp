@@ -8,11 +8,11 @@
 
 ### The Overall UML Diagram:
 
-![UML Diagram](../assets/images/mathGenius.png)    
+![UML Diagram](assets/images/mathGenius.png)    
 
 
 ### The overall Sequence Diagram:
-![Sequence Diagram](../assets/images/sequenceDiagram.png)    
+![Sequence Diagram](assets/images/sequenceDiagram.png)    
 
 
 
