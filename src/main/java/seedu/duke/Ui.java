@@ -1,17 +1,17 @@
 package seedu.duke;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
 /**
  * Represents the user interface for interacting with the chatbot.
  */
 public class Ui {
 
     // Pre-defined sentences
-    // private static final String PROBLEM_FORM =
-    //         "To generate a problem set: Input the number and difficulty like below: \n" +
-    //                 "< generate -t [type] -n [number] -d [maximum digit] -l [length of formula] >";
+    private static final String PROBLEM_FORM =
+             "To generate a problem set: Input the number and difficulty like below: \n" +
+                     "< generate -t [type] -n [number] -d [maximum digit] -l [number of operands] >";
     private static final String INPUT_INSTRUCTION =
             "Input Instructions:\n" +
                     "[operators]: can be + - * /, you can combine any of them.\n" +
