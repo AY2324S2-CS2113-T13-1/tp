@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Ui {
 
     // Pre-defined sentences
-     private static final String PROBLEM_FORM =
+    private static final String PROBLEM_FORM =
              "To generate a problem set: Input the number and difficulty like below: \n" +
                      "< generate -t [type] -n [number] -d [maximum digit] -l [number of operands] >";
     private static final String INPUT_INSTRUCTION =
