@@ -48,7 +48,7 @@ public class Storage {
                 Collections.reverse(sortedRecords);
             }
         } else if(accSortOp != notSortOp) {
-            sortedRecords.sort(Comparator.comparing(Record::getDateTime));
+            sortedRecords.sort(Comparator.comparing(Record::getAccuracy));
             if(accSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
@@ -129,6 +129,10 @@ public class Storage {
             System.out.println("Error when saving record!");
             e.printStackTrace();
         }
+    }
+
+    public static List<Record> getRecords() {
+        return records;
     }
 }
 
