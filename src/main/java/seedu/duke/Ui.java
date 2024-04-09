@@ -23,7 +23,7 @@ public class Ui {
     private static final String GEN_COMMAND =
             "Generate problem sets: \t" + "gen -t [type] -n [number] -d [maximum digits]";
     private static final String HELP_COMMAND =
-            "Help function: \t" + "help [type], type can be 'gen'/'command'/...";
+            "Help function: \t" + "help [type], type can be 'gen'/'records'/...";
     private static final String RECORDS_COMMAND =
             "View past records(in-brackets parameters are optional): \t" + "records [-d] [-s] [-a] [-p] [-details]\n" +
                     "[-d]: sort the records based on dateTime in increasing order. Add r to reverse order (-dr)\n" +
@@ -83,10 +83,6 @@ public class Ui {
 
     public void help(String helpType) {
         switch (helpType) {
-        case "": // by default, user asks Help Instruction
-        case "command":
-            System.out.println(HELP_COMMAND);
-            break;
         case "gen":
         case "generate":
             System.out.println(GEN_COMMAND);
@@ -98,7 +94,8 @@ public class Ui {
         case "exit":
             System.out.println(EXIT_COMMAND);
             break;
-        default:
+        default:// by default, user asks Help Instruction
+            System.out.println(HELP_COMMAND);
             break;
         }
         showLine();
