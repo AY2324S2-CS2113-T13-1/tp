@@ -32,6 +32,15 @@ public class Storage {
         records.clear();
     }
 
+    public static Test problemSetByID(int id) {
+        for (Record record : records) {
+            if (record.getPsIndex() == id) {
+                return new Test(record.getProbSet());
+            }
+        }
+        return null;
+    }
+
     public static ArrayList<Record> sortRecords(int dateSortOp, int spdSortOp, int accSortOp, int probSortOp) {
         int notSortOp = 0;
         int toSort = 1;
@@ -125,9 +134,12 @@ public class Storage {
             }
             writer.flush();
             System.out.println("Record successfully saved!");
+            Ui.showLine();
+
         } catch (IOException e) {
             System.out.println("Error when saving record!");
             e.printStackTrace();
+            Ui.showLine();
         }
     }
 

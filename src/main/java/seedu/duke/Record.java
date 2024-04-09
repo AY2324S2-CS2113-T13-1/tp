@@ -17,8 +17,6 @@ public class Record {
 
     private int psIndex;
 
-    private final Ui ui = new Ui("");
-
     public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet) {
         setSpeed(speed);
         setAccuracy(accuracy);
