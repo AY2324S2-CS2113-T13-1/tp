@@ -84,7 +84,7 @@ public class Parser {
         }
 
         // Storage write to file
-        double speed = (double) test.getNumber() / checker.getTime();
+        double speed = (double) test.getNumber() / checker.getTime() * 60;
         if (retry) {
             Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem(), id));
         }
@@ -129,6 +129,7 @@ public class Parser {
             break;
         case "retry":
             parseRetry(description, ui);
+            break;
         case "help":
             ui.help(description);
             break;

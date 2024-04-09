@@ -96,6 +96,7 @@ public class Ui {
             break;
         case "retry":
             System.out.println(RETRY_COMMAND);
+            break;
         case "exit":
             System.out.println(EXIT_COMMAND);
             break;

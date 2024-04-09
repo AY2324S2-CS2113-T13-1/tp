@@ -43,7 +43,7 @@ public class Record {
                 System.out.println("    " + problem.getDescription());
             }
         }
-        System.out.println("Speed: " + getSpeed() + "s");
+        System.out.println("Speed: " + getSpeed() + " problems per minute");
         System.out.println("Accuracy: " + getAccuracy() * 100 + "%");
     }
 
