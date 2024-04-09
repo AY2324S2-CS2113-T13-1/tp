@@ -31,7 +31,7 @@ public class Ui {
                     "[-a]: sort the records based on accuracy in increasing order. Add r to reverse order (-ar)\n" +
                     "[-p]: sort the records based on problemSetID in increasing order. Add r to reverse order (-pr)\n" +
                     "[-details]: show the details of the problem set(each individual problem).";
-
+    private static final String EXIT_COMMAND = "Exit program: exit\n";
     // msg for other classes
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -94,6 +94,9 @@ public class Ui {
             break;
         case "records":
             System.out.println(RECORDS_COMMAND);
+            break;
+        case "exit":
+            System.out.println(EXIT_COMMAND);
             break;
         default:
             break;
