@@ -91,4 +91,42 @@ public class Checker {
     public long getTime() {
         return time;
     }
+
+    public String getExplaination(Problem problem){
+        String description = problem.getDescription();
+        String explanation = "";
+        explanation = "Let's explain this problem by the following format:  +/n";
+        String startSpace = "\t\t\t";
+        if(description.contains("+")){
+            String [] parser = description.split("\\+");
+            double firstNumber = Double.parseDouble(parser[0]);
+            double secondNubmber = Double.parseDouble(parser[1]);
+            String firstString = String.valueOf(firstNumber);
+            String secondString = String.valueOf(secondNubmber);
+            //Shift the longer number to the first
+            if(firstString.length()<secondString.length()){
+                String temp = firstString;
+                firstString = secondString;
+                secondString = temp;
+            }
+            int numSpace = firstString.length()-secondString.length()-1;
+            //Use the space to align the number
+            String alignSpace = new String(new char[numSpace]).replace('\0', ' ');
+            explanation += startSpace + firstString + "\n";
+            explanation += startSpace + "\\+" + alignSpace + secondString + "\n";
+
+
+
+
+        } else if (description.contains("-")) {
+
+        } else if (description.contains("*")){
+
+        } else if (description.contains("/")){
+                explanation = "We do not support the explanation with division now!";
+        }else {
+            explanation = "The format of the problem do not provide any explanation now!";
+        }
+        return explanation;
+    };
 }
