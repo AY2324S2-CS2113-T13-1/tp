@@ -6,17 +6,18 @@ import java.util.HashMap;
 import static java.lang.Character.isDigit;
 
 public class ProblemGenerator {
-    public static final String VALID_OPERATORS = "+-*/";
-    public static final int MAXIMUM_LENGTH = 10;
-    static final String DEFAULT_NUMBER = "10";
-    static final String DEFAULT_MAX_DIGITS = "2";
-    static final String DEFAULT_OPERATORS = VALID_OPERATORS;
-    static final String DEFAULT_LENGTH = "2";
-    public static final int MINIMUM_NUMBER = 0;
-    public static final int MAXIMUM_NUMBER = 100;
+
+    private static final int MINIMUM_NUMBER = 0;
+    private static final int MAXIMUM_NUMBER = 100;
     private static final int MINIMUM_DIGIT = 0 ;
-    public static final int MAXIMUM_DIGITS = 9;
-    public static final int MINIMUM_LENGTH = 2;
+    private static final int MAXIMUM_DIGITS = 9;
+    private static final int MINIMUM_LENGTH = 2;
+    private static final String VALID_OPERATORS = "+-*/";
+    private static final int MAXIMUM_LENGTH = 10;
+    private static final String DEFAULT_NUMBER = "10";
+    private static final String DEFAULT_MAX_DIGITS = "2";
+    private static final String DEFAULT_OPERATORS = VALID_OPERATORS;
+    private static final String DEFAULT_LENGTH = "2";
 
     public static HashMap<String, String> parseCommand(String command) {
         HashMap<String, String> options = new HashMap<>();
@@ -38,6 +39,8 @@ public class ProblemGenerator {
                 break;
             case "-l":
                 options.put("length", tokens[i + 1]);
+                break;
+            default:
                 break;
             }
         }
