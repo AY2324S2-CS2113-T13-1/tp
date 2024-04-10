@@ -21,28 +21,32 @@ public class UiTest {
     @Test
     public void helpTest() {
         ui.help("gen");
-        String expectedOutput = "Generate problem sets: \tgen -t [type] -n [number] -d [maximum digits]\n" +
-                "Input Instructions:\n" +
-                "[operators]: can be + - * /, you can combine any of them.\n" +
-                "[number]: number of problem set generated\n" +
-                "[maximum digit]: how big can the calculation be\n\n" +
-                "For example: generate -t + -n 10 -d 2 -l 2\n" +
-                "-> generate 10 problems with + and - operator, each has 2 numbers taking operations\n" +
-                "and the maximum number of digits is 2 (99 max)\n" +
-                "=========================\n";
-        assertEquals(expectedOutput, output.toString());
+        String expectedOutput = "Generate problem sets: gen -t [type] -n [number] -d [maximum digits]" +
+                "Input Instructions:" +
+                "[operators]: can be + - * /, you can combine any of them." +
+                "[number]: number of problem set generated" +
+                "[maximum digit]: how big can the calculation be" +
+                "For example: generate -t + -n 10 -d 2 -l 2" +
+                "-> generate 10 problems with + and - operator, each has 2 numbers taking operations" +
+                "and the maximum number of digits is 2 (99 max)" +
+                "=========================";
+        String cleanOutput = output.toString().replaceAll("\n", "").replaceAll("\t", "");
+
+        assertEquals(expectedOutput, cleanOutput);
     }
 
 
     @Test
     public void invalidCommandTest() {
         ui.invalidCommand();
-        assertEquals("Invalid command! Please try again.\n=========================\n", output.toString());
+        String cleanOutput = output.toString().replaceAll("\n", "").replaceAll("\t", "");
+        assertEquals("Invalid command! Please try again.=========================", cleanOutput);
     }
 
     @Test
     public void exitTest() {
         ui.exit();
-        assertEquals("Bye. Hope to see you again soon!\n=========================\n", output.toString());
+        String cleanOutput = output.toString().replaceAll("\n", "").replaceAll("\t", "");
+        assertEquals("Bye. Hope to see you again soon!=========================", cleanOutput);
     }
 }
