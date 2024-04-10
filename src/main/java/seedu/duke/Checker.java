@@ -30,10 +30,7 @@ public class Checker {
 
     void getUserAnswer() {
         long startTime = System.currentTimeMillis();
-        // Scanner scanner = new Scanner(System.in);
-
         ui.print("Press Enter to start answering the questions...");
-
         String userInput = ui.readCommand();
 
         for (int i = 0; i < test.getNumber(); i++) {

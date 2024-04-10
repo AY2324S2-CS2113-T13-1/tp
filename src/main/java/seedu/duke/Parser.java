@@ -114,7 +114,6 @@ public class Parser {
         }
 
         switch (action) {
-        // notice: write your parser function by your own
         case "": // by default, it will be "gen"
         case "gen":
         case "generate":
@@ -124,7 +123,6 @@ public class Parser {
             break;
         case "records":
             parseRecord(description, ui);
-            //ui.records(command);
             break;
         case "retry":
             parseRetry(description, ui);
