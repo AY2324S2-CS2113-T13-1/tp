@@ -6,6 +6,7 @@ import java.util.HashMap;
 import static java.lang.Character.isDigit;
 
 public class ProblemGenerator {
+    public static final String VALID_OPERATORS = "+-*/";
     public static final int MAXIMUM_LENGTH = 10;
     static final String DEFAULT_NUMBER = "10";
     static final String DEFAULT_MAX_DIGITS = "2";
@@ -16,7 +17,6 @@ public class ProblemGenerator {
     private static final int MINIMUM_DIGIT = 0 ;
     public static final int MAXIMUM_DIGITS = 9;
     public static final int MINIMUM_LENGTH = 2;
-    public static final String VALID_OPERATORS = "+-*/";
 
     public static HashMap<String, String> parseCommand(String command) {
         HashMap<String, String> options = new HashMap<>();
