@@ -1,46 +1,48 @@
 # User Guide of MathGenius
 
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Get Started](#get-started)
+3. [Features and Commands](#features-and-commands)
+   1. [Command Summary](#command-summary)
+4. [Interaction guide](#interaction-guide)
+
 ## Introduction
 
-**`MathGenius`** is a user-friendly application that provides a platform to enhance your equation-solving abilities. Whether you're a student learning calculation, a math enthusiast looking to sharpen your skills, or a teacher preparing for exams/lessons, this application is here to support you.
+**MathGenius** is a user-friendly application that provides a platform to enhance your Math equation-solving abilities. 
+
+Whether you're a student learning calculation, a math enthusiast looking to sharpen your skills, or a teacher preparing for exams/lessons, this application is here to support you.
 
 ## Get Started:
 
-Run `java mathGenius.java` to get started   
+To start using **MathGenius**, run the following command: 
+```
+java mathGenius.java
+```
 
-Type the command in the command box and press Enter to execute it.   
+## Features and Commands:
 
-e.g. typing help and pressing Enter will get the help message.   
+### Show help instructions: `help`
 
-Some example commands you can try:
-1. `generate`: generate problem set
-2. `pressing Enter/Return`: submit your answer
-3. `exit`: exit the main program
-4. `records`: view the past problem solving sessions you did, including the date you finished the set, your speed, accuracy, and the problems details etc.
-
-## Feature:
-
-### Show the Help: `help`
-
-Show the message about the command you can use and the standard input format (e.g. input should be in fraction or in decimal form).
+For a comprehensive list of all possible commands and their usage, run the `help` command: It lists out the **command you can use** and the **standard input format** (e.g. input should be in fraction or in decimal form).
 
 **Format:** `help COMMAND_NAME`
 - The `COMMAND_NAME` can be commands like `generate`, `records`, `exit`
   
 *Example of usage:*
 ```
+	help // to list instructions for all command
 	help generate
-
 	help exit
 ```
-### generate problem set: `generate`
-Generate the problem based on series of parameters. For example, what operators you wish to include in the set (+-*/), the number of problems in the set etc. And as you enter the answer in order, the program will auto check your answers for correction.
+### Generate problem set: `generate`
+Generate the problem based on series of parameters. For example, what operators you wish to include in the set **`+ - * /`**, the number of problems in the set etc. And as you enter the answer in order, the program will auto check your answers for correction.
 
 **Format:** `generate -t OPERATOR -n NUMBER_OF_PROBLEMS -d MAXIMUM_DIGITS`
 
-- `OPERATOR` can be `+-*/` or any combinations of these 4 operators
-- `NUMBER_OF_PROBLEMS` can be any integers
-- `MAXIMUM_DIGITS` can be any integers
+- `OPERATOR` can be **`+ - * /`** or any combinations of these 4 operators
+- `NUMBER_OF_PROBLEMS` can be any **positive integers** 
+- `MAXIMUM_DIGITS` can be any **positive integers**
 
 *Example of usage:*
 
@@ -81,3 +83,38 @@ After finishing all the problem sets, the program will automate judged the corre
 User can use this to exit the program.
 
 **Format:** `exit`
+
+### Example Commands Summary
+Here are some example commands you can use in **MathGenius**:
+
+Here are some example commands you can try:
+1. `generate`: generate problem set (with specific parameters )
+2. Pressing `Enter/Return`: Submits your answer to a problem.
+3. `exit`: Exits the program.
+4. `records`: Displays your past problem-solving sessions, including the date you finished the set, your speed, accuracy, and the details of the problems.
+
+Remember, practice makes perfect. Happy learning with **MathGenius**!
+
+### Command summary:
+
+| Command | Description | Format | Example |
+|---------|-------------|--------|---------|
+| `help` | Show the message about the command you can use and the standard input format | `help COMMAND_NAME` | `help generate` |
+| `gen / generate` | Generate the problem based on series of parameters | `generate -t OPERATOR -n NUMBER_OF_PROBLEMS -d MAXIMUM_DIGITS` | `generate -t + -n 1 -d 1` |
+| `records` | View the records of your past problem solving sessions | `records -sortByDate -sortBySpeed -sortByAccuracy -sortByProblemID -showProblemDetails` | `records -d -s -a -p -details` |
+| `ENTER/RETURN` | Submit the answer in the terminal | NA | NA |
+| `exit` | Exit the program | `exit` | `exit` |
+
+## Interaction Guide
+
+You may wonder what is the input format for every questions, e.g. + - * /, or even decimals, here we provided a detailed guide for you!
+
+### *Infinite Decimal Answers*
+
+When a problem generates an answer with an infinite decimal, you should **round your answer in 2 decimal places**. 
+
+For example, if the exact answer is 1.666666..., you should enter **`1.67`**.
+
+Our program is designed to check answers with a tolerance up to the hundredth place. 
+
+Remember, the goal of **MathGenius** is to help you improve your math skills. Don't worry too much about the precision of your answers. Focus on understanding the concepts and improving your problem-solving speed and accuracy.
