@@ -33,8 +33,8 @@ public class Ui {
                     "[-details]: show the details of the problem set(each individual problem).";
     private static final String RETRY_COMMAND =
             "Retry a problem set you have solved before in the past: \t" + "retry PROBLEM_SET_ID\n" +
-                    "PROBLEM_SET_ID is an integer, and can be found by using the 'records' command.\n";
-    private static final String EXIT_COMMAND = "Exit program: exit\n";
+                    "PROBLEM_SET_ID is an integer, and can be found by using the 'records' command.";
+    private static final String EXIT_COMMAND = "Exit program: exit";
     // msg for other classes
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
