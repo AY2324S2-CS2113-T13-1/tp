@@ -12,6 +12,13 @@ public class UiTest {
     private Ui ui;
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
 
+    public String cleanOutput() {
+        String res = output.toString().replaceAll("\n", "");
+        res = res.replaceAll("\r", "");
+        res = res.replaceAll("\t", "");
+        return res;
+    }
+
     @BeforeEach
     public void setUp() {
         ui = new Ui("ChatBot");
@@ -32,21 +39,19 @@ public class UiTest {
                 "=========================";
         String cleanOutput = output.toString().replaceAll("\n", "").replaceAll("\t", "");
         cleanOutput = cleanOutput.replaceAll("\r", "");
-        assertEquals(expectedOutput, cleanOutput);
+        assertEquals(expectedOutput, cleanOutput());
     }
 
 
     @Test
     public void invalidCommandTest() {
         ui.invalidCommand();
-        String cleanOutput = output.toString().replaceAll("\n", "").replaceAll("\t", "");
-        assertEquals("Invalid command! Please try again.=========================", cleanOutput);
+        assertEquals("Invalid command! Please try again.=========================", cleanOutput());
     }
 
     @Test
     public void exitTest() {
         ui.exit();
-        String cleanOutput = output.toString().replaceAll("\n", "").replaceAll("\t", "");
-        assertEquals("Bye. Hope to see you again soon!=========================", cleanOutput);
+        assertEquals("Bye. Hope to see you again soon!=========================", cleanOutput());
     }
 }
