@@ -41,11 +41,9 @@ public class ProblemGeneratorTest {
 
     private ArrayList<Integer> parseNumbers(String problem) {
 
-        // 使用正则表达式匹配数字和运算符
         Pattern pattern = Pattern.compile("-?\\d+");
         Matcher matcher = pattern.matcher(problem);
-
-        // 提取匹配到的数字
+        
         ArrayList<Integer> numbers = new ArrayList<>();
         while (matcher.find()) {
             numbers.add(Integer.parseInt(matcher.group()));

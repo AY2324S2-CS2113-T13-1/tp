@@ -91,8 +91,7 @@ public class Parser {
         double speed = (double) test.getNumber() / checker.getTime() * 60;
         if (retry) {
             Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem(), id));
-        }
-        else {
+        } else {
             Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
         }
         Storage.writeFile();
