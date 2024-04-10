@@ -31,7 +31,7 @@ public class UiTest {
                 "and the maximum number of digits is 2 (99 max)" +
                 "=========================";
         String cleanOutput = output.toString().replaceAll("\n", "").replaceAll("\t", "");
-
+        cleanOutput = cleanOutput.replaceAll("\r", "");
         assertEquals(expectedOutput, cleanOutput);
     }
 
