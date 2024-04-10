@@ -37,7 +37,7 @@ public class UiTest {
     @Test
     public void invalidCommandTest() {
         ui.invalidCommand();
-        assertEquals("Invalid command! Please try again.\n", output.toString());
+        assertEquals("Invalid command! Please try again.\n=========================\n", output.toString());
     }
 
     @Test
