@@ -1,5 +1,5 @@
 # Heinz Huang
 
-github username: Geinzit
+GitHub username: Geinzit
 
 Professional Gamer. Amateur Coder.
