@@ -62,11 +62,11 @@ View the records of your past problem solving sessions. Each record information 
 **Format:** `records -sortByDate -sortBySpeed -sortByAccuracy -sortByProblemID -showProblemDetails`
 
 - all parameters are optional
-- `sortByDATE` can be d(increasing order) or dr(decreasing order).
-- `sortBySpeed` can be s(increasing order) or sr(decreasing order).
-- `sortByAccuracy` can be a(increasing order) or ar(decreasing order).
-- `sortByProblemID` can be p(increasing order) or pr(decreasing order).
-- `showProblemDetails` can be details. Which shows each individual problem's description in the problem set.
+- `sortByDATE` should be replaced with `d`(increasing order) or `dr`(decreasing order).
+- `sortBySpeed` should be replaced with `s`(increasing order) or `sr`(decreasing order).
+- `sortByAccuracy` should be replaced with `a`(increasing order) or `ar`(decreasing order).
+- `sortByProblemID` should be replaced with `p`(increasing order) or `pr`(decreasing order).
+- `showProblemDetails` should be replaced with `details`. Which shows each individual problem's description in the problem set.
 
 ### Submit Answer: `ENTER/RETURN`
 
