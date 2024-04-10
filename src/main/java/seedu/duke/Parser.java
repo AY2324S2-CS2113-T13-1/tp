@@ -5,6 +5,71 @@ import java.util.List;
 
 public class Parser {
 
+    public static void parse(String command, Ui ui) {
+
+        /*
+         * Example of commands:
+         *
+         * Generate problem sets:
+         * gen -t 1 -n 2 -d 3
+         *
+         * Help function:
+         * help
+         */
+
+        // Split the command into two parts: action and description
+        String[] parts = command.split(" ", 2);
+        String action = parts[0];
+        String description = "";
+        if (parts.length > 1) {
+            description = parts[1];
+        }
+
+        switch (action) {
+        // notice: write your parser function by your own
+        case "": // by default, it will be "gen"
+        case "gen":
+        case "generate":
+            parseGenerate(description, ui);
+            break;
+        case "records":
+            parseRecord(description, ui);
+            break;
+        case "help":
+            ui.help(description);
+            break;
+        case "exit":
+            ui.exit();
+            break;
+        default:
+            ui.invalidCommand();
+            break;
+        }
+    }
+
+    public static void parseGenerate(String description, Ui ui) {
+        ProblemGenerator pb = new ProblemGenerator();
+        Test test = pb.typeChoose(description);
+        Checker checker = new Checker(test);
+        checker.getUserAnswer();
+        String accRate = String.format("%.2f", checker.getAccuracy() * 100);
+        ui.print("Acc: " + accRate + "%");
+        ui.print("Spend Time: " + checker.getTime() + "s");
+        List<String> wrongAnswer = checker.getWrongAnswer();
+        List<Problem> wrongProblem = checker.getWrongProblem();
+        ui.print("The following " + wrongProblem.size() + " answers you gave are wrong: \n");
+
+        for (int i = 0; i < wrongProblem.size(); i++) {
+            Problem problem = wrongProblem.get(i);
+            ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
+            ui.print("Correct Answer: " + problem.solved());
+        }
+
+        // Storage write to file
+        double speed = (double) test.getNumber() / checker.getTime();
+        Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
+        Storage.writeFile();
+    }
 
     public static void parseRecord(String description, Ui ui) {
         String[] tokens = description.split(" ");
@@ -39,69 +104,5 @@ public class Parser {
             }
         }
         ui.printRecords(Storage.sortRecords(dateSortOp, spdSortOp, accSortOp, probSortOp), probShowDetails);
-    }
-
-    public static void parse(String command, Ui ui) {
-
-        /*
-         * Example of commands:
-         *
-         * Generate problem sets:
-         * gen -t 1 -n 2 -d 3
-         *
-         * Help function:
-         * help
-         */
-
-        // Split the command into two parts: action and description
-        String[] parts = command.split(" ", 2);
-        String action = parts[0];
-        String description = "";
-        if (parts.length > 1) {
-            description = parts[1];
-        }
-
-        switch (action) {
-        // notice: write your parser function by your own
-        case "": // by default, it will be "gen"
-        case "gen":
-        case "generate":
-            ProblemGenerator pb = new ProblemGenerator();
-            Test test = pb.typeChoose(command);
-            Checker checker = new Checker(test);
-            checker.getUserAnswer();
-            String accRate = String.format("%.2f", checker.getAccuracy() * 100);
-            ui.print("Acc: " + accRate + "%");
-            ui.print("Spend Time: " + checker.getTime() + "s");
-            List<String> wrongAnswer = checker.getWrongAnswer();
-            List<Problem> wrongProblem = checker.getWrongProblem();
-            ui.print("The following " + wrongProblem.size() + " answers you gave are wrong: \n");
-
-            for (int i = 0; i < wrongProblem.size(); i++) {
-                Problem problem = wrongProblem.get(i);
-                ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
-                ui.print("Correct Answer: " + problem.solved());
-            }
-
-            // Storage write to file
-            double speed = (double) test.getNumber() / checker.getTime();
-            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
-            Storage.writeFile();
-
-            break;
-        case "records":
-            parseRecord(description, ui);
-            //ui.records(command);
-            break;
-        case "help":
-            ui.help(description);
-            break;
-        case "exit":
-            ui.exit();
-            break;
-        default:
-            ui.invalidCommand();
-            break;
-        }
     }
 }

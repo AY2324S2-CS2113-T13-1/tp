@@ -29,11 +29,9 @@ public class ProblemGenerator {
             } else if (tokens[i].equals("-l")) {
                 options.put("length", tokens[i + 1]);
             }
-
         }
 
         defaultOptions(command, options);
-
         return options;
     }
 
@@ -54,7 +52,6 @@ public class ProblemGenerator {
             options.put("length", DEFAULT_LENGTH);
             Ui.missingMessage("length");
         }
-
     }
 
     public Test typeChoose(String command) {
