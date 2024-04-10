@@ -23,7 +23,7 @@ public class Ui {
     private static final String GEN_COMMAND =
             "Generate problem sets: \t" + "gen -t [type] -n [number] -d [maximum digits]";
     private static final String HELP_COMMAND =
-            "Help function: \t" + "help [type], type can be 'gen'/'command'/...";
+            "Help function: \t" + "help [type], type can be 'gen'/'records'/...";
     private static final String RECORDS_COMMAND =
             "View past records(in-brackets parameters are optional): \t" + "records [-d] [-s] [-a] [-p] [-details]\n" +
                     "[-d]: sort the records based on dateTime in increasing order. Add r to reverse order (-dr)\n" +
@@ -31,7 +31,10 @@ public class Ui {
                     "[-a]: sort the records based on accuracy in increasing order. Add r to reverse order (-ar)\n" +
                     "[-p]: sort the records based on problemSetID in increasing order. Add r to reverse order (-pr)\n" +
                     "[-details]: show the details of the problem set(each individual problem).";
-
+    private static final String RETRY_COMMAND =
+            "Retry a problem set you have solved before in the past: \t" + "retry PROBLEM_SET_ID\n" +
+                    "PROBLEM_SET_ID is an integer, and can be found by using the 'records' command.\n";
+    private static final String EXIT_COMMAND = "Exit program: exit\n";
     // msg for other classes
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -48,16 +51,21 @@ public class Ui {
     }
 
     static void missingMessage(String parameters){
-        // String message = "parameter missing! using default" ;
-        System.out.println("Parameter missing! Using default " + parameters);
+
+        System.out.println(" Using default " + parameters);
     }
+    static void invalidMessage(String parameters){
+
+        System.out.println(" invalid " + parameters + "!");
+    }
+
 
     /**
      * Displays a greeting message.
      */
 
     public void greet() {
-        this.showLine();
+        showLine();
         String logo = "__   __       _   _      ____            _\n" +
                 "|  \\/  | __ _| |_| |__  / ___| ___ _ __ (_)_   _ ___\n" +
                 "| |\\/| |/ _` | __| '_ \\| |  _ / _ \\ '_ \\| | | | / __|\n" +
@@ -66,7 +74,7 @@ public class Ui {
         System.out.println(logo);
         System.out.println("Hello! I'm " + name + "!");
         System.out.println("Type 'help' to see the instructions. \n");
-        this.showLine();
+        showLine();
         // System.out.println(PROBLEM_FORM);
     }
 
@@ -77,16 +85,12 @@ public class Ui {
         return "";
     }
 
-    public void showLine() {
+    public static void showLine() {
         System.out.println("=========================");
     }
 
     public void help(String helpType) {
         switch (helpType) {
-        case "": // by default, user asks Help Instruction
-        case "command":
-            System.out.println(HELP_COMMAND);
-            break;
         case "gen":
         case "generate":
             System.out.println(GEN_COMMAND);
@@ -95,7 +99,14 @@ public class Ui {
         case "records":
             System.out.println(RECORDS_COMMAND);
             break;
-        default:
+        case "retry":
+            System.out.println(RETRY_COMMAND);
+            break;
+        case "exit":
+            System.out.println(EXIT_COMMAND);
+            break;
+        default:// by default, user asks Help Instruction
+            System.out.println(HELP_COMMAND);
             break;
         }
         showLine();
@@ -115,18 +126,6 @@ public class Ui {
         showLine();
     }
 
-    public void printRecords(boolean showProbDetails, Record record) {
-        System.out.println("Date Time: " + record.getDateTime().format(formatter));
-        System.out.println("ProblemSet ID: " + record.getPsIndex());
-        if (showProbDetails) {
-            for (Problem problem : record.getProbSet()) {
-                System.out.println("    " + problem.getDescription());
-            }
-        }
-        System.out.println("Speed: " + record.getSpeed() + "s");
-        System.out.println("Accuracy: " + record.getAccuracy() * 100 + "%");
-    }
-
     // invalid input
 
     /**
@@ -134,10 +133,13 @@ public class Ui {
      */
     public void invalidCommand() {
         System.out.println("Invalid command! Please try again.");
+        showLine();
     }
 
-    public void invalidParameter(String parameter) {
-        System.out.println("Invalid parameter: " + parameter);
+    public void invalidParameter(String command) {
+        System.out.println("Invalid parameters for command: " + command);
+        System.out.println("Try 'help COMMAND_NAME' for proper command formats");
+        showLine();
     }
 
     public void exit() {

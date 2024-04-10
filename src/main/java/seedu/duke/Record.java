@@ -17,8 +17,6 @@ public class Record {
 
     private int psIndex;
 
-    private final Ui ui = new Ui("");
-
     public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet) {
         setSpeed(speed);
         setAccuracy(accuracy);
@@ -45,7 +43,7 @@ public class Record {
                 System.out.println("    " + problem.getDescription());
             }
         }
-        System.out.println("Speed: " + getSpeed() + "s");
+        System.out.println("Speed: " + getSpeed() + " problems per minute");
         System.out.println("Accuracy: " + getAccuracy() * 100 + "%");
     }
 

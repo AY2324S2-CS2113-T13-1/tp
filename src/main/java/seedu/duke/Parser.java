@@ -5,7 +5,22 @@ import java.util.List;
 
 public class Parser {
 
-
+    public static void parseRetry(String description, Ui ui) {
+        try {
+            int id = Integer.parseInt(description);
+            Test test = Storage.problemSetByID(id);
+            if (test == null) {
+                ui.print("no problem set with this ID is found. Please double-check id.");
+                return;
+            }
+            for (Problem problem : test.getProblem()) {
+                System.out.println("    " + problem.getDescription());
+            }
+            solveProbSet(test, ui, true, id);
+        } catch(Exception e) {
+            ui.print("failed to parse a valid problem set ID. Please double-check format.");
+        }
+    }
     public static void parseRecord(String description, Ui ui) {
         String[] tokens = description.split(" ");
         int spdSortOp = 0;
@@ -14,9 +29,17 @@ public class Parser {
         int probSortOp = 0;
         boolean probShowDetails = false;
         for (String token : tokens) {
+            if(token.isEmpty()) {
+                continue;
+            }
             if (token.equals("-details")) {
                 probShowDetails = true;
-            } else if (token.startsWith("-s")) {
+            } else if(token.length() > 3) {
+                ui.invalidParameter("records");
+                return;
+            }
+
+            if (token.startsWith("-s")) {
                 spdSortOp = 1;
                 if (token.length() == 3 && token.endsWith("r")) {
                     spdSortOp = 2;
@@ -36,9 +59,43 @@ public class Parser {
                 if (token.length() == 3 && token.endsWith("r")) {
                     probSortOp = 2;
                 }
+            } else {
+                ui.invalidParameter("records");
+                return;
             }
         }
         ui.printRecords(Storage.sortRecords(dateSortOp, spdSortOp, accSortOp, probSortOp), probShowDetails);
+    }
+
+    public static void solveProbSet(Test test, Ui ui, boolean retry, int id) {
+        Checker checker = new Checker(test);
+        checker.getUserAnswer();
+        String accRate = String.format("%.2f", checker.getAccuracy() * 100);
+        ui.print("Acc: " + accRate + "%");
+        ui.print("Spend Time: " + checker.getTime() + "s");
+        List<String> wrongAnswer = checker.getWrongAnswer();
+        List<Problem> wrongProblem = checker.getWrongProblem();
+        ui.print("The following " + wrongProblem.size() + " answers you gave are wrong: \n");
+
+        for (int i = 0; i < wrongProblem.size(); i++) {
+            Problem problem = wrongProblem.get(i);
+            ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
+            ui.print("Correct Answer: " + problem.solved());
+            ui.print("If you want to see the explanation, type exp or explanation, else just type enter");
+            String userInput = ui.readCommand();
+            if(userInput.equals("exp")||userInput.equals("explanation"))
+                System.out.println(Checker.getExplanation(problem));
+        }
+
+        // Storage write to file
+        double speed = (double) test.getNumber() / checker.getTime() * 60;
+        if (retry) {
+            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem(), id));
+        }
+        else {
+            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
+        }
+        Storage.writeFile();
     }
 
     public static void parse(String command, Ui ui) {
@@ -68,35 +125,14 @@ public class Parser {
         case "generate":
             ProblemGenerator pb = new ProblemGenerator();
             Test test = pb.typeChoose(command);
-            Checker checker = new Checker(test);
-            checker.getUserAnswer();
-            String accRate = String.format("%.2f", checker.getAccuracy() * 100);
-            ui.print("Acc: " + accRate + "%");
-            ui.print("Spend Time: " + checker.getTime() + "s");
-            List<String> wrongAnswer = checker.getWrongAnswer();
-            List<Problem> wrongProblem = checker.getWrongProblem();
-            ui.print("The following " + wrongProblem.size() + " answers you gave are wrong: \n");
-
-            for (int i = 0; i < wrongProblem.size(); i++) {
-                Problem problem = wrongProblem.get(i);
-                ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
-                ui.print("Correct Answer: " + problem.solved());
-                ui.print("If you want to see the explanation, type exp or explanation, else just type enter");
-                String userInput = ui.readCommand();
-                if(userInput.equals("exp")||userInput.equals("explanation"))
-                    System.out.println(Checker.getExplanation(problem));
-            }
-
-
-            // Storage write to file
-            double speed = (double) test.getNumber() / checker.getTime();
-            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem()));
-            Storage.writeFile();
-
+            solveProbSet(test, ui, false, 0);
             break;
         case "records":
             parseRecord(description, ui);
             //ui.records(command);
+            break;
+        case "retry":
+            parseRetry(description, ui);
             break;
         case "help":
             ui.help(description);

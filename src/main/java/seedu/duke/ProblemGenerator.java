@@ -6,10 +6,17 @@ import java.util.HashMap;
 import static java.lang.Character.isDigit;
 
 public class ProblemGenerator {
+    public static final int MAXIMUM_LENGTH = 10;
     static final String DEFAULT_NUMBER = "10";
     static final String DEFAULT_MAX_DIGITS = "2";
-    static final String DEFAULT_OPERATORS = "+-*/";
+    static final String DEFAULT_OPERATORS = VALID_OPERATORS;
     static final String DEFAULT_LENGTH = "2";
+    public static final int MINIMUM_NUMBER = 0;
+    public static final int MAXIMUM_NUMBER = 100;
+    private static final int MINIMUM_DIGIT = 0 ;
+    public static final int MAXIMUM_DIGITS = 9;
+    public static final int MINIMUM_LENGTH = 2;
+    public static final String VALID_OPERATORS = "+-*/";
 
     public static HashMap<String, String> parseCommand(String command) {
         HashMap<String, String> options = new HashMap<>();
@@ -19,46 +26,122 @@ public class ProblemGenerator {
             if (i == tokens.length - 1) {
                 break;
             }
-            if (tokens[i].equals("-t")) {
+            switch (tokens[i]) {
+            case "-t":
                 options.put("operators", tokens[i + 1]);
-            } else if (tokens[i].equals("-n")) {
+                break;
+            case "-n":
                 options.put("number", tokens[i + 1]);
-            } else if (tokens[i].equals("-d")) {
+                break;
+            case "-d":
                 options.put("maximumDigits", tokens[i + 1]);
-            } else if (tokens[i].equals("-l")) {
+                break;
+            case "-l":
                 options.put("length", tokens[i + 1]);
+                break;
             }
-
         }
 
-        defaultOptions(command, options);
-
+        //defaultOptions(command, options);
         return options;
     }
 
-    private static void defaultOptions(String command, HashMap<String, String> options) {
-        if (!command.contains("-t")) {
+    private static HashMap<String, String> defaultOptions( HashMap<String, String> options) {
+        if (!options.containsKey("operators")) {
             options.put("operators", DEFAULT_OPERATORS);
             Ui.missingMessage("operators");
         }
-        if (!command.contains("-n")) {
+        if (!options.containsKey("number")) {
             options.put("number", DEFAULT_NUMBER);
             Ui.missingMessage("number");
         }
-        if (!command.contains("-d")) {
+        if (!options.containsKey("maximumDigits")) {
             options.put("maximumDigits", DEFAULT_MAX_DIGITS);
             Ui.missingMessage("maximumDigits");
         }
-        if (!command.contains("-l")) {
-            options.put("length", DEFAULT_LENGTH);
+        if (!options.containsKey("length")) {
+            options.put("length", DEFAULT_LENGTH );
             Ui.missingMessage("length");
         }
-
+        return options;
     }
 
     public Test typeChoose(String command) {
         HashMap<String, String> parameter = parseCommand(command);
+        parameter = checkValidity(parameter);
+        parameter = defaultOptions(parameter);
         return generate(parameter);
+    }
+
+    private HashMap<String, String> checkValidity(HashMap<String, String> parameter) {
+
+        try{
+            NumberFormatException e =  new NumberFormatException() ;
+            int number = Integer.parseInt(parameter.get("number"));
+            if(number< MINIMUM_NUMBER){
+                System.out.println("number of problems should be at least 1");
+
+                throw e ;
+            }
+            if(number> MAXIMUM_NUMBER){
+                System.out.println("number of problems should be at most 100");
+                throw e ;
+            }
+        }catch (NumberFormatException e){
+            parameter.remove("number");
+            Ui.invalidMessage("number");
+        }
+
+        try{
+            NumberFormatException e =  new NumberFormatException() ;
+            int maxDigit = Integer.parseInt(parameter.get("maximumDigits"));
+            if(maxDigit< MINIMUM_DIGIT){
+                System.out.println("maximum digits of operands  should be at least 1");
+
+                throw e ;
+            }
+            if(maxDigit> MAXIMUM_DIGITS){
+                System.out.println("maximum digits of operands should be at most 9");
+                throw e ;
+            }
+        }catch (NumberFormatException e){
+            parameter.remove("maximumDigits");
+            Ui.invalidMessage("maximum of digits");
+        }
+
+        try{
+            NumberFormatException e =  new NumberFormatException() ;
+            int length = Integer.parseInt(parameter.get("length"));
+            if(length< MINIMUM_LENGTH){
+                System.out.println("number of operands should be at least 2");
+
+                throw e ;
+            }
+            if(length>MAXIMUM_LENGTH){
+                System.out.println("number of operands should be at most 10");
+                throw e ;
+
+            }
+        }catch (NumberFormatException e){
+            parameter.remove("length");
+            Ui.invalidMessage("length");
+        }
+
+        String op = parameter.get("operators");
+        if(op!=null){
+            for (char ch : op.toCharArray()) {
+                if ( VALID_OPERATORS.indexOf(ch) == -1) {// neither + - * or /
+                    System.out.println("operators should only be chosen from + - * and /");
+                    parameter.remove("operators");
+                    Ui.invalidMessage("operators");
+                    break;
+                }
+            }
+        }else {
+            parameter.remove("operators");
+            Ui.invalidMessage("operators");
+        }
+        return parameter;
     }
 
     private Test generate(HashMap<String, String> parameter) {
@@ -92,7 +175,7 @@ public class ProblemGenerator {
 
             StringBuilder descriptionBuilder = new StringBuilder();
             double answer;
-            int max = (int) Math.pow(10, maxDigit);
+            int max = (int) Math.pow(MAXIMUM_LENGTH, maxDigit);
 
             for (int j = 0; j < length; j++) {
                 int tempRandomNumber = (int) (Math.random() * max);
@@ -121,7 +204,6 @@ public class ProblemGenerator {
 
     private StringBuilder division_check(StringBuilder sb) {
         // change the divisor to a non-zero one-digit number
-
         for (int i = 0; i < sb.length(); i++) {
             if (sb.charAt(i) == '/') {
 
@@ -131,14 +213,16 @@ public class ProblemGenerator {
                     numEnd++;
                 }
                 int divisor = 0;
-
                 while (divisor == 0) {
                     divisor = (int) (Math.random() * 10);// divisor should be 1 to 9 with equal probability
                 }
                 sb.replace(numStart, numEnd, Integer.toString(divisor));
             }
         }
-
         return sb;
     }
+
+
 }
+
+
