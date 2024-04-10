@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Checker {
-    private String[] userAnswer;
+    private final String[] userAnswer;
     private final Test test;
-    private Boolean[] isCorrect;
+    private final Boolean[] isCorrect;
     private int correctNumber;
     private double accuracy;
     private long time;
     private final List<Problem> wrongProblem = new ArrayList<>();
-    private List<String> wrongAnswer = new ArrayList<>();
-    private Ui ui = new Ui("");
+    private final List<String> wrongAnswer = new ArrayList<>();
+    private final Ui ui = new Ui("");
 
     public Checker(Test test) {
         assert test != null : "Input null test!";
@@ -59,6 +59,7 @@ public class Checker {
         // hand with time and acc
         long endTime = System.currentTimeMillis();
         accuracy = (double) correctNumber / test.getNumber();
+        //millisecond to second
         this.time = (endTime - startTime) / 1000;
         for (int i = 0; i < test.getNumber(); i++) {
             if (isCorrect[i] = false) {
@@ -92,41 +93,76 @@ public class Checker {
         return time;
     }
 
-    public String getExplaination(Problem problem){
+    public static String getExplanation(Problem problem){
         String description = problem.getDescription();
-        String explanation = "";
-        explanation = "Let's explain this problem by the following format:  +/n";
-        String startSpace = "\t\t\t";
+        String start = "Let's explain this problem by the following format:  "+"\n\n";
+        List<String> explanation = new ArrayList<>();
+        StringBuilder builder = new StringBuilder();
         if(description.contains("+")){
             String [] parser = description.split("\\+");
             double firstNumber = Double.parseDouble(parser[0]);
-            double secondNubmber = Double.parseDouble(parser[1]);
+            double secondNumber = Double.parseDouble(parser[1]);
+            String answerString = String.valueOf(problem.getAnswer());
             String firstString = String.valueOf(firstNumber);
-            String secondString = String.valueOf(secondNubmber);
+            String secondString = String.valueOf(secondNumber);
             //Shift the longer number to the first
             if(firstString.length()<secondString.length()){
                 String temp = firstString;
                 firstString = secondString;
                 secondString = temp;
             }
-            int numSpace = firstString.length()-secondString.length()-1;
-            //Use the space to align the number
-            String alignSpace = new String(new char[numSpace]).replace('\0', ' ');
-            explanation += startSpace + firstString + "\n";
-            explanation += startSpace + "\\+" + alignSpace + secondString + "\n";
-
-
-
+            explanation.add(firstString);
+            explanation.add("+"+"          "+secondString);
 
         } else if (description.contains("-")) {
+            String [] parser = description.split("-");
+            double firstNumber = Double.parseDouble(parser[0]);
+            double secondNumber = Double.parseDouble(parser[1]);
+            String answerString = String.valueOf(problem.getAnswer());
+            String firstString = String.valueOf(firstNumber);
+            String secondString = String.valueOf(secondNumber);
+            //Shift the longer number to the first
+            if(firstString.length()<secondString.length()){
+                String temp = firstString;
+                firstString = secondString;
+                secondString = temp;
+            }
+            explanation.add(firstString);
+            explanation.add("-"+"          "+secondString);
 
         } else if (description.contains("*")){
+            String [] parser = description.split("\\*");
+            double firstNumber = Double.parseDouble(parser[0]);
+            double secondNumber = Double.parseDouble(parser[1]);
+            String answerString = String.valueOf(problem.getAnswer());
+            String firstString = String.valueOf(firstNumber);
+            String secondString = String.valueOf(secondNumber);
+            //Shift the longer number to the first
+            if(firstString.length()<secondString.length()){
+                String temp = firstString;
+                firstString = secondString;
+                secondString = temp;
+            }
+            explanation.add(firstString);
+            explanation.add("X"+"          "+secondString);
 
         } else if (description.contains("/")){
-                explanation = "We do not support the explanation with division now!";
+                return "We do not support the explanation with division now!";
         }else {
-            explanation = "The format of the problem do not provide any explanation now!";
+            return  "The format of the problem do not provide any explanation now!";
         }
-        return explanation;
+        explanation.add("---------------------------------------" );
+        explanation.add(String.valueOf(problem.getAnswer()));
+        for (String element : explanation) {
+            builder.append(String.format("%" + 20 + "s%n", element));
+        }
+        String alignedProblem = builder.toString();
+        String end = "You can compare your answer with the above function\n";
+        return start + alignedProblem + "\n" + end;
     };
+    public static void testExplanation() {
+        Problem testProblem = new Problem("99+9", 108);
+        System.out.println(getExplanation(testProblem));
+    }
+
 }
