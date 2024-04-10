@@ -14,50 +14,42 @@ public class StorageTest {
         Storage.addRecord(record2);
         Storage.addRecord(record3);
 
-        // 根据日期排序
         ArrayList<Record> sortedByDate = Storage.sortRecords(1, 0, 0, 0);
         assertEquals(record1, sortedByDate.get(0));
         assertEquals(record2, sortedByDate.get(1));
         assertEquals(record3, sortedByDate.get(2));
 
-        // 根据日期倒序排序
         ArrayList<Record> reverseSortedByDate = Storage.sortRecords(2, 0, 0, 0);
         assertEquals(record3, reverseSortedByDate.get(0));
         assertEquals(record2, reverseSortedByDate.get(1));
         assertEquals(record1, reverseSortedByDate.get(2));
 
-        // 根据速度排序
         ArrayList<Record> sortedBySpeed = Storage.sortRecords(0, 1, 0, 0);
         assertEquals(record1, sortedBySpeed.get(0));
         assertEquals(record2, sortedBySpeed.get(1));
         assertEquals(record3, sortedBySpeed.get(2));
 
-        // 根据速度倒序排序
         ArrayList<Record> reverseSortedBySpeed = Storage.sortRecords(0, 2, 0, 0);
         assertEquals(record3, reverseSortedBySpeed.get(0));
         assertEquals(record2, reverseSortedBySpeed.get(1));
         assertEquals(record1, reverseSortedBySpeed.get(2));
 
-        // 根据准确率排序
         ArrayList<Record> sortedByAccuracy = Storage.sortRecords(0, 0, 1, 0);
 
         assertEquals(record2, sortedByAccuracy.get(0));
         assertEquals(record1, sortedByAccuracy.get(1));
         assertEquals(record3, sortedByAccuracy.get(2));
 
-        // 根据准确率倒序排序
         ArrayList<Record> reverseSortedByAccuracy = Storage.sortRecords(0, 0, 2, 0);
         assertEquals(record3, reverseSortedByAccuracy.get(0));
         assertEquals(record1, reverseSortedByAccuracy.get(1));
         assertEquals(record2, reverseSortedByAccuracy.get(2));
 
-        // 根据问题集索引排序
         ArrayList<Record> sortedByProblemIndex = Storage.sortRecords(0, 0, 0, 1);
         assertEquals(record1, sortedByProblemIndex.get(0));
         assertEquals(record2, sortedByProblemIndex.get(1));
         assertEquals(record3, sortedByProblemIndex.get(2));
 
-        // 根据问题集索引倒序排序
         ArrayList<Record> reverseSortedByProblemIndex = Storage.sortRecords(0, 0, 0, 2);
         assertEquals(record3, reverseSortedByProblemIndex.get(0));
         assertEquals(record2, reverseSortedByProblemIndex.get(1));
