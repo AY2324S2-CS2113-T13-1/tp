@@ -51,9 +51,14 @@ public class Ui {
     }
 
     static void missingMessage(String parameters){
-        // String message = "parameter missing! using default" ;
-        System.out.println("Parameter missing! Using default " + parameters);
+
+        System.out.println(" Using default " + parameters);
     }
+    static void invalidMessage(String parameters){
+
+        System.out.println(" invalid " + parameters + "!");
+    }
+
 
     /**
      * Displays a greeting message.
