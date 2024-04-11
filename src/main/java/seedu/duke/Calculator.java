@@ -57,11 +57,10 @@ public class Calculator {
         for (Object object : formula) {
             if (object instanceof Integer) {
                 suffix.add(object);
-            } else if (object instanceof String) {
-                String op = (String) object;
+            } else if (object instanceof String op) {
 
                 if (opStack.empty()) {
-                    opStack.push((String) op);
+                    opStack.push(op);
                     continue;
                 }
 

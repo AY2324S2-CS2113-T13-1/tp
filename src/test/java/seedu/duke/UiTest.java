@@ -2,15 +2,15 @@ package seedu.duke;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UiTest {
-    private Ui ui;
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
+    private Ui ui;
 
     public String cleanOutput() {
         String res = output.toString().replaceAll("\n", "");
