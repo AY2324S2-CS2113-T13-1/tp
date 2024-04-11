@@ -111,6 +111,7 @@ public class Ui {
             break;
         case "DIY":
             System.out.println(DIY_COMMAND);
+            break;
         default:// by default, user asks Help Instruction
             System.out.println(HELP_COMMAND);
             break;
