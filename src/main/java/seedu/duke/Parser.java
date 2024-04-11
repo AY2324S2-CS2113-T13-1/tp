@@ -81,10 +81,11 @@ public class Parser {
             Problem problem = wrongProblem.get(i);
             ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
             ui.print("Correct Answer: " + problem.solved());
-            ui.print("If you want to see the explanation, type exp or explanation, else just type enter");
-            String userInput = ui.readCommand();
-            if(userInput.equals("exp")||userInput.equals("explanation"))
-                System.out.println(Checker.getExplanation(problem));
+            // need further implementation for 3 more operators
+            // ui.print("If you want to see the explanation, type exp or explanation, else just type enter");
+            // String userInput = ui.readCommand();
+            // if(userInput.equals("exp")||userInput.equals("explanation"))
+            //     System.out.println(Checker.getExplanation(problem));
         }
 
         // Storage write to file
