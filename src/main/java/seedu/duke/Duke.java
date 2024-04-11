@@ -10,11 +10,10 @@ public class Duke {
      */
 
     public static void run() {
-
         ui.greet();
 
         Storage.readFile();
-        ui.showLine();
+        Ui.showLine();
 
         String command = ui.readCommand();
 

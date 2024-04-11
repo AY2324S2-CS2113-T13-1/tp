@@ -15,7 +15,7 @@ public class Problem {
     }
 
     public String unsolved() {
-        return description + "__";
+        return description + "=__";
     }
 
     public double getAnswer() {

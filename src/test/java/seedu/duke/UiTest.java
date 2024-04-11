@@ -30,18 +30,22 @@ public class UiTest {
         ui.help("gen");
         String expectedOutput = "Generate problem sets: gen -t [type] -n [number] -d [maximum digits]" +
                 "Input Instructions:" +
-                "[operators]: can be + - * /, you can combine any of them." +
-                "[number]: number of problem set generated" +
-                "[maximum digit]: how big can the calculation be" +
-                "For example: generate -t + -n 10 -d 2 -l 2" +
-                "-> generate 10 problems with + and - operator, each has 2 numbers taking operations" +
-                "and the maximum number of digits is 2 (99 max)" +
+                "1. [operators]: Choose from +, -, *, /. " +
+                "You can use any combination of them." +
+                "2. [number]: Specify the number of problems to generate. " +
+                "Must be between 1 and 100." +
+                "3. [maximum digit]: Set the maximum number of digits for the numbers in the problems. " +
+                "Must be between 1 and 9." +
+                "4. [number of operands]: Determine the number of operands in each problem. " +
+                "Must be between 2 and 10." +
+                "Example Command: generate -t + -n 10 -d 2 -l 2" +
+                "This will generate 10 problems using the + operator only. " +
+                "Each problem will have 2 operands, and the maximum number of digits for each operand is 2." +
                 "=========================";
         String cleanOutput = output.toString().replaceAll("\n", "").replaceAll("\t", "");
         cleanOutput = cleanOutput.replaceAll("\r", "");
         assertEquals(expectedOutput, cleanOutput());
     }
-
 
     @Test
     public void invalidCommandTest() {
