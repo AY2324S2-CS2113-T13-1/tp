@@ -16,22 +16,27 @@ public class Record {
     private final ArrayList<Problem> probSet = new ArrayList<>();
 
     private int psIndex;
+    private String problemSetType;
 
-    public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet) {
+    public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet, String problemSetType) {
         setSpeed(speed);
         setAccuracy(accuracy);
         setDateTime(dateTime);
         setProbSet(probSet);
+        setProblemSetType(problemSetType);
         psIndex = probSet.hashCode();
+
     }
 
-    public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet, int psIndex) {
+    public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet, int psIndex, String problemSetType) {
         setSpeed(speed);
         setAccuracy(accuracy);
         setDateTime(dateTime);
         setProbSet(probSet);
         setPsIndex(psIndex);
+        setProblemSetType(problemSetType);
     }
+
 
     public void print(boolean showProbDetails) {
         // ui.printRecords(showProbDetails, this);
@@ -45,6 +50,7 @@ public class Record {
         }
         System.out.println("Speed: " + getSpeed() + " problems per minute");
         System.out.println("Accuracy: " + getAccuracy() * 100 + "%");
+        System.out.println("Problem Set type: " + getProblemSetType());
     }
 
     public String writeLine() {
@@ -55,7 +61,7 @@ public class Record {
         }
 
         return getDateTime().format(formatter) + " " + getSpeed() + " " +
-                getAccuracy() + " " + getPsIndex() + " " + probStr;
+                getAccuracy() + " " + getPsIndex() + " " + getProblemSetType() + " " + probStr;
     }
 
     public int getPsIndex() {
@@ -97,4 +103,9 @@ public class Record {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
+    public void setProblemSetType(String problemSetType) { this.problemSetType = problemSetType; }
+
+    public String getProblemSetType() { return problemSetType; }
+
 }

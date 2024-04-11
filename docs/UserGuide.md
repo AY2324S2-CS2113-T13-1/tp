@@ -78,6 +78,9 @@ type the answer in the terminal and press ENTER/RETURN
 
 After finishing all the problem sets, the program will automate judged the correctness and output the accuracy and speed.
 
+### DIY: `DIY`
+Add user DIY problem sets into our problem set datasets. The DIY problem set can also be saved and retried.
+
 ### Exit: `exit`
 
 User can use this to exit the program.
@@ -92,18 +95,20 @@ Here are some example commands you can try:
 2. Pressing `Enter/Return`: Submits your answer to a problem.
 3. `exit`: Exits the program.
 4. `records`: Displays your past problem-solving sessions, including the date you finished the set, your speed, accuracy, and the details of the problems.
+5. `DIY`: Add user DIY problem sets into our problem set datasets. The DIY problem set can also be saved and retried.
 
 Remember, practice makes perfect. Happy learning with **MathGenius**!
 
 ### Command summary:
 
-| Command | Description | Format | Example |
-|---------|-------------|--------|---------|
-| `help` | Show the message about the command you can use and the standard input format | `help COMMAND_NAME` | `help generate` |
-| `gen / generate` | Generate the problem based on series of parameters | `generate -t OPERATOR -n NUMBER_OF_PROBLEMS -d MAXIMUM_DIGITS` | `generate -t + -n 1 -d 1` |
-| `records` | View the records of your past problem solving sessions | `records -sortByDate -sortBySpeed -sortByAccuracy -sortByProblemID -showProblemDetails` | `records -d -s -a -p -details` |
-| `ENTER/RETURN` | Submit the answer in the terminal | NA | NA |
-| `exit` | Exit the program | `exit` | `exit` |
+| Command          | Description | Format                                                                                  | Example                        |
+|------------------|-------------|-----------------------------------------------------------------------------------------|--------------------------------|
+| `help`           | Show the message about the command you can use and the standard input format | `help COMMAND_NAME`                                                                     | `help generate`                |
+| `gen / generate` | Generate the problem based on series of parameters | `generate -t OPERATOR -n NUMBER_OF_PROBLEMS -d MAXIMUM_DIGITS`                          | `generate -t + -n 1 -d 1`      |
+| `records`        | View the records of your past problem solving sessions | `records -sortByDate -sortBySpeed -sortByAccuracy -sortByProblemID -showProblemDetails` | `records -d -s -a -p -details` |
+| `ENTER/RETURN`   | Submit the answer in the terminal | NA | NA                             |
+| `DIY`            | Add user DIY problem sets into our problem set datasets. | `DIY` | `DIY`                          |
+| `exit`           | Exit the program | `exit`| `exit`                         |
 
 ## Interaction Guide
 

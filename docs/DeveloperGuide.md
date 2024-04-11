@@ -104,7 +104,7 @@ Each `Record` object stores an ArrayList of `Problem` objects for storing specif
 When a problem set solving is saved to a record **for the first time**, the corresponding `Record` object will create a unique ID for the problem set using Java's built-in `hashCode` method. When loading this record in the future and re-saving the data, the same ID will be used and no new IDs will be generated. This is achieved by using two different constructors for these two different situations.
 
 **Code Snippet**
-```java
+```
 // the two different constructors
 public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet) {
    setSpeed(speed);
@@ -121,7 +121,7 @@ public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<P
    setProbSet(probSet);
    setPsIndex(psIndex);
 }
-
+```
 ### Storage Component - Design
 
 API: [Storage.java](../src/main/java/seedu/duke/Storage.java)
@@ -139,6 +139,55 @@ The Storage Component:
 - Uses a list of Record objects to store all past attempts
 - Uses Java's built-in BufferedReader, FileReader, BufferedWriter, FileWriter to write / read properly all information of all problem sets
 - sortRecords method sorts the Record list based on 4 different parameters(each representing sort by datetime, speed, accuracy, problemSet ID). each parameter have 3 different values: 0, 1, 2. 0 means to not sort by this parameter, 1 means to sort(decreasing order), 2 means to sort in reverse(increasing order). These 4 parameters are determined by the user input, and interpreted by the Parser component.
+
+### DIYProblemSet Component
+
+The DIYProblemSet class is responsible for creating and managing a user-defined problem set. It allows users to input custom problems and their correct answers, and saves the problem set for future reference.
+ ## Class Signature
+ ```
+     public class DIYProblemSet {
+        ArrayList<Problem> problemSet;
+        
+        public DIYProblemSet() {
+            // Constructor logic
+        }
+        
+        public void addDIYProblemSet(Ui ui) {
+            // Method logic
+        }
+    }
+```
+ ## Class Variables
+
+    problemSet: An ArrayList of type Problem to store the user-defined problems.
+
+ ## Class Methods
+    
+```
+    public DIYProblemSet()
+```
+  The constructor initializes the problemSet as a new ArrayList of Problem objects.
+
+```
+    public void addDIYProblemSet(Ui ui)
+```
+  This method allows users to input their DIY problem set. It prompts for the problem description and correct answer, validates the input, and adds the problem to the problemSet. Once the user finishes adding problems, it creates a new Record object with the current timestamp, total correct answers set to 0, total time taken set to 0, the problemSet, and the problem set type as USER_DIY. It then saves the record using the Storage.addRecord() method and displays a success message along with the details of the saved problem set.
+
+ ## Method Flow
+1. Create a new Scanner object to read user input.
+2. Prompt the user to input their DIY problem set.
+3. Inside a loop that continues until the user indicates they have finished adding problems:
+   - Prompt the user to input the problem description.
+   - Prompt the user to input the correct answer for the problem.
+   - Validate the input by attempting to parse the correct answer as a double. If it fails, display an error message.
+   - Create a new Problem object with the description and parsed answer, and add it to the problemSet.
+   - Prompt the user to indicate if they have finished adding problems (y for yes, n for no).
+   - Validate the input to ensure it is either y or n. If it is invalid, display an error message and prompt again.
+4. Create a new Record object with the current timestamp, total correct answers set to 0, total time taken set to 0, the problemSet, and the problem set type as USER_DIY.
+5. Save the record using the Storage.addRecord() method.
+6. Display a success message indicating that the DIY problem set has been successfully saved.
+7. Print the details of the saved problem set using the record.print(true) method.
+8. Display a new line for formatting purposes.
 
 ### Testcase Component
 

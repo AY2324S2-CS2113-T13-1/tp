@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class StorageTest {
 
     public static void testSortRecords() {
-        Record record1 = new Record(LocalDateTime.now().minusDays(2), 5.0, 0.8, new ArrayList<>());
-        Record record2 = new Record(LocalDateTime.now().minusDays(1), 6.0, 0.7, new ArrayList<>());
-        Record record3 = new Record(LocalDateTime.now(), 7.0, 0.9, new ArrayList<>());
+        Record record1 = new Record(LocalDateTime.now().minusDays(2), 5.0, 0.8, new ArrayList<>(), "user-DIY");
+        Record record2 = new Record(LocalDateTime.now().minusDays(1), 6.0, 0.7, new ArrayList<>(), "auto-generated");
+        Record record3 = new Record(LocalDateTime.now(), 7.0, 0.9, new ArrayList<>(), "auto-generated");
         Storage.addRecord(record1);
         Storage.addRecord(record2);
         Storage.addRecord(record3);
@@ -60,15 +60,15 @@ public class StorageTest {
     }
 
     public static void testAddRecord() {
-        Record record = new Record(LocalDateTime.now(), 5.0, 0.8, new ArrayList<>());
+        Record record = new Record(LocalDateTime.now(), 5.0, 0.8, new ArrayList<>(),"auto-generated");
         Storage.addRecord(record);
         assertEquals(1, Storage.getRecords().size());
         assertEquals(record, Storage.getRecords().get(0));
     }
 
     public static void testClearRecords() {
-        Record record1 = new Record(LocalDateTime.now(), 5.0, 0.8, new ArrayList<>());
-        Record record2 = new Record(LocalDateTime.now(), 6.0, 0.7, new ArrayList<>());
+        Record record1 = new Record(LocalDateTime.now(), 5.0, 0.8, new ArrayList<>(), "auto-generated");
+        Record record2 = new Record(LocalDateTime.now(), 6.0, 0.7, new ArrayList<>(), "user-DIY");
         Storage.addRecord(record1);
         Storage.addRecord(record2);
         assertEquals(2, Storage.getRecords().size());
@@ -77,7 +77,7 @@ public class StorageTest {
     }
 
     public static void testProcessLine() {
-        String line = "2024-04-04 10:30:00 5.0 0.8 1234 problem1,1.0 problem2,2.0";
+        String line = "2024-04-04 10:30:00 5.0 0.8 1234 auto-generated problem1,1.0 problem2,2.0";
         try {
             Storage.processLine(line);
             assertEquals(1, Storage.getRecords().size());
