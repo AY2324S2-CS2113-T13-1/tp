@@ -35,7 +35,7 @@ public class Storage {
     public static Test problemSetByID(int id) {
         for (Record record : records) {
             if (record.getPsIndex() == id) {
-                return new Test(record.getProbSet());
+                return new Test(record.getProbSet(),record.getProblemSetType());
             }
         }
         return null;
@@ -76,7 +76,7 @@ public class Storage {
      * @throws Exception exception is thrown whenever the input format is corrupt.
      */
     public static void processLine(String line) throws Exception {
-        int minimumLength = 4;
+        int minimumLength = 5;
 
         String[] words = line.split(" ");
 
@@ -90,6 +90,8 @@ public class Storage {
 
         int psIndex = Integer.parseInt(words[4]);
 
+        String problemSetType = words[5];
+
         ArrayList<Problem> probSet = new ArrayList<>();
 
         for (int i = minimumLength + 1; i < words.length; i++) {
@@ -97,7 +99,9 @@ public class Storage {
             probSet.add(new Problem(term[0], Double.parseDouble(term[1])));
         }
 
-        Record record = new Record(dateTime, speed, accuracy, probSet, psIndex);
+
+
+        Record record = new Record(dateTime, speed, accuracy, probSet, psIndex,problemSetType);
         addRecord(record);
     }
 

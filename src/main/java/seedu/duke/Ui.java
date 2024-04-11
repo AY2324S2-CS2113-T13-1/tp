@@ -33,7 +33,8 @@ public class Ui {
                     "1. 'generate' or 'gen': Generate a problem set based on a series of parameters.\n" +
                     "2. 'records': View the records of your past problem solving sessions.\n" +
                     "3. 'retry': Retry a problem set you have solved before.\n" +
-                    "4. 'exit': Exit the program.\n" +
+                    "4. 'DIY': add user-DIY problem set to the problem set database.\n" +
+                    "5. 'exit': Exit the program.\n" +
                     "For example, 'help generate' will show you how to use the generate command.";
     private static final String RECORDS_COMMAND =
             "View past records(in-brackets parameters are optional): \t" + "records [-d] [-s] [-a] [-p] [-details]\n" +
@@ -45,7 +46,11 @@ public class Ui {
     private static final String RETRY_COMMAND =
             "Retry a problem set you have solved before in the past: \t" + "retry PROBLEM_SET_ID\n" +
                     "PROBLEM_SET_ID is an integer, and can be found by using the 'records' command.\n";
+
+    private static final String DIY_COMMAND =
+            "Add user defined problem sets in to the problem database: \t" + "DIY\n";
     private static final String EXIT_COMMAND = "Exit program: exit\n";
+
 
     private final String name;
     private final Scanner scanner = new Scanner(System.in);
@@ -104,6 +109,8 @@ public class Ui {
         case "exit":
             System.out.println(EXIT_COMMAND);
             break;
+        case "DIY":
+            System.out.println(DIY_COMMAND);
         default:// by default, user asks Help Instruction
             System.out.println(HELP_COMMAND);
             break;
