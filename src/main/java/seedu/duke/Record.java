@@ -13,7 +13,7 @@ public class Record {
 
     private double accuracy;
 
-    private ArrayList<Problem> probSet = new ArrayList<>();
+    private final ArrayList<Problem> probSet = new ArrayList<>();
 
     private int psIndex;
 
