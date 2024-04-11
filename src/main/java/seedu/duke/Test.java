@@ -40,6 +40,8 @@ public class Test {
         return problemList;
     }
 
-    public String getProblemSetType() { return problemSetType; }
+    public String getProblemSetType() {
+        return problemSetType;
+    }
 
 }

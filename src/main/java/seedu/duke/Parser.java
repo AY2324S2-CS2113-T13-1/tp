@@ -91,9 +91,18 @@ public class Parser {
         // Storage write to file
         double speed = (double) test.getNumber() / checker.getTime() * 60;
         if (retry) {
-            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem(), id, test.getProblemSetType()));
+            Storage.addRecord(new Record(LocalDateTime.now(),
+                    speed,
+                    checker.getAccuracy(),
+                    test.getProblem(),
+                    id,
+                    test.getProblemSetType()));
         } else {
-            Storage.addRecord(new Record(LocalDateTime.now(), speed, checker.getAccuracy(), test.getProblem(), test.getProblemSetType()));
+            Storage.addRecord(new Record(LocalDateTime.now(),
+                    speed,
+                    checker.getAccuracy(),
+                    test.getProblem(),
+                    test.getProblemSetType()));
         }
         Storage.writeFile();
     }
@@ -135,6 +144,7 @@ public class Parser {
         case "DIY":
             DIYProblemSet DIY = new DIYProblemSet();
             DIY.addDIYProblemSet(ui);
+            break;
         case "help":
             ui.help(description);
             break;

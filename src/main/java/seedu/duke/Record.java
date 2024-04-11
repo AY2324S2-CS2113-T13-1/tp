@@ -18,7 +18,11 @@ public class Record {
     private int psIndex;
     private String problemSetType;
 
-    public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet, String problemSetType) {
+    public Record(LocalDateTime dateTime,
+                  double speed,
+                  double accuracy,
+                  ArrayList<Problem> probSet,
+                  String problemSetType) {
         setSpeed(speed);
         setAccuracy(accuracy);
         setDateTime(dateTime);
@@ -28,7 +32,12 @@ public class Record {
 
     }
 
-    public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet, int psIndex, String problemSetType) {
+    public Record(LocalDateTime dateTime,
+                  double speed,
+                  double accuracy,
+                  ArrayList<Problem> probSet,
+                  int psIndex,
+                  String problemSetType) {
         setSpeed(speed);
         setAccuracy(accuracy);
         setDateTime(dateTime);
@@ -104,8 +113,12 @@ public class Record {
         this.dateTime = dateTime;
     }
 
-    public void setProblemSetType(String problemSetType) { this.problemSetType = problemSetType; }
+    public void setProblemSetType(String problemSetType) {
+        this.problemSetType = problemSetType;
+    }
 
-    public String getProblemSetType() { return problemSetType; }
+    public String getProblemSetType() {
+        return problemSetType;
+    }
 
 }
