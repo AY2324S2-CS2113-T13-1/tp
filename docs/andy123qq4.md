@@ -1,4 +1,4 @@
-# Yung Ka Shing's Project Portfolio Page
+# Andy Yung's Project Portfolio Page
 
 ## Project: MathGenius
 
