@@ -9,7 +9,7 @@ public class ProblemGenerator {
 
     private static final int MINIMUM_NUMBER = 0;
     private static final int MAXIMUM_NUMBER = 100;
-    private static final int MINIMUM_DIGIT = 0 ;
+    private static final int MINIMUM_DIGIT = 0;
     private static final int MAXIMUM_DIGITS = 9;
     private static final int MINIMUM_LENGTH = 2;
     private static final String VALID_OPERATORS = "+-*/";
@@ -49,7 +49,7 @@ public class ProblemGenerator {
         return options;
     }
 
-    private static HashMap<String, String> defaultOptions( HashMap<String, String> options) {
+    private static HashMap<String, String> defaultOptions(HashMap<String, String> options) {
         if (!options.containsKey("operators")) {
             options.put("operators", DEFAULT_OPERATORS);
             Ui.missingMessage("operators");
@@ -63,7 +63,7 @@ public class ProblemGenerator {
             Ui.missingMessage("maximumDigits");
         }
         if (!options.containsKey("length")) {
-            options.put("length", DEFAULT_LENGTH );
+            options.put("length", DEFAULT_LENGTH);
             Ui.missingMessage("length");
         }
         return options;
@@ -78,69 +78,67 @@ public class ProblemGenerator {
 
     private HashMap<String, String> checkValidity(HashMap<String, String> parameter) {
 
-        try{
-            NumberFormatException e =  new NumberFormatException() ;
+        try {
+            NumberFormatException e = new NumberFormatException();
             int number = Integer.parseInt(parameter.get("number"));
-            if(number< MINIMUM_NUMBER){
-                System.out.println("number of problems should be at least 1");
+            if (number < MINIMUM_NUMBER) {
+                System.out.println("Number of problems should be at least 1!");
 
-                throw e ;
+                throw e;
             }
-            if(number> MAXIMUM_NUMBER){
-                System.out.println("number of problems should be at most 100");
-                throw e ;
+            if (number > MAXIMUM_NUMBER) {
+                System.out.println("Number of problems should be at most 100!");
+                throw e;
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             parameter.remove("number");
             Ui.invalidMessage("number");
         }
 
-        try{
-            NumberFormatException e =  new NumberFormatException() ;
+        try {
+            NumberFormatException e = new NumberFormatException();
             int maxDigit = Integer.parseInt(parameter.get("maximumDigits"));
-            if(maxDigit< MINIMUM_DIGIT){
-                System.out.println("maximum digits of operands  should be at least 1");
-
-                throw e ;
+            if (maxDigit < MINIMUM_DIGIT) {
+                System.out.println("Maximum digits of operands should be at least 1!");
+                throw e;
             }
-            if(maxDigit> MAXIMUM_DIGITS){
-                System.out.println("maximum digits of operands should be at most 9");
-                throw e ;
+            if (maxDigit > MAXIMUM_DIGITS) {
+                System.out.println("Maximum digits of operands should be at most 9!");
+                throw e;
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             parameter.remove("maximumDigits");
             Ui.invalidMessage("maximum of digits");
         }
 
-        try{
-            NumberFormatException e =  new NumberFormatException() ;
+        try {
+            NumberFormatException e = new NumberFormatException();
             int length = Integer.parseInt(parameter.get("length"));
-            if(length< MINIMUM_LENGTH){
-                System.out.println("number of operands should be at least 2");
-
-                throw e ;
+            if (length < MINIMUM_LENGTH) {
+                System.out.println("Number of operands should be at least 2!");
+                throw e;
             }
-            if(length>MAXIMUM_LENGTH){
-                System.out.println("number of operands should be at most 10");
-                throw e ;
+            if (length > MAXIMUM_LENGTH) {
+                System.out.println("Number of operands should be at most 10!");
+                throw e;
 
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             parameter.remove("length");
             Ui.invalidMessage("length");
         }
 
         String op = parameter.get("operators");
-        if(op!=null){
+        if (op != null) {
             for (char ch : op.toCharArray()) {
-                if ( VALID_OPERATORS.indexOf(ch) == -1) {// neither + - * or /
-                    System.out.println("operators should only be chosen from + - * and /");
+                if (VALID_OPERATORS.indexOf(ch) == -1) {// neither + - * or /
+                    System.out.println("Operators should only be chosen from + - * and /!");
                     parameter.remove("operators");
                     Ui.invalidMessage("operators");
                     break;
                 }
             }
-        }else {
+        } else {
             parameter.remove("operators");
             Ui.invalidMessage("operators");
         }
@@ -224,7 +222,6 @@ public class ProblemGenerator {
         }
         return sb;
     }
-
 
 }
 

@@ -2,55 +2,60 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+We would like to acknowledge the following sources which have been instrumental in the development of **MathGenius**:
 
+- [Markdown Guide](https://www.markdownguide.org/): A free and open-source reference guide that explains how to use Markdown, the simple and easy-to-use markup language you can use to format virtually any document.
+- [Stack Overflow](https://stackoverflow.com/): A platform for developers to learn, share their knowledge, and build their careers. We have referred to numerous threads on Stack Overflow to solve coding issues.
+
+We would also like to thank all the developers and contributors of these projects for their valuable tools and resources.
 ## Design & implementation
 
 ### The Overall UML Diagram:
-
 ![UML Diagram](assets/images/mathGenius.png)    
-
 
 ### The overall Sequence Diagram:
 ![Sequence Diagram](assets/images/sequenceDiagram.png)    
 
 
-
-### problemGenerator Component
+### ProblemGenerator Component
 API: [ProblemGenerator.java](../src/main/java/seedu/duke/ProblemGenerator.java)
 
-the main idea in the design of problemGenerator is that it take 4 parameters and generate a test which include some number of problems
+The `ProblemGenerator` component is designed to generate a set of math problems based on user-specified parameters. 
 
-
-when the gengerator is triggered, users enter a command like this:
+Users trigger the generator by entering a command in the following format:
 
     generate -t [operators] -n [number] -d [maximum digit] -l[length]
-for example , user can enter:
+For example, a user might enter:
 
     generate -t +-*/ -n 10 -d 2 -l 3
 
-in which case the parseCommand() will take the command and pass the parameters to generete().
+#### Command Parsing
+The `parseCommand()` function takes the user's command and extracts the parameters, which are then passed to the `generate()` function.
 
-generate() function will choose 3 random operand with max digits of 2, take a random operation from the operation set of  $+,-,*,/$ to form a single problem ,and loop the execution for 10 times to form a test
+#### Problem Generation
+The `generate()` function creates a single math problem by choosing three random operands (each with a maximum of two digits) and a random operation from the set of operators (+, -, *, /). This process is repeated the specified number of times to create a set of problems.
 
-if user missed some parameters ,defaultOptions() function will use pre-set default options and invoke UI to print a message for every missing parameter
+#### Default Options
+If a user omits some parameters, the `defaultOptions()` function fills in the gaps with pre-set default options. The UI then prints a message for each missing parameter to inform the user.
 
-the answer of the problem is calculated by calculator class while generating a problem, answer is stored in the problem class
+#### Answer Calculation
+The `Calculator` class calculates the answer to each problem during problem generation. The answer is then stored in the `Problem` class for later use.
+
 
 ### Checker Component  
 **API：[Checker.java](../src/main/java/seedu/duke/Checker.java)**   
-**How the `Checker` work:**  
-1. Every `Checker` was created with a `Test` class.   
-2. The `Checker` will ask user's input and compare the answer up to 2 decimal tolerance.   
-3. If the user input is not a number, the answer will automatically viewed as a incorrect answer.   
-4. The accuracy and the user's answers will be stored for UI or other class to access with the specific function.   
-5. The checker will also store the times that user use to caculate for the problemset.  
-6. The checker will also store the questions that user gave a wrong answer as well as the wrong answer.
-    
-**`Pseudo code` for reference:**  
-```
-# the brief pseudo code for how to check the answer
 
+#### How `Checker` Works:
+1. Each `Checker` instance is created with a `Test` class.
+2. The `Checker` prompts for user input and compares the answer with a tolerance of up to 2 decimal places.
+3. If the user input is not a number, the answer is automatically marked as incorrect.
+4. The accuracy and the user's answers are stored for UI or other classes to access with specific functions.
+5. The `Checker` also records the time taken by the user to solve the problem set.
+6. The `Checker` stores the questions for which the user provided a wrong answer, as well as the incorrect answers.
+    
+#### Pseudo Code for Reference:
+
+```
 correct = 0
 isCorrect = []
 wrongProblem = []
@@ -66,52 +71,56 @@ for problem in problem set:
         wrongProblem.append(problem)
         wrongAnswer.append(userInput)
         continue
-
 ```
-**next to be added for `Checker.java`:**  
-1. Support check on more types of problems (i.e Quadratic equation of one variable)   
-2. Give some explanation of the math problems.   
-3. Store the answer in array format to hand the function and matrix answer.
-   
-* To be added
+#### Future Enhancements for `Checker.java`:
 
-### Record Component - Design
+1. Support for checking more types of problems (e.g., Quadratic equations).
+2. Providing explanations for the math problems.
+3. Storing the answer in array format to handle function and matrix answers.
+
+### Record Component
 
 API: [Record.java](../src/main/java/seedu/duke/Record.java)
 
-The Record component:
+#### Design
 
-- a snapshot of a completed problem sets, including the individual problems, the date it was solved, the time taken to solve the problem set, and the accuracy of the attempt.
-- records the specifics of each problem, the unique ID(created using Java's default hashcode) of the problem set, for organized or filtered viewing of past records.
-- For the viewing of a record, users may choose whether to display the problem set specifics or not using the `showProbDetails` parameter.
-- When writing a record to external file, it's written into a single line in the format of "/dateTime(format:yyyy-MM-dd HH:mm:ss) /speed /accuracy /problemSetID /problems". For problems, each problem is separated by a space and is formatted in "/problemDescription,/problemAnswer"
+The `Record` component is a snapshot of completed problem sets. It includes:
 
-### Record Component - Implementation
+- Individual problems
+- The date the problem set was solved
+- The time taken to solve the problem set
+- The accuracy of the attempt
 
-- Store in each Record object an ArrayList of Problems objects for storing specifics of the attempted Problem Set.
-- When a problemSet solving is saved to a record **for the first time**, the corresponding Record object will create a unique ID for the problem set using Java's built-in hashCode method. When loading this record in the future and re-saving the data, the same ID will be used and no new IDs will be generated. This is achieved by using two different constructors for these two different situations.
+Each `Record` also stores the specifics of each problem and a unique ID (created using Java's default `hashCode`) for organized or filtered viewing of past records.
+
+Users can choose whether to display the problem set specifics or not using the `showProbDetails` parameter.
+
+When writing a record to an external file, it's written into a single line in the format of "/dateTime(format:yyyy-MM-dd HH:mm:ss) /speed /accuracy /problemSetID /problems". For problems, each problem is separated by a space and is formatted in "/problemDescription,/problemAnswer".
+
+#### Implementation
+
+Each `Record` object stores an ArrayList of `Problem` objects for storing specifics of the attempted Problem Set.
+
+When a problem set solving is saved to a record **for the first time**, the corresponding `Record` object will create a unique ID for the problem set using Java's built-in `hashCode` method. When loading this record in the future and re-saving the data, the same ID will be used and no new IDs will be generated. This is achieved by using two different constructors for these two different situations.
 
 **Code Snippet**
-```
+```java
 // the two different constructors
 public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet) {
-    setSpeed(speed);
-    setAccuracy(accuracy);
-    setDateTime(dateTime);
-    setProbSet(probSet);
-    psIndex = probSet.hashCode();
+   setSpeed(speed);
+   setAccuracy(accuracy);
+   setDateTime(dateTime);
+   setProbSet(probSet);
+   psIndex = probSet.hashCode();
 }
 
 public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<Problem> probSet, int psIndex) {
-    setSpeed(speed);
-    setAccuracy(accuracy);
-    setDateTime(dateTime);
-    setProbSet(probSet);
-    setPsIndex(psIndex);
+   setSpeed(speed);
+   setAccuracy(accuracy);
+   setDateTime(dateTime);
+   setProbSet(probSet);
+   setPsIndex(psIndex);
 }
-
-```
-- the `writeLine` method is used when writing a record to the external file, and the `print` method is used by the UI component when displaying a record to the user.
 
 ### Storage Component - Design
 
@@ -194,6 +203,7 @@ The product automates the generation of mathematical problems and their correspo
 |v1.0|a student who’s unfamiliar with mathematics terms|watch explanations and introductions to unfamiliar terms|strengthen understanding|
 |v1.0|primary school teacher|wcreate course or topic-specific arithmetic questions for students|teaching student more effortlessly|
 |v2.0|student who want to pracise solving foumula|generate various kinds of formula|practise the ability of solving math formula|
+|v2.1|student who want to pracise solving foumula|i want to have a smooth and user friendly program|enhance my Math ability efficiently|
 
 ## Non-Functional Requirements
 1. Should work on any mainstream OS as long as it has Java 11 or above installed.  
