@@ -57,7 +57,8 @@ public class Calculator {
         for (Object object : formula) {
             if (object instanceof Integer) {
                 suffix.add(object);
-            } else if (object instanceof String op) {
+            } else if (object instanceof String ) {
+                String op = (String) object;
 
                 if (opStack.empty()) {
                     opStack.push(op);
