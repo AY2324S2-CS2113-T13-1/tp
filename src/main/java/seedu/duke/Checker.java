@@ -111,13 +111,20 @@ public class Checker {
             userInput = ui.readCommand();
             userAnswer[i] = userInput;
             double answer = Double.NEGATIVE_INFINITY;
-            try {
-                answer = Double.parseDouble(userInput);
-            } catch (NumberFormatException e) {
-                ui.print("Invalid Input, please enter a number");
-                wrongAnswer.add(userInput);
-                wrongProblem.add(problem);
-                continue;
+            boolean isValid = false;
+            while (!isValid) {
+
+                try {
+                    answer = Double.parseDouble(userInput);
+                    isValid = true;
+                } catch (NumberFormatException e) {
+                    ui.print("Invalid Input, please enter a number");
+                    //wrongAnswer.add(userInput);
+                    //wrongProblem.add(problem);
+                    //continue;
+                    userInput = ui.readCommand();
+
+                }
             }
 
             if (checkCorrectness(problem, answer)) {
