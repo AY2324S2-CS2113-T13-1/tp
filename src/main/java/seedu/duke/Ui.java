@@ -1,6 +1,5 @@
 package seedu.duke;
 
-//import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,6 +46,7 @@ public class Ui {
             "Retry a problem set you have solved before in the past: \t" + "retry PROBLEM_SET_ID\n" +
                     "PROBLEM_SET_ID is an integer, and can be found by using the 'records' command.\n";
     private static final String EXIT_COMMAND = "Exit program: exit\n";
+
 
     private final String name;
     private final Scanner scanner = new Scanner(System.in);
