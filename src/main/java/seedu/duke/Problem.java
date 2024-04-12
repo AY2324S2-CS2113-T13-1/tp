@@ -1,13 +1,19 @@
 package seedu.duke;
 
+import java.util.List;
+
 public class Problem {
 
     private final String description;
     private final double answer;
+    private String explanations;
 
-    public Problem(String description, double answer) {
+    public Problem(String description, double answer, String explanations2) {
         this.description = description;
         this.answer = answer;
+        this.explanations = explanations2;
+        
+
     }
 
     public String solved() {
@@ -24,5 +30,9 @@ public class Problem {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getExplanations() {
+        return explanations;
     }
 }

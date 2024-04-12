@@ -24,77 +24,17 @@ public class Checker {
         this.time = 0;
     }
 
-    public static String getExplanation(Problem problem) {
-        String description = problem.getDescription();
-        String start = "Let's explain this problem by the following format:  " + "\n\n";
-        List<String> explanation = new ArrayList<>();
-        StringBuilder builder = new StringBuilder();
-        if (description.contains("+")) {
-            String[] parser = description.split("\\+");
-            double firstNumber = Double.parseDouble(parser[0]);
-            double secondNumber = Double.parseDouble(parser[1]);
-            String answerString = String.valueOf(problem.getAnswer());
-            String firstString = String.valueOf(firstNumber);
-            String secondString = String.valueOf(secondNumber);
-            //Shift the longer number to the first
-            if (firstString.length() < secondString.length()) {
-                String temp = firstString;
-                firstString = secondString;
-                secondString = temp;
-            }
-            explanation.add(firstString);
-            explanation.add("+" + "          " + secondString);
+    public static void showExplanation(Problem problem) {
+        String explanations = problem.getExplanations();
+        Ui ui = new Ui("");
+        ui.print("The explanation of the problem: " + problem.solved());
+        ui.print("Let us caculate it step by step:");
+        ui.print(explanations);
+        
+        ui.print("From all the steps above, we can get the answer: " + problem.solved()+"\n");
 
-        } else if (description.contains("-")) {
-            String[] parser = description.split("-");
-            double firstNumber = Double.parseDouble(parser[0]);
-            double secondNumber = Double.parseDouble(parser[1]);
-            String answerString = String.valueOf(problem.getAnswer());
-            String firstString = String.valueOf(firstNumber);
-            String secondString = String.valueOf(secondNumber);
-            //Shift the longer number to the first
-            if (firstString.length() < secondString.length()) {
-                String temp = firstString;
-                firstString = secondString;
-                secondString = temp;
-            }
-            explanation.add(firstString);
-            explanation.add("-" + "          " + secondString);
-
-        } else if (description.contains("*")) {
-            String[] parser = description.split("\\*");
-            double firstNumber = Double.parseDouble(parser[0]);
-            double secondNumber = Double.parseDouble(parser[1]);
-            String answerString = String.valueOf(problem.getAnswer());
-            String firstString = String.valueOf(firstNumber);
-            String secondString = String.valueOf(secondNumber);
-            //Shift the longer number to the first
-            if (firstString.length() < secondString.length()) {
-                String temp = firstString;
-                firstString = secondString;
-                secondString = temp;
-            }
-            explanation.add(firstString);
-            explanation.add("X" + "          " + secondString);
-        } else if (description.contains("/")) {
-            return "We do not support the explanation with division now!";
-        } else {
-            return "The format of the problem do not provide any explanation now!";
-        }
-        explanation.add("---------------------------------------");
-        explanation.add(String.valueOf(problem.getAnswer()));
-        for (String element : explanation) {
-            builder.append(String.format("%" + 20 + "s%n", element));
-        }
-        String alignedProblem = builder.toString();
-        String end = "You can compare your answer with the above function\n";
-        return start + alignedProblem + "\n" + end;
     }
 
-    public static void testExplanation() {
-        Problem testProblem = new Problem("99+9", 108);
-        System.out.println(getExplanation(testProblem));
-    }
 
     Boolean checkCorrectness(Problem problem, double answer) {
         return Math.abs(problem.getAnswer() - answer) < 0.01;
@@ -102,7 +42,7 @@ public class Checker {
 
     void getUserAnswer() {
         long startTime = System.currentTimeMillis();
-        ui.print("Press Enter to start answering the questions...");
+        ui.print("Press Enter to start answering the questions, you can type \"exit\" to quit the test when answering the question...");
         String userInput = ui.readCommand();
 
         for (int i = 0; i < test.getNumber(); i++) {
@@ -112,16 +52,19 @@ public class Checker {
             userAnswer[i] = userInput;
             double answer = Double.NEGATIVE_INFINITY;
             boolean isValid = false;
+            if (userInput.equals("exit")) {
+                ui.print("Exit the test! All the test not finished will be marked as wrong!");
+                break;
+            }
             while (!isValid) {
 
                 try {
                     answer = Double.parseDouble(userInput);
                     isValid = true;
                 } catch (NumberFormatException e) {
+            
                     ui.print("Invalid Input, please enter a number");
-                    //wrongAnswer.add(userInput);
-                    //wrongProblem.add(problem);
-                    //continue;
+                    ui.print(problem.unsolved());
                     userInput = ui.readCommand();
 
                 }

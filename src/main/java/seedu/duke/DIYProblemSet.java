@@ -15,6 +15,7 @@ public class DIYProblemSet {
         String description;
         String correctAnswer;
         double answer = 0.0;
+        String explanations = "";
         String quit = "";
         while (!quit.equals("y")) {
             ui.print("input the description of the problem (e.g. 1+2*3): ");
@@ -26,7 +27,7 @@ public class DIYProblemSet {
             } catch (NumberFormatException e) {
                 ui.print("Invalid answer! Please input a number.");
             }
-            Problem problem = new Problem(description,answer);
+            Problem problem = new Problem(description,answer,explanations);
             problemSet.add(problem);
             ui.print("Do you finish adding problems? y/n: ");
             quit = scanner.nextLine();
@@ -40,6 +41,7 @@ public class DIYProblemSet {
         ui.print("\nSuccessfully save the DIY problem set!");
         record.print(true);
         ui.print("\n");
+        scanner.close();
     }
 
 
