@@ -2,6 +2,7 @@ package seedu.duke;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static java.lang.Character.isDigit;
 
@@ -176,6 +177,7 @@ public class ProblemGenerator {
 
             StringBuilder descriptionBuilder = new StringBuilder();
             double answer;
+            String explanations;
             int max = (int) Math.pow(MAXIMUM_LENGTH, maxDigit);
 
             for (int j = 0; j < length; j++) {
@@ -189,12 +191,14 @@ public class ProblemGenerator {
             }
 
             descriptionBuilder = division_check(descriptionBuilder);
-
-            answer = Calculator.calculate(descriptionBuilder);
+            Calculator calculator = new Calculator();
+            answer = calculator.calculate(descriptionBuilder);
+            explanations = calculator.getExplanationsString();
             String description = descriptionBuilder.toString();
 
 
-            Problem p = new Problem(description, answer);
+
+            Problem p = new Problem(description, answer, explanations);
             System.out.println((i + 1) + ". " + p.unsolved());
             test.addToTest(p);
 

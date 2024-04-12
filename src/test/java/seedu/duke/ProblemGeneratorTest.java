@@ -102,6 +102,7 @@ public class ProblemGeneratorTest {
         formula.append(5);
         formula.append("*");
         formula.append(3);
-        assertEquals(Calculator.calculate(formula),85);
+        Calculator calculator = new Calculator();
+        assertEquals(calculator.calculate(formula),85);
     }
 }
