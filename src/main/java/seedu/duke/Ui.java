@@ -10,7 +10,7 @@ public class Ui {
 
     // Pre-defined sentences
     private static final String FIRSTTIME_INSTRUCTION =
-            "First time instruction: To generate a problem set, Input like below: \n" +
+            "First time instruction: To generate a problem set, Input like below:\n" +
                     "< generate -t [type] -n [number] -d [maximum digit] -l [number of operands] >";
     private static final String INPUT_INSTRUCTION =
             "Input Instructions:\n" +
@@ -77,7 +77,7 @@ public class Ui {
                 "|_|  |_|\\__,_|\\__|_| |_|\\____|\\___|_| |_|_|\\__,_|___/\n";
         System.out.println(logo);
         System.out.println("Hello! I'm " + name + "!");
-        System.out.println("Type 'help' to see all instructions. \n");
+        System.out.println("Type 'help' to see all instructions.\n");
         System.out.println(FIRSTTIME_INSTRUCTION);
         showLine();
     }

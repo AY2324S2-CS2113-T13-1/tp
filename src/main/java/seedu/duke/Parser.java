@@ -142,8 +142,8 @@ public class Parser {
             parseRetry(description, ui);
             break;
         case "DIY":
-            DIYProblemSet DIY = new DIYProblemSet();
-            DIY.addDIYProblemSet(ui);
+            DIYProblemSet diy = new DIYProblemSet();
+            diy.addDIYProblemSet(ui);
             break;
         case "help":
             ui.help(description);
