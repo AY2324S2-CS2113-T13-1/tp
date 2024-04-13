@@ -38,10 +38,10 @@ public class DIYProblemSet {
         }
         Record record = new Record(LocalDateTime.now(),0.0, 0.0,problemSet,ProblemSetType.USER_DIY.getValue());
         Storage.addRecord(record);
-        ui.print("\nSuccessfully save the DIY problem set!");
+        ui.print("Record successfully saved!");
         record.print(true);
-        ui.print("\n");
-        scanner.close();
+        ui.print("=========================");
+
     }
 
 
