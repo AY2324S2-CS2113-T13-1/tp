@@ -79,7 +79,24 @@ type the answer in the terminal and press ENTER/RETURN
 After finishing all the problem sets, the program will automate judged the correctness and output the accuracy and speed.
 
 ### DIY: `DIY`
+
 Add user DIY problem sets into our problem set datasets. The DIY problem set can also be saved and retried.
+
+**Format:** `DIY`
+
+- after input `DIY`:
+  1. System will output 
+   `Please input your DIY problemSet:
+    input the description of the problem (e.g. 1+2*3): `
+    user can input a user-defined problem into the system.
+  2. Then the System will ask for input:
+    `input the correct answer of the problem (e.g. 7): `
+    user should input the correct answer of the user-defined problem.
+  3. Then the System will ask:
+    `Do you finish adding problems? y/n: `
+    if user input `y`, which means no more problems will be added.
+    if user input `n`, the system will repeat step 1 to 3 until user input `y`.
+- user can see the type of the problem set, i.e. user - DIY or auto generated, in the records.
 
 ### Exit: `exit`
 
