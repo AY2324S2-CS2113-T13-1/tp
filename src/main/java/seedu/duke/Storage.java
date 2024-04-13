@@ -96,7 +96,7 @@ public class Storage {
 
         for (int i = minimumLength + 1; i < words.length; i++) {
             String[] term = words[i].split(",");
-            probSet.add(new Problem(term[0], Double.parseDouble(term[1])));
+            probSet.add(new Problem(term[0], Double.parseDouble(term[1]), null));
         }
 
 
@@ -139,6 +139,7 @@ public class Storage {
             writer.flush();
             System.out.println("Record successfully saved!");
             Ui.showLine();
+            writer.close();
 
         } catch (IOException e) {
             System.out.println("Error when saving record!");
