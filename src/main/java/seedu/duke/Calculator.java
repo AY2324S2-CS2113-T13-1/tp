@@ -35,14 +35,16 @@ public class Calculator {
     }
 
     private static String getExplanation(double num1, double num2, String op, double answer) {
-        String Start = "The computation of the problem: "+ String.valueOf(num1) + " " + op + " " + String.valueOf(num2) + " = " + String.valueOf(answer) + "\n\n";
+        String start = "The computation of the problem: "+
+                String.valueOf(num1) + " " + op + " " +
+                String.valueOf(num2) + " = " +
+                String.valueOf(answer) + "\n\n";
         List<String> explanation = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
         String alignedProblem = "";
         if (op.equals("/")){
             alignedProblem = "The division of " + num1 + " and " + num2 + " is " + answer + "\n";
-        }
-        else {
+        } else {
             String firstString = String.valueOf(num1);
             String secondString = String.valueOf(num2);
             String firstIntergerPart = firstString.split("\\.")[0];
@@ -60,9 +62,13 @@ public class Calculator {
             String secondDecimalPart = secondString.split("\\.")[1];
 
             if (firstDecimalPart.length() < secondDecimalPart.length()) {
-                firstString = firstString + new String(new char[secondDecimalPart.length() - firstDecimalPart.length()]).replace("\0", "0");
+                firstString = firstString +
+                        new String(new char[secondDecimalPart.length() -
+                                firstDecimalPart.length()]).replace("\0", "0");
             } else {
-                secondString = secondString + new String(new char[firstDecimalPart.length() - secondDecimalPart.length()]).replace("\0", "0");
+                secondString = secondString +
+                        new String(new char[firstDecimalPart.length() -
+                                secondDecimalPart.length()]).replace("\0", "0");
             }
 
             explanation.add(firstString.trim());
@@ -79,7 +85,7 @@ public class Calculator {
                 
 
         }
-        return Start + alignedProblem + "\n";
+        return start + alignedProblem + "\n";
     }
 
     private static double calculateTwo(double num1, double num2, String op) {

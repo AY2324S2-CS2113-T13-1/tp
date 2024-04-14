@@ -29,7 +29,7 @@ public class DIYProblemSet {
             }
             Problem problem = new Problem(description,answer,explanations);
             problemSet.add(problem);
-            ui.print("Do you finish adding problems? y/n: ");
+            ui.print("Have you finished adding problems? y/n: ");
             quit = scanner.nextLine();
             while (!quit.equals("y") && !quit.equals("n")) {
                 ui.print("input is invalid! Please input 'y' or 'n': ");

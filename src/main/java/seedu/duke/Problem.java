@@ -1,7 +1,5 @@
 package seedu.duke;
 
-import java.util.List;
-
 public class Problem {
 
     private final String description;

@@ -8,6 +8,7 @@ We would like to acknowledge the following sources which have been instrumental 
 - [Stack Overflow](https://stackoverflow.com/): A platform for developers to learn, share their knowledge, and build their careers. We have referred to numerous threads on Stack Overflow to solve coding issues.
 
 We would also like to thank all the developers and contributors of these projects for their valuable tools and resources.
+
 ## Design & implementation
 
 ### The Overall UML Diagram:
@@ -97,11 +98,15 @@ Users can choose whether to display the problem set specifics or not using the `
 
 When writing a record to an external file, it's written into a single line in the format of "/dateTime(format:yyyy-MM-dd HH:mm:ss) /speed /accuracy /problemSetID /problems". For problems, each problem is separated by a space and is formatted in "/problemDescription,/problemAnswer".
 
+The unique ID for problem sets can be used in the `retry` command to uniquely locate any problem set for the users to retry a previous problem set.
+
 #### Implementation
 
-Each `Record` object stores an ArrayList of `Problem` objects for storing specifics of the attempted Problem Set.
+- Each `Record` object stores an ArrayList of `Problem` objects for storing specifics of the attempted Problem Set.
 
-When a problem set solving is saved to a record **for the first time**, the corresponding `Record` object will create a unique ID for the problem set using Java's built-in `hashCode` method. When loading this record in the future and re-saving the data, the same ID will be used and no new IDs will be generated. This is achieved by using two different constructors for these two different situations.
+- When a problem set solving is saved to a record **for the first time**, the corresponding `Record` object will create a unique ID for the problem set using Java's built-in `hashCode` method. When loading this record in the future and re-saving the data, the same ID will be used and no new IDs will be generated. This is achieved by using two different constructors for these two different situations.
+
+- Another purpose for the two different constructors: the first one does not include a preset problem set ID as an argument, this is used when the problem set the users solved is done through the `generate` command, each generated problem sets will automatically be assigned a random hashcode as its ID. The second one does contain a problem set ID as an argument, this is for when the user uses the `retry` command to retry a past problem set in the records, thus, the new record should use the same ID as the last, since it's the same problem set.
 
 **Code Snippet**
 ```
@@ -122,9 +127,11 @@ public Record(LocalDateTime dateTime, double speed, double accuracy, ArrayList<P
    setPsIndex(psIndex);
 }
 ```
-### Storage Component - Design
+### Storage Component
 
 API: [Storage.java](../src/main/java/seedu/duke/Storage.java)
+
+#### Design
 
 The Storage Component:
 
@@ -134,7 +141,7 @@ The Storage Component:
 - stores a list of Record objects for reading / writing, each Record is stored on a single, separate line. Formatting of each line is explained in the Record section.
 - The record list can be sorted by multiple parameters, including dateTime, speed, accuracy, problem set ID. This is used by the UI component to display users' past records in any order they desire. 
 
-### Storage Component - Implementation
+### Implementation
 
 - Uses a list of Record objects to store all past attempts
 - Uses Java's built-in BufferedReader, FileReader, BufferedWriter, FileWriter to write / read properly all information of all problem sets
@@ -157,11 +164,11 @@ The DIYProblemSet class is responsible for creating and managing a user-defined 
         }
     }
 ```
- ## Class Variables
+#### Class Variables
 
     problemSet: An ArrayList of type Problem to store the user-defined problems.
 
- ## Class Methods
+#### Class Methods
     
 ```
     public DIYProblemSet()
@@ -173,7 +180,8 @@ The DIYProblemSet class is responsible for creating and managing a user-defined 
 ```
   This method allows users to input their DIY problem set. It prompts for the problem description and correct answer, validates the input, and adds the problem to the problemSet. Once the user finishes adding problems, it creates a new Record object with the current timestamp, total correct answers set to 0, total time taken set to 0, the problemSet, and the problem set type as USER_DIY. It then saves the record using the Storage.addRecord() method and displays a success message along with the details of the saved problem set.
 
- ## Method Flow
+#### Method Flow
+
 1. Create a new Scanner object to read user input.
 2. Prompt the user to input their DIY problem set.
 3. Inside a loop that continues until the user indicates they have finished adding problems:
@@ -191,7 +199,7 @@ The DIYProblemSet class is responsible for creating and managing a user-defined 
 
 ### Testcase Component
 
-   # Proposed Implementation
+#### Proposed Implementation
  The proposed test mechanism is facilitated by ProblemGeneratorTest, CheckerTest. It check the correctness of the generated problemsets' types,
 number of questions and max digits, by comparing the generated output to the user input.
 
@@ -203,19 +211,19 @@ number of questions and max digits, by comparing the generated output to the use
 
 Given below is an example usage scenario and how the test behaves.
 
-Step 1. The user launch the ProblemGeneratorTest and run the operator testcase. The ProblemGeneratorTest#operatorTest() will loop through all the 
+- Step 1. The user launch the ProblemGeneratorTest and run the operator testcase. The ProblemGeneratorTest#operatorTest() will loop through all the 
 commands in the data member "commands" and allocate each commands to its corresponding test case. During this process, a ProblemGenerator pb is 
 generated, and the problem sets it generates by calling ProblemGenerator#typeChoose will be store in variable #test#, then the problem set will be
 extracted using Test#getProblem(). After that, for every problem in the generated problem set, the assertTrue will check if the type of these problem 
 matches with the user input type. If all of them matches, it will successfully output the generated dataset, else, it will output the problem with 
 incorrect format.
 
-Step 2. The user launch the ProblemGeneratorTest and run the number testcase. The ProblemGeneratorTest#numberTest() will loop through all the commands
+- Step 2. The user launch the ProblemGeneratorTest and run the number testcase. The ProblemGeneratorTest#numberTest() will loop through all the commands
 in the data member #commands# and call ProblemGeneratorTest#parseCommand to parse the input command to get a hashmap with the input type, number and digits
 information. Then generate a new ProblemGenerator and use ProblemGenerator#typeChoose to collect the generated problem, then use assertEquals to compare 
 the user input number with the generated number of questions.
 
-Step 3. The user launch the ProblemGeneratorTest and run the digit testcase. The ProblemGeneratorTest#digitTest() will loop through all the commands
+- Step 3. The user launch the ProblemGeneratorTest and run the digit testcase. The ProblemGeneratorTest#digitTest() will loop through all the commands
 in the data member #commands# and call ProblemGeneratorTest#parseCommand to parse the input command to get a hashmap with the input type, number and digits
 information. Then generate a new ProblemGenerator and use ProblemGenerator#typeChoose to collect the generated problem,then for every problem, call 
 ProblemGeneratorTest#parseNumbers to extract the digits in the problem, then use assertTrue to verify if the input max digit is greater or equal to the digits
@@ -225,6 +233,7 @@ The features going to be implement:
   testcases for generating long problem sets questions and check answer, as well as the testcases for UI, Checker, and Storage.
 
 Details for implementation:
+
 1. Testcases for generating long problem sets questions:
    implement specific input and call assertTrue to verify if the generated long problem sets has the desired format.
 2. Testcases for checker :
