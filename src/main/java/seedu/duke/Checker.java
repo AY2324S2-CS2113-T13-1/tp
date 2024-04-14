@@ -42,7 +42,8 @@ public class Checker {
 
     void getUserAnswer() {
         long startTime = System.currentTimeMillis();
-        ui.print("Press Enter to start answering the questions, you can type \"exit\" to quit the test when answering the question...");
+        ui.print("Press Enter to start answering the questions, " +
+                "you can type \"exit\" to quit the test when answering the question...");
         String userInput = ui.readCommand();
 
         for (int i = 0; i < test.getNumber(); i++) {

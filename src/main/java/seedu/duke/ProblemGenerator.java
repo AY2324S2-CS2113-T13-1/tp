@@ -2,7 +2,6 @@ package seedu.duke;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static java.lang.Character.isDigit;
 

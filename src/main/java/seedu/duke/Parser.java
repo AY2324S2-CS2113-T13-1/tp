@@ -83,12 +83,15 @@ public class Parser {
             ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
             ui.print("Correct Answer: " + problem.solved());
             // need further implementation for 3 more operators
-            ui.print("If you want to see the explanation, type exp or explanation, else just type enter, type exit to stop showing the answer");
+            ui.print("If you want to see the explanation, type exp or explanation, else just type enter, " +
+                    "type exit to stop showing the answer");
             String userInput = ui.readCommand();
-            if(userInput.equals("exit"))
+            if(userInput.equals("exit")) {
                 break;
-            if(userInput.equals("exp")||userInput.equals("explanation"))
+            }
+            if(userInput.equals("exp")||userInput.equals("explanation")) {
                 Checker.showExplanation(problem);
+            }
         }
 
         // Storage write to file
