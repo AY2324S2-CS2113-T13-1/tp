@@ -3,18 +3,38 @@
 class Ui {
     -name: String
     -scanner: Scanner
-    -PROBLEM_FORM: String
+    -FIRST_INSTRUCTION: String
     -INPUT_INSTRUCTION: String
     -GEN_COMMAND: String
     -HELP_COMMAND: String
+    -RECORDS_COMMAND: String
+    -RETRY_COMMAND: String
+    -DIY_COMMAND: String
+    -EXPLANATION_START: String
+    -EXPLANATION_END: String
+    -WRONG_ANSWER: String
+    -START_ANSWER_TEST: String
+    -EXIT_TEST: String
+    -TEST_FINISH: String
+    -EXIT_COMMAND: String
     +Ui(name: String)
     +greet(): void
     +readCommand(): String
     +showLine(): void
     +help(helpType: String): void
+    +print(string: String): void
+    +printRecords(records: ArrayList<Record>, showProbDetails: boolean): void
     +invalidCommand(): void
+    +invalidParameter(command: String): void
+    +static invalidMessage(parameters: String): void
+    +static missingMessage(parameters: String): void
+    +showExplanation(): void
+    +showExplanationEnd(): void
+    +showWrongAnswer(i: int): void
+    +startAnswerTest(): void
+    +exitTest(): void
+    +showTestResult(acc: double, time: long): void
     +exit(): void
-    +missingMessage(parameters: String): void
 }
 
 @enduml

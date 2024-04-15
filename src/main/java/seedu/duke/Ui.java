@@ -69,9 +69,6 @@ public class Ui {
             "2.You can type \"exit\" to quit the test when answering the question.\n"+
             "3.You may round the answer to 2 decimal places for complex answers.";
 
-    private static final String EXIT_TEST =
-            "Exit the test! All the test not finished will be marked as wrong! No explanation for them!";
-
     private static final String TEST_FINISH =
             "TEST FINISHED! \n"+
             "Here is your test result: ";
@@ -225,17 +222,6 @@ public class Ui {
         System.out.println("You have " + i + " wrong answers.");
         System.out.println(WRONG_ANSWER);
         System.out.println("The following " + i + " answers you gave are wrong: ");
-        showLine();
-    }
-
-    public void startAnswerTest() {
-        showLine();
-        System.out.println(START_ANSWER_TEST);
-        showLine();
-    }
-
-    public void exitTest() {
-        System.out.println(EXIT_TEST);
         showLine();
     }
     
