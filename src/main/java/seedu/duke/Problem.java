@@ -10,8 +10,6 @@ public class Problem {
         this.description = description;
         this.answer = answer;
         this.explanations = explanations2;
-        
-
     }
 
     public String solved() {

@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class DIYProblemSet {
     ArrayList<Problem> problemSet;
+
     public DIYProblemSet() {
         problemSet = new ArrayList<>();
     }
+
     public void addDIYProblemSet(Ui ui) {
         Scanner scanner = new Scanner(System.in);
         ui.print("Please input your DIY problemSet: ");
@@ -23,7 +25,7 @@ public class DIYProblemSet {
             ui.print("input the correct answer of the problem (e.g. 7): ");
             correctAnswer = scanner.nextLine();
             boolean isValidAnswer = false;
-            while(isValidAnswer == false){
+            while (!isValidAnswer) {
                 try {
                     answer = Double.parseDouble(correctAnswer);
                     isValidAnswer = true;
@@ -34,7 +36,7 @@ public class DIYProblemSet {
             }
 
 
-            Problem problem = new Problem(description,answer,explanations);
+            Problem problem = new Problem(description, answer, explanations);
             problemSet.add(problem);
             ui.print("Have you finished adding problems? y/n: ");
             quit = scanner.nextLine();
@@ -43,12 +45,11 @@ public class DIYProblemSet {
                 quit = scanner.nextLine();
             }
         }
-        Record record = new Record(LocalDateTime.now(),0.0, 0.0,problemSet,ProblemSetType.USER_DIY.getValue());
+        Record record = new Record(LocalDateTime.now(), 0.0, 0.0, problemSet, ProblemSetType.USER_DIY.getValue());
         Storage.addRecord(record);
         ui.print("Record successfully saved!");
         record.print(true);
-        ui.print("=========================");
-
+        Ui.showLine();
     }
 
 
