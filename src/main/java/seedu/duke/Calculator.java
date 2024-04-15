@@ -30,27 +30,26 @@ public class Calculator {
         }
         assert numStack.size() == 1 : "wrong formula";
         // round to 3 decimal places
-        Double result = Math.round(numStack.peek() * 1000.0) / 1000.0;
-        return result;
+        return Math.round(numStack.peek() * 1000.0) / 1000.0;
     }
 
     private static String getExplanation(double num1, double num2, String op, double answer) {
         String start = "The computation of the problem: " +
-                String.valueOf(num1) + " " + op + " " +
-                String.valueOf(num2) + " = " +
-                String.valueOf(answer) + "\n\n";
+                num1 + " " + op + " " +
+                num2 + " = " +
+                answer + "\n\n";
         List<String> explanation = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
-        String alignedProblem = "";
+        String alignedProblem;
         if (op.equals("/")) {
             alignedProblem = "The division of " + num1 + " and " + num2 + " is " + answer + "\n";
         } else {
             String firstString = String.valueOf(num1);
             String secondString = String.valueOf(num2);
-            String firstIntergerPart = firstString.split("\\.")[0];
-            String secondIntergerPart = secondString.split("\\.")[0];
+            String firstIntegerPart = firstString.split("\\.")[0];
+            String secondIntegerPart = secondString.split("\\.")[0];
             // Put the longer number in the first place
-            if (firstIntergerPart.length() < secondIntergerPart.length()) {
+            if (firstIntegerPart.length() < secondIntegerPart.length()) {
                 String temp = firstString;
                 firstString = secondString;
                 secondString = temp;
@@ -190,14 +189,10 @@ public class Calculator {
         return formula;
     }
 
-    public List<String> getExplanations() {
-        return explanations;
-    }
-
     public String getExplanationsString() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < explanations.size(); i++) {
-            builder.append(String.valueOf(i+1) + ". " + explanations.get(i));
+            builder.append(i + 1).append(". ").append(explanations.get(i));
         }
         return builder.toString();
     }

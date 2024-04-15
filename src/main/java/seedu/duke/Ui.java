@@ -53,7 +53,7 @@ public class Ui {
     private static final String EXIT_COMMAND = "Exit program: exit\n";
 
     private static final String EXPLANATION_START = 
-            "Explanation Instruction: \n" +
+            "\nExplanation Instruction: \n" +
             "1.To view the explanation of a problem, type 'explanation' or 'exp'.\n" +
             "2. The explanation of the problem will be shown step by step with the formulation of column caculation.\n" +
             "3. If you want to exit the explanation, type 'exit'.";
