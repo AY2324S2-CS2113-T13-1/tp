@@ -71,21 +71,22 @@ public class Parser {
     public static void solveProbSet(Test test, Ui ui, boolean retry, int id) {
         Checker checker = new Checker(test);
         checker.getUserAnswer();
-        String accRate = String.format("%.2f", checker.getAccuracy() * 100);
-        ui.print("Acc: " + accRate + "%");
-        ui.print("Spend Time: " + checker.getTime() + "s");
+        // Use the % format to print acc
+        ui.showTestResult(checker.getAccuracy(), checker.getTime());
+        
+
+        // Show the wrong answer
         List<String> wrongAnswer = checker.getWrongAnswer();
         List<Problem> wrongProblem = checker.getWrongProblem();
-        ui.print("The following " + wrongProblem.size() + " answers you gave are wrong: \n");
 
+        ui.showWrongAnswer(wrongProblem.size());
         for (int i = 0; i < wrongProblem.size(); i++) {
             Problem problem = wrongProblem.get(i);
             ui.print("The " + (i + 1) + "th wrong answer of you: ");
             ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
             ui.print("Correct Answer: " + problem.solved());
-            // need further implementation for 3 more operators
-            ui.print("If you want to see the explanation, type exp or explanation, else just type enter, " +
-                    "type exit to stop showing the answer");
+            ui.showExplanation();
+
             String userInput = ui.readCommand();
             if (userInput.equals("exit")) {
                 break;
@@ -93,6 +94,8 @@ public class Parser {
             if (userInput.equals("exp") || userInput.equals("explanation")) {
                 Checker.showExplanation(problem);
             }
+            
+            ui.showExplanationEnd();
         }
 
         // Storage write to file

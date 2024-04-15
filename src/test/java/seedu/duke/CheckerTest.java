@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckerTest {
-    private Checker checker;
 
     @org.junit.jupiter.api.Test
     public void sampleTest() {
