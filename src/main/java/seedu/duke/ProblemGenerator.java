@@ -173,7 +173,7 @@ public class ProblemGenerator {
         Test test = new Test(op, maxDigit, number, length);
         
         Ui.showLine();
-        System.out.println("Generating " + number + " problems...");
+        System.out.println("Generating " + number + " problems, you can preview them below:");
         
 
         for (int i = 0; i < number; i++) {
