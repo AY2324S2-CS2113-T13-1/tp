@@ -1,17 +1,36 @@
 @startuml
 
 package seedu.duke {
-    class ProblemGenerator {
-        -DEFAULT_NUMBER: String = "10"
-        -DEFAULT_MAX_DIGITS: String = "2"
-        -DEFAULT_OPERATORS: String = "+-*/"
-        -PROBLEM_FORM: String
-        -in: Scanner
-        +typeChoose(): Test
-        -generate(parameter: HashMap<String, String>): Test
-        +parseCommand(command: String): HashMap<String, String>
-        -defaultOptions(command: String, options: HashMap<String, String>): void
-    }
+
+
+   class ProblemGenerator {
+       - MINIMUM_NUMBER: int
+       - MAXIMUM_NUMBER: int
+       - MINIMUM_DIGIT: int
+       - MAXIMUM_DIGITS: int
+       - MINIMUM_LENGTH: int
+       - VALID_OPERATORS: String
+       - MAXIMUM_LENGTH: int
+       - DEFAULT_NUMBER: String
+       - DEFAULT_MAX_DIGITS: String
+       - DEFAULT_OPERATORS: String
+       - DEFAULT_LENGTH: String
+       + parseCommand(command: String): HashMap<String, String>
+       - defaultOptions(options: HashMap<String, String>): HashMap<String, String>
+       + typeChoose(command: String): Test
+       - checkValidity(parameter: HashMap<String, String>): HashMap<String, String>
+       - checkOperations(parameter: HashMap<String, String>)
+       - checkLength(parameter: HashMap<String, String>)
+       - checkMaxDigit(parameter: HashMap<String, String>)
+       - checkNumber(parameter: HashMap<String, String>)
+       - generate(parameter: HashMap<String, String>): Test
+       - buildFormula(length: int, max: int, descriptionBuilder: StringBuilder, operations: ArrayList<String>)
+       - getOperations(op: String): ArrayList<String>
+       - division_check(sb: StringBuilder): StringBuilder
+   }
+
+
+
 
     class Test {
             -operators: String
@@ -34,6 +53,16 @@ package seedu.duke {
     class Ui {
         +missingMessage(option: String): void
     }
+    class Calculator {
+        - Stack<Double> numStack
+        - Stack<String> opStack
+        + calculate(sb: StringBuilder): double
+        - calculateTwo(num1: double, num2: double, op: String): double
+        - toSuffix(formula: ArrayList<Object>): ArrayList<Object>
+        - prior(op1: String, op2: String): boolean
+        - getPriority(op: String): int
+        - toFormula(sb: StringBuilder): ArrayList<Object>
+    }
 }
 
 
@@ -42,5 +71,5 @@ Test --> Problem: contains
 ProblemGenerator --> Test: create
 ProblemGenerator --> Test: generate
 ProblemGenerator --> Ui: displayMessage
-
+ProblemGenerator --> Calculator : calculate
 @enduml
