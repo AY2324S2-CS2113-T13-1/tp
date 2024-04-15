@@ -17,10 +17,11 @@ public class Parser {
                 System.out.println("    " + problem.getDescription());
             }
             solveProbSet(test, ui, true, id);
-        } catch(Exception e) {
+        } catch (Exception e) {
             ui.print("failed to parse a valid problem set ID. Please double-check format.");
         }
     }
+
     public static void parseRecord(String description, Ui ui) {
         String[] tokens = description.split(" ");
         int spdSortOp = 0;
@@ -29,12 +30,12 @@ public class Parser {
         int probSortOp = 0;
         boolean probShowDetails = false;
         for (String token : tokens) {
-            if(token.isEmpty()) {
+            if (token.isEmpty()) {
                 continue;
             }
             if (token.equals("-details")) {
                 probShowDetails = true;
-            } else if(token.length() > 3) {
+            } else if (token.length() > 3) {
                 ui.invalidParameter("records");
                 return;
             }
@@ -81,16 +82,16 @@ public class Parser {
         ui.showWrongAnswer(wrongProblem.size());
         for (int i = 0; i < wrongProblem.size(); i++) {
             Problem problem = wrongProblem.get(i);
-            ui.print("The "+ String.valueOf(i+1)+"th wrong answer of you: ");
+            ui.print("The " + (i + 1) + "th wrong answer of you: ");
             ui.print("Your answer: " + problem.getDescription() + " = " + wrongAnswer.get(i));
             ui.print("Correct Answer: " + problem.solved());
             ui.showExplanation();
 
             String userInput = ui.readCommand();
-            if(userInput.equals("exit")) {
+            if (userInput.equals("exit")) {
                 break;
             }
-            if(userInput.equals("exp")||userInput.equals("explanation")) {
+            if (userInput.equals("exp") || userInput.equals("explanation")) {
                 Checker.showExplanation(problem);
             }
             
@@ -128,8 +129,6 @@ public class Parser {
          * help
          */
 
-
-        //ui.help("");
         // Split the command into two parts: action and description
         String[] parts = command.split(" ", 2);
         String action = parts[0];
@@ -139,8 +138,6 @@ public class Parser {
         }
 
         switch (action) {
-        //case "": // by default, it will be "gen"
-        // I deleted this "backdoor" at 4.15 18:19  ycg
         case "gen":
         case "generate":
             ProblemGenerator pb = new ProblemGenerator();
