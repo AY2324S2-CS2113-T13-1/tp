@@ -2,7 +2,6 @@ package seedu.duke;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static java.lang.Character.isDigit;
 
@@ -172,6 +171,10 @@ public class ProblemGenerator {
 
 
         Test test = new Test(op, maxDigit, number, length);
+        
+        Ui.showLine();
+        System.out.println("Generating " + number + " problems...");
+        
 
         for (int i = 0; i < number; i++) {
 

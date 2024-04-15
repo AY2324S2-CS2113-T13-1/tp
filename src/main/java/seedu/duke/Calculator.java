@@ -8,12 +8,12 @@ import static java.lang.Character.isDigit;
 
 public class Calculator {
     
-    private static List<String> explanations = new ArrayList<>();
+    private static List<String> explanations;
 
     public double calculate(StringBuilder sb) {
         Stack<Double> numStack = new Stack<>();
         Stack<String> opStack = new Stack<>();
-
+        explanations = new ArrayList<>();
         ArrayList<Object> formula = toFormula(sb);
         ArrayList<Object> suffix = toSuffix(formula);
         for (Object object : suffix) {
@@ -35,18 +35,21 @@ public class Calculator {
     }
 
     private static String getExplanation(double num1, double num2, String op, double answer) {
-        String Start = "The computation of the problem: "+ String.valueOf(num1) + " " + op + " " + String.valueOf(num2) + " = " + String.valueOf(answer) + "\n\n";
+        String start = "The computation of the problem: "+
+                String.valueOf(num1) + " " + op + " " +
+                String.valueOf(num2) + " = " +
+                String.valueOf(answer) + "\n\n";
         List<String> explanation = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
         String alignedProblem = "";
         if (op.equals("/")){
             alignedProblem = "The division of " + num1 + " and " + num2 + " is " + answer + "\n";
-        }
-        else {
+        } else {
             String firstString = String.valueOf(num1);
             String secondString = String.valueOf(num2);
             String firstIntergerPart = firstString.split("\\.")[0];
             String secondIntergerPart = secondString.split("\\.")[0];
+            // Put the longer number in the first place
             if (firstIntergerPart.length() < secondIntergerPart.length()) {
                 String temp = firstString;
                 firstString = secondString;
@@ -60,9 +63,13 @@ public class Calculator {
             String secondDecimalPart = secondString.split("\\.")[1];
 
             if (firstDecimalPart.length() < secondDecimalPart.length()) {
-                firstString = firstString + new String(new char[secondDecimalPart.length() - firstDecimalPart.length()]).replace("\0", "0");
+                firstString = firstString +
+                        new String(new char[secondDecimalPart.length() -
+                                firstDecimalPart.length()]).replace("\0", "0");
             } else {
-                secondString = secondString + new String(new char[firstDecimalPart.length() - secondDecimalPart.length()]).replace("\0", "0");
+                secondString = secondString +
+                        new String(new char[firstDecimalPart.length() -
+                                secondDecimalPart.length()]).replace("\0", "0");
             }
 
             explanation.add(firstString.trim());
@@ -74,12 +81,8 @@ public class Calculator {
             }
             alignedProblem = builder.toString();
 
-            
-
-                
-
         }
-        return Start + alignedProblem + "\n";
+        return start + alignedProblem + "\n";
     }
 
     private static double calculateTwo(double num1, double num2, String op) {
@@ -193,8 +196,8 @@ public class Calculator {
 
     public String getExplanationsString() {
         StringBuilder builder = new StringBuilder();
-        for (String explanation : explanations) {
-            builder.append(explanation);
+        for (int i = 0; i < explanations.size(); i++) {
+            builder.append(String.valueOf(i+1) + ". " + explanations.get(i));
         }
         return builder.toString();
     }

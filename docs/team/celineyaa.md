@@ -1,17 +1,19 @@
-# Yuhao ZHANG
+# LIN Siyan's Project Portfolio Page
 
 ## Overview of `MathGenius`
 **`MathGenius`** is a user-friendly application that provides a platform to enhance your equation-solving abilities. Whether you're a student learning calculation, a math enthusiast looking to sharpen your skills, or a teacher preparing for exams/lessons, this application is here to support you.
 
 ## Summary of Contribution
-[**link to the code**](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=celineyaa&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)   
 In the project `MathGenius`, I am in conduct of implement the `DIYProblemSet` part and test cases part. For the `DIYProblemSet` which is to add user-DIY problem sets into our problem sets database. And for the testcases part, they are used to test the functionality of classes.
 In the `UserGuide`,I am in conduct of writing the corresponding parts of the guidance.    
 In the `Development Guide`, I am in conduct of writing the `testcases` part, `DIYProblemSet`part and `Instructions for manual testing`part. 
 Of the team base tasks, I attend weekly meeting most of the time and do the allocated tasks as soon as possible.
 I also help to check the correctness of others part and provide advices on the improvements.
 
-## Project management:
+## Code Contribution
+[**link to the code**](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=celineyaa&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)   
+
+## Project Management:
 Managed release `v1.0` on GitHub  
 
 ## Challenges:
