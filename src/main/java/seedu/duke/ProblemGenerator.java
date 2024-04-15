@@ -54,7 +54,6 @@ public class ProblemGenerator {
                 break;
             }
         }
-
         return options;
     }
 
@@ -106,22 +105,56 @@ public class ProblemGenerator {
      * @return The updated HashMap with valid parameters.
      */
     private HashMap<String, String> checkValidity(HashMap<String, String> parameter) {
-        try {
-            NumberFormatException e = new NumberFormatException();
-            int number = Integer.parseInt(parameter.get("number"));
-            if (number < MINIMUM_NUMBER) {
-                System.out.println("Number of problems should be at least 1!");
-                throw e;
+
+        checkNumber(parameter);
+
+        checkMaxDigit(parameter);
+
+        checkLength(parameter);
+        checkOperations(parameter);
+        return parameter;
+
+    }
+
+    private static void checkOperations(HashMap<String, String> parameter) {
+        String op = parameter.get("operators");
+        if (op != null) {
+            for (char ch : op.toCharArray()) {
+                if (VALID_OPERATORS.indexOf(ch) == -1) {// neither + - * or /
+                    System.out.println("Operators should only be chosen from + - * and /!");
+                    parameter.remove("operators");
+                    Ui.invalidMessage("operators");
+                    break;
+                }
             }
-            if (number > MAXIMUM_NUMBER) {
-                System.out.println("Number of problems should be at most 100!");
-                throw e;
-            }
-        } catch (NumberFormatException e) {
-            parameter.remove("number");
-            Ui.invalidMessage("number");
+        } else {
+            parameter.remove("operators");
+            Ui.invalidMessage("operators");
         }
 
+    }
+
+    private static void checkLength(HashMap<String, String> parameter) {
+        try {
+            NumberFormatException e = new NumberFormatException();
+            int length = Integer.parseInt(parameter.get("length"));
+            if (length < MINIMUM_LENGTH) {
+                System.out.println("Number of operands should be at least 2!");
+
+                throw e;
+            }
+            if (length > MAXIMUM_LENGTH) {
+                System.out.println("Number of operands should be at most 10!");
+                throw e;
+
+            }
+        } catch (NumberFormatException e) {
+            parameter.remove("length");
+            Ui.invalidMessage("length");
+        }
+    }
+
+    private static void checkMaxDigit(HashMap<String, String> parameter) {
         try {
             NumberFormatException e = new NumberFormatException();
             int maxDigit = Integer.parseInt(parameter.get("maximumDigits"));
@@ -137,38 +170,25 @@ public class ProblemGenerator {
             parameter.remove("maximumDigits");
             Ui.invalidMessage("maximum of digits");
         }
+    }
 
+    private static void checkNumber(HashMap<String, String> parameter) {
         try {
             NumberFormatException e = new NumberFormatException();
-            int length = Integer.parseInt(parameter.get("length"));
-            if (length < MINIMUM_LENGTH) {
-                System.out.println("Number of operands should be at least 2!");
+            int number = Integer.parseInt(parameter.get("number"));
+            if (number < MINIMUM_NUMBER) {
+                System.out.println("Number of problems should be at least 1!");
+
                 throw e;
             }
-            if (length > MAXIMUM_LENGTH) {
-                System.out.println("Number of operands should be at most 10!");
+            if (number > MAXIMUM_NUMBER) {
+                System.out.println("Number of problems should be at most 100!");
                 throw e;
             }
         } catch (NumberFormatException e) {
-            parameter.remove("length");
-            Ui.invalidMessage("length");
+            parameter.remove("number");
+            Ui.invalidMessage("number");
         }
-
-        String op = parameter.get("operators");
-        if (op != null) {
-            for (char ch : op.toCharArray()) {
-                if (VALID_OPERATORS.indexOf(ch) == -1) {// neither + - * or /
-                    System.out.println("Operators should only be chosen from + - * and /!");
-                    parameter.remove("operators");
-                    Ui.invalidMessage("operators");
-                    break;
-                }
-            }
-        } else {
-            parameter.remove("operators");
-            Ui.invalidMessage("operators");
-        }
-        return parameter;
     }
 
     /**
@@ -183,25 +203,10 @@ public class ProblemGenerator {
         int maxDigit = Integer.parseInt(parameter.get("maximumDigits"));
         String op = parameter.get("operators");
         int length = Integer.parseInt(parameter.get("length"));
-        ArrayList<String> operations = new ArrayList<>();
-
-        if (op.contains("+")) {
-            operations.add("+");
-        }
-        if (op.contains("-")) {
-            operations.add("-");
-        }
-        if (op.contains("*")) {
-            operations.add("*");
-        }
-        if (op.contains("/")) {
-            operations.add("/");
-        }
-
         Test test = new Test(op, maxDigit, number, length);
 
-        Ui.showLine();
-        System.out.println("Generating " + number + " problems, you can preview them below:");
+        ArrayList<String> operations = getOperations(op);
+
 
         for (int i = 0; i < number; i++) {
             StringBuilder descriptionBuilder = new StringBuilder();
@@ -209,15 +214,7 @@ public class ProblemGenerator {
             String explanations;
             int max = (int) Math.pow(MAXIMUM_LENGTH, maxDigit);
 
-            for (int j = 0; j < length; j++) {
-                int tempRandomNumber = (int) (Math.random() * max);
-                descriptionBuilder.append(tempRandomNumber);
-
-                if (j != length - 1) {
-                    String tempRandomOperator = operations.get((int) (Math.random() * operations.size()));
-                    descriptionBuilder.append(tempRandomOperator);
-                }
-            }
+            buildFormula(length, max, descriptionBuilder, operations);
 
             descriptionBuilder = division_check(descriptionBuilder);
             Calculator calculator = new Calculator();
@@ -232,13 +229,36 @@ public class ProblemGenerator {
         return test;
     }
 
-    /**
-     * This method checks the generated description for division operations and replaces the divisor
-     * with a non-zero one-digit number.
-     *
-     * @param sb The StringBuilder containing the description.
-     * @return The updated StringBuilder with replaced divisors.
-     */
+    private void buildFormula(int length, int max, StringBuilder descriptionBuilder, ArrayList<String> operations) {
+        for (int j = 0; j < length; j++) {
+            int tempRandomNumber = (int) (Math.random() * max);
+            descriptionBuilder.append(tempRandomNumber);
+
+            if (j != length - 1) {
+                String tempRandomOperator = operations.get((int) (Math.random() * operations.size()));
+                descriptionBuilder.append(tempRandomOperator);
+            }
+        }
+    }
+
+    private static ArrayList<String> getOperations(String op) {
+        ArrayList<String> operations = new ArrayList<>();
+
+        if (op.contains("+")) {
+            operations.add("+");
+        }
+        if (op.contains("-")) {
+            operations.add("-");
+        }
+        if (op.contains("*")) {
+            operations.add("*");
+        }
+        if (op.contains("/")) {
+            operations.add("/");
+        }
+        return operations;
+    }
+
     private StringBuilder division_check(StringBuilder sb) {
         for (int i = 0; i < sb.length(); i++) {
             if (sb.charAt(i) == '/') {

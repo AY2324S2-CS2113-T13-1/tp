@@ -2,7 +2,6 @@ package seedu.duke;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a DIY problem set.
@@ -21,8 +20,6 @@ public class DIYProblemSet {
      * @param ui the ui for the user to interact with the program
      */
     public void addDIYProblemSet(Ui ui) {
-        Scanner scanner = new Scanner(System.in);
-
         ui.print("Please input your DIY problemSet: ");
         String description;
         String correctAnswer;
@@ -33,10 +30,9 @@ public class DIYProblemSet {
 
         while (!quit.equals("y")) {
             ui.print("input the description of the problem (e.g. 1+2*3): ");
-            description = scanner.nextLine();
-
+            description = ui.readCommand();
             ui.print("input the correct answer of the problem (e.g. 7): ");
-            correctAnswer = scanner.nextLine();
+            correctAnswer = ui.readCommand();
 
             boolean isValidAnswer = false;
             while (!isValidAnswer) {
@@ -45,22 +41,22 @@ public class DIYProblemSet {
                     isValidAnswer = true;
                 } catch (NumberFormatException e) {
                     ui.print("Invalid answer! Please input a number.");
-                    correctAnswer = scanner.nextLine();
+                    correctAnswer = ui.readCommand();
                 }
             }
 
             ui.print("Input the explanations of the problem (e.g. 1+2*3=7): ");
-            explanations = scanner.nextLine();
+            explanations = ui.readCommand();
+            Problem problem = new Problem(description,answer,explanations);
 
-            Problem problem = new Problem(description, answer, explanations);
             problemSet.add(problem);
 
             ui.print("Have you finished adding problems? y/n: ");
-            quit = scanner.nextLine();
+            quit = ui.readCommand();
 
             while (!quit.equals("y") && !quit.equals("n")) {
                 ui.print("input is invalid! Please input 'y' or 'n': ");
-                quit = scanner.nextLine();
+                quit = ui.readCommand();
             }
         }
 
@@ -70,9 +66,5 @@ public class DIYProblemSet {
         ui.print("Record successfully saved!");
         record.print(true);
         Ui.showLine();
-
-        scanner.close();
     }
-
-
 }

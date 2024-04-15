@@ -28,10 +28,7 @@ public class Checker {
      * @param test the test that the user is taking.
      */
     public Checker(Test test) {
-        if (test == null) {
-            throw new IllegalArgumentException("You must initialize the checker with a test!");
-        }
-        // assert test != null : "You must initialize the checker with a test!";
+        assert test != null : "Input null test!";
         this.userAnswer = new String[test.getNumber()];
         this.test = test;
         this.isCorrect = new Boolean[test.getNumber()];
@@ -46,10 +43,6 @@ public class Checker {
      * @param problem the problem that the user is solving.
      */
     public static void showExplanation(Problem problem) {
-        if (problem == null) {
-            throw new IllegalArgumentException("You must give a problem to show the explanation!");
-        }
-        // assert problem != null : "You must give a problem to show the explanation!";
         String explanations = problem.getExplanations();
         Ui ui = new Ui("");
         ui.print("The explanation of the problem: " + problem.solved());
@@ -75,18 +68,25 @@ public class Checker {
      */
     void getUserAnswer() {
         long startTime = System.currentTimeMillis();
-        ui.startAnswerTest();
-        String userInput = ui.readCommand();
-
+        ui.print(
+                "you can type \"exit\" to quit the test when answering the question...");
+        //
+        boolean isQuit = false;
         for (int i = 0; i < test.getNumber(); i++) {
+
+            if (isQuit){
+                break;
+            }
+
             Problem problem = test.getProblem().get(i);
             ui.print(problem.unsolved());
-            userInput = ui.readCommand();
+            String userInput = ui.readCommand();
             userAnswer[i] = userInput;
             double answer = Double.NEGATIVE_INFINITY;
+
             boolean isValid = false;
             if (userInput.equals("exit")) {
-                ui.exitTest();
+                ui.print("Exit the test! All the test not finished will be marked as wrong!");
                 break;
             }
 
@@ -94,11 +94,20 @@ public class Checker {
                 try {
                     answer = Double.parseDouble(userInput);
                     isValid = true;
+
                 } catch (NumberFormatException e) {
                     ui.print("Invalid Input, please enter a number");
                     ui.print(problem.unsolved());
                     userInput = ui.readCommand();
+                    if (userInput.equals("exit")) {
+                        ui.print("Exit the test! All the test not finished will be marked as wrong!");
+                        isQuit = true;
+                        break;
+                    }
                 }
+            }
+            if (isQuit){
+                break;
             }
 
             if (checkCorrectness(problem, answer)) {
