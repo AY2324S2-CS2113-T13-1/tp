@@ -3,7 +3,15 @@ package seedu.duke;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Checker class is used to check the correctness of the user's answer.
+ * It will store the user's answer and the correctness of the answer.
+ * It will also store the wrong answer and the corresponding problem.
+ */
 public class Checker {
+
+    private static final double TOLERANCE = 0.01;
+
     private final String[] userAnswer;
     private final Test test;
     private final Boolean[] isCorrect;
@@ -14,8 +22,16 @@ public class Checker {
     private double accuracy;
     private long time;
 
+    /**
+     * Constructor of the Checker class.
+     *
+     * @param test the test that the user is taking.
+     */
     public Checker(Test test) {
-        assert test != null : "You must intialize the checker with a test!";
+        if (test == null) {
+            throw new IllegalArgumentException("You must initialize the checker with a test!");
+        }
+        // assert test != null : "You must initialize the checker with a test!";
         this.userAnswer = new String[test.getNumber()];
         this.test = test;
         this.isCorrect = new Boolean[test.getNumber()];
@@ -24,26 +40,39 @@ public class Checker {
         this.time = 0;
     }
 
+    /**
+     * Show the explanation of the problem.
+     *
+     * @param problem the problem that the user is solving.
+     */
     public static void showExplanation(Problem problem) {
-        assert problem != null : "You must give a problem to show the explanation!";
+        if (problem == null) {
+            throw new IllegalArgumentException("You must give a problem to show the explanation!");
+        }
+        // assert problem != null : "You must give a problem to show the explanation!";
         String explanations = problem.getExplanations();
         Ui ui = new Ui("");
         ui.print("The explanation of the problem: " + problem.solved());
-        ui.print("Let us caculate it step by step:");
+        ui.print("Let us calculate it step by step:");
         ui.print(explanations);
-        
-        ui.print("From all the steps above, we can get the answer: " + problem.solved()+"\n");
+        ui.print("From all the steps above, we can get the answer: " + problem.solved() + "\n");
 
     }
 
-
+    /**
+     * Check the correctness of the user's answer.
+     *
+     * @param problem the problem that the user is solving.
+     * @param answer  the answer that the user input.
+     * @return true if the answer is correct, false otherwise.
+     */
     Boolean checkCorrectness(Problem problem, double answer) {
-        if(Math.abs(problem.getAnswer() - answer) < 0.01) {
-            return true;
-        }
-        return false;
+        return Math.abs(problem.getAnswer() - answer) < TOLERANCE;
     }
 
+    /**
+     * Get the user's answer and check the correctness of the answer.
+     */
     void getUserAnswer() {
         long startTime = System.currentTimeMillis();
         ui.startAnswerTest();
@@ -60,17 +89,15 @@ public class Checker {
                 ui.exitTest();
                 break;
             }
-            while (!isValid) {
 
+            while (!isValid) {
                 try {
                     answer = Double.parseDouble(userInput);
                     isValid = true;
                 } catch (NumberFormatException e) {
-            
                     ui.print("Invalid Input, please enter a number");
                     ui.print(problem.unsolved());
                     userInput = ui.readCommand();
-
                 }
             }
 
@@ -83,18 +110,12 @@ public class Checker {
             }
 
         }
+
         // hand with time and acc
         long endTime = System.currentTimeMillis();
         accuracy = (double) correctNumber / test.getNumber();
         // millisecond to second
         this.time = (endTime - startTime) / 1000;
-        for (int i = 0; i < test.getNumber(); i++) {
-            if (isCorrect[i] = false) {
-                Problem problem = test.getProblem().get(i);
-                wrongProblem.add(problem);
-                wrongAnswer.add(userAnswer[i]);
-            }
-        }
     }
 
     public Boolean[] checkAnswer() {
