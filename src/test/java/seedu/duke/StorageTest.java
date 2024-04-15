@@ -60,7 +60,7 @@ public class StorageTest {
     }
 
     public static void testAddRecord() {
-        Record record = new Record(LocalDateTime.now(), 5.0, 0.8, new ArrayList<>(),"auto-generated");
+        Record record = new Record(LocalDateTime.now(), 5.0, 0.8, new ArrayList<>(), "auto-generated");
         Storage.addRecord(record);
         assertEquals(1, Storage.getRecords().size());
         assertEquals(record, Storage.getRecords().get(0));
