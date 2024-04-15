@@ -42,16 +42,22 @@ public class Checker {
 
     void getUserAnswer() {
         long startTime = System.currentTimeMillis();
-        ui.print("Press Enter to start answering the questions, " +
+        ui.print(
                 "you can type \"exit\" to quit the test when answering the question...");
-        String userInput = ui.readCommand();
-
+       //
+        boolean isQuit = false;
         for (int i = 0; i < test.getNumber(); i++) {
+
+            if (isQuit){
+                break;
+            }
+
             Problem problem = test.getProblem().get(i);
             ui.print(problem.unsolved());
-            userInput = ui.readCommand();
+            String userInput = ui.readCommand();
             userAnswer[i] = userInput;
             double answer = Double.NEGATIVE_INFINITY;
+
             boolean isValid = false;
             if (userInput.equals("exit")) {
                 ui.print("Exit the test! All the test not finished will be marked as wrong!");
@@ -62,13 +68,21 @@ public class Checker {
                 try {
                     answer = Double.parseDouble(userInput);
                     isValid = true;
+
                 } catch (NumberFormatException e) {
             
                     ui.print("Invalid Input, please enter a number");
                     ui.print(problem.unsolved());
                     userInput = ui.readCommand();
-
+                    if (userInput.equals("exit")) {
+                        ui.print("Exit the test! All the test not finished will be marked as wrong!");
+                        isQuit = true;
+                        break;
+                    }
                 }
+            }
+            if (isQuit){
+                break;
             }
 
             if (checkCorrectness(problem, answer)) {
