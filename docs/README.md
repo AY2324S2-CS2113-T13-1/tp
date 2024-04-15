@@ -1,4 +1,4 @@
-# Duke
+# MathGenius
 
 **MathGenius** is a user-friendly application that provides a platform to enhance your Math equation-solving abilities. 
 
