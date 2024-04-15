@@ -1,0 +1,15 @@
+@startuml
+
+class DIYProblemSet {
+        - problemSet: ArrayList<Problem>
+
+        + DIYProblemSet()
+        + addDIYProblemSet(ui: Ui): void
+}
+
+DIYProblemSet --> Problem
+DIYProblemSet --> Test
+DIYProblemSet --> Ui
+DIYProblemSet --> Test
+
+@enduml
