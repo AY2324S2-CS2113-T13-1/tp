@@ -141,15 +141,15 @@ Remember, practice makes perfect. Happy learning with **MathGenius**!
 
 ### Command summary:
 
-| Command          | Description                                                                  | Format                                                                                         | Example                   |
-|------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|---------------------------|
-| `help`           | Show the message about the command you can use and the standard input format | `help COMMAND_NAME`                                                                            | `help generate`           |
-| `gen / generate` | Generate the problem based on series of parameters                           | `generate -t OPERATOR -n NUMBER_OF_PROBLEMS -d MAXIMUM_DIGITS`                                 | `generate -t + -n 1 -d 1` |
-| `records`        | View the records of your past problem solving sessions                       | `records -SORT_BY_DATE -SORT_BY_SPEED -SORT_BY_ACCURACY -SORT_BY_PROBLEM_SET_ID -SHOW_DETAILS` | `records -d -details`     |
-| `ENTER/RETURN`   | Submit the answer in the terminal                                            | NA                                                                                             | NA                        |
-| `DIY`            | Add user DIY problem sets into our problem set datasets.                     | `DIY`                                                                                          | `DIY`                     |
-| `retry`          | Retry a problem set that you've attempted in the past(through ID in records) | `retry -PROBLEM_SET_ID`                                                                        | `retry 17462645`          |
-| `exit`           | Exit the program                                                             | `exit`                                                                                         | `exit`                    |
+| Command          | Description                                                                  | Format                                                                                         | Example                        |
+|------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|--------------------------------|
+| `help`           | Show the message about the command you can use and the standard input format | `help COMMAND_NAME`                                                                            | `help generate`                |
+| `gen / generate` | Generate the problem based on series of parameters                           | `generate -t OPERATOR -n NUMBER_OF_PROBLEMS -d MAXIMUM_DIGITS`                                 | `generate -t + -n 1 -d 1 -l 3` |
+| `records`        | View the records of your past problem solving sessions                       | `records -SORT_BY_DATE -SORT_BY_SPEED -SORT_BY_ACCURACY -SORT_BY_PROBLEM_SET_ID -SHOW_DETAILS` | `records -d -details`          |
+| `ENTER/RETURN`   | Submit the answer in the terminal                                            | NA                                                                                             | NA                             |
+| `DIY`            | Add user DIY problem sets into our problem set datasets.                     | `DIY`                                                                                          | `DIY`                          |
+| `retry`          | Retry a problem set that you've attempted in the past(through ID in records) | `retry -PROBLEM_SET_ID`                                                                        | `retry 17462645`               |
+| `exit`           | Exit the program                                                             | `exit`                                                                                         | `exit`                         |
 
 ## FAQ
 

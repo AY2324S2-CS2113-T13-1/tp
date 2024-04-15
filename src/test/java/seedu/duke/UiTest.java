@@ -28,7 +28,8 @@ public class UiTest {
     @Test
     public void helpTest() {
         ui.help("gen");
-        String expectedOutput = "Generate problem sets: gen -t [type] -n [number] -d [maximum digits]" +
+        String expectedOutput = "Generate problem sets: gen -t [type] -n [number] -d [maximum digits] "+
+                "-l[number of operands]" +
                 "Input Instructions:" +
                 "1. [operators]: Choose from +, -, *, /. " +
                 "You can use any combination of them." +
@@ -50,7 +51,8 @@ public class UiTest {
     @Test
     public void invalidCommandTest() {
         ui.invalidCommand();
-        assertEquals("Invalid command! Please try again.=========================", cleanOutput());
+        assertEquals("Invalid command! Please try again or enter 'help' for help.=========================",
+                cleanOutput());
     }
 
     @Test
