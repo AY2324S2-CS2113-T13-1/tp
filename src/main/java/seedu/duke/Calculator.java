@@ -80,6 +80,7 @@ public class Calculator {
             }
             alignedProblem = builder.toString();
 
+
         }
         return start + alignedProblem + "\n";
     }
