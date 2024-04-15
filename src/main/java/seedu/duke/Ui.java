@@ -25,7 +25,7 @@ public class Ui {
                     "This will generate 10 problems using the + operator only. " +
                     "Each problem will have 2 operands, and the maximum number of digits for each operand is 2.";
     private static final String GEN_COMMAND =
-            "Generate problem sets: \t" + "gen -t [type] -n [number] -d [maximum digits]";
+            "Generate problem sets: \t" + "gen -t [type] -n [number] -d [maximum digits] -l[number of operands]";
     private static final String HELP_COMMAND =
             "Help Function: \n" +
                     "To get help on a specific command, type 'help' followed by the command name. " +
@@ -139,7 +139,7 @@ public class Ui {
      * Displays an error message for an invalid command.
      */
     public void invalidCommand() {
-        System.out.println("Invalid command! Please try again.");
+        System.out.println("Invalid command! Please try again or enter 'help' for help.");
         showLine();
     }
 

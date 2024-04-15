@@ -22,11 +22,18 @@ public class DIYProblemSet {
             description = scanner.nextLine();
             ui.print("input the correct answer of the problem (e.g. 7): ");
             correctAnswer = scanner.nextLine();
-            try {
-                answer = Double.parseDouble(correctAnswer);
-            } catch (NumberFormatException e) {
-                ui.print("Invalid answer! Please input a number.");
+            boolean isValidAnswer = false;
+            while(isValidAnswer == false){
+                try {
+                    answer = Double.parseDouble(correctAnswer);
+                    isValidAnswer = true;
+                } catch (NumberFormatException e) {
+                    ui.print("Invalid answer! Please input a number.");
+                    correctAnswer = scanner.nextLine();
+                }
             }
+
+
             Problem problem = new Problem(description,answer,explanations);
             problemSet.add(problem);
             ui.print("Have you finished adding problems? y/n: ");

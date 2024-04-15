@@ -125,6 +125,8 @@ public class Parser {
          * help
          */
 
+
+        //ui.help("");
         // Split the command into two parts: action and description
         String[] parts = command.split(" ", 2);
         String action = parts[0];
@@ -134,7 +136,8 @@ public class Parser {
         }
 
         switch (action) {
-        case "": // by default, it will be "gen"
+        //case "": // by default, it will be "gen"
+        // I deleted this "backdoor" at 4.15 18:19  ycg
         case "gen":
         case "generate":
             ProblemGenerator pb = new ProblemGenerator();
