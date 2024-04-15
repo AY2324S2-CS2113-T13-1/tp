@@ -34,9 +34,9 @@ public class DIYProblemSet {
                     correctAnswer = scanner.nextLine();
                 }
             }
-
-
-            Problem problem = new Problem(description, answer, explanations);
+            ui.print("Input the explanations of the problem (e.g. 1+2*3=7): ");
+            explanations = scanner.nextLine();
+            Problem problem = new Problem(description,answer,explanations);
             problemSet.add(problem);
             ui.print("Have you finished adding problems? y/n: ");
             quit = scanner.nextLine();
@@ -50,6 +50,7 @@ public class DIYProblemSet {
         ui.print("Record successfully saved!");
         record.print(true);
         Ui.showLine();
+        scanner.close();
     }
 
 

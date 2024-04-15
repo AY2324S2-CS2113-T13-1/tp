@@ -15,7 +15,7 @@ public class Checker {
     private long time;
 
     public Checker(Test test) {
-        assert test != null : "Input null test!";
+        assert test != null : "You must intialize the checker with a test!";
         this.userAnswer = new String[test.getNumber()];
         this.test = test;
         this.isCorrect = new Boolean[test.getNumber()];
@@ -25,6 +25,7 @@ public class Checker {
     }
 
     public static void showExplanation(Problem problem) {
+        assert problem != null : "You must give a problem to show the explanation!";
         String explanations = problem.getExplanations();
         Ui ui = new Ui("");
         ui.print("The explanation of the problem: " + problem.solved());
@@ -37,13 +38,15 @@ public class Checker {
 
 
     Boolean checkCorrectness(Problem problem, double answer) {
-        return Math.abs(problem.getAnswer() - answer) < 0.01;
+        if(Math.abs(problem.getAnswer() - answer) < 0.01) {
+            return true;
+        }
+        return false;
     }
 
     void getUserAnswer() {
         long startTime = System.currentTimeMillis();
-        ui.print("Press Enter to start answering the questions, " +
-                "you can type \"exit\" to quit the test when answering the question...");
+        ui.startAnswerTest();
         String userInput = ui.readCommand();
 
         for (int i = 0; i < test.getNumber(); i++) {
@@ -54,7 +57,7 @@ public class Checker {
             double answer = Double.NEGATIVE_INFINITY;
             boolean isValid = false;
             if (userInput.equals("exit")) {
-                ui.print("Exit the test! All the test not finished will be marked as wrong!");
+                ui.exitTest();
                 break;
             }
             while (!isValid) {
@@ -87,7 +90,8 @@ public class Checker {
         this.time = (endTime - startTime) / 1000;
         for (int i = 0; i < test.getNumber(); i++) {
             if (isCorrect[i] = false) {
-                wrongProblem.add(test.getProblem().get(i));
+                Problem problem = test.getProblem().get(i);
+                wrongProblem.add(problem);
                 wrongAnswer.add(userAnswer[i]);
             }
         }
