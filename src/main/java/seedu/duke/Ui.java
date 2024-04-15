@@ -49,7 +49,36 @@ public class Ui {
 
     private static final String DIY_COMMAND =
             "Add user defined problem sets in to the problem database: \t" + "DIY\n";
+
     private static final String EXIT_COMMAND = "Exit program: exit\n";
+
+    private static final String EXPLANATION_START = 
+            "\nExplanation Instruction: \n" +
+            "1.To view the explanation of a problem, type 'explanation' or 'exp'.\n" +
+            "2. The explanation of the problem will be shown step by step " +
+            "with the formulation of column caculation.\n" +
+            "3. If you want to exit the explanation, type 'exit'.";
+
+    private static final String EXPLANATION_END = 
+            "Explanation End.";
+
+    private static final String WRONG_ANSWER = 
+            "We evaluate the answer accurate in 2 decimal places.\n"+
+            "You may check the answer as well as the explanation.\n"+
+            "If you do not want to see the explanation, type 'exit'."; 
+            
+    private static final String START_ANSWER_TEST =
+            "START ANSWERING TEST INSTRUCTION:\n" +
+            "1.Press Enter to start answering the questions.\n" +
+            "2.You can type \"exit\" to quit the test when answering the question.\n"+
+            "3.You may round the answer to 2 decimal places for complex answers.";
+
+    private static final String EXIT_TEST =
+            "Exit the test! All the test not finished will be marked as wrong! No explanation for them!";
+
+    private static final String TEST_FINISH =
+            "TEST FINISHED! \n"+
+            "Here is your test result: ";
 
 
     private final String name;
@@ -155,6 +184,50 @@ public class Ui {
 
     static void missingMessage(String parameters) {
         System.out.println("Using default " + parameters + " instead!");
+    }
+
+    public void showExplanation() {
+        System.out.println(EXPLANATION_START);
+        showLine();
+    }
+
+    public void showExplanationEnd() {
+        System.out.println(EXPLANATION_END);
+        showLine();
+    }
+
+    public void showWrongAnswer(int i) {
+        System.out.println("You have " + i + " wrong answers.");
+        System.out.println(WRONG_ANSWER);
+        System.out.println("The following " + i + " answers you gave are wrong: ");
+        showLine();
+    }
+
+    public void startAnswerTest() {
+        showLine();
+        System.out.println(START_ANSWER_TEST);
+        showLine();
+    }
+
+    public void exitTest() {
+        System.out.println(EXIT_TEST);
+        showLine();
+    }
+
+    public void showTestResult(double acc, long time) {
+        System.out.println(TEST_FINISH);
+        String accRate = String.format("%.2f", acc * 100);
+        System.out.println("Accuracy: " + accRate + "%");
+        System.out.println("Time Spend: " + time + "s");
+        
+        if(acc>=90) {
+            System.out.println("Well Done! You have a good performance!");
+        } else if(acc>=50) {
+            System.out.println("Good Job! Keep going!");
+        } else {
+            System.out.println("You may need more practice!");
+        }
+        showLine();
     }
 
     public void exit() {
