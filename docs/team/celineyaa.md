@@ -1,4 +1,4 @@
-# LIN Siyan
+# LIN Siyan's Project Portfolio Page
 
 ## Overview of `MathGenius`
 **`MathGenius`** is a user-friendly application that provides a platform to enhance your equation-solving abilities. Whether you're a student learning calculation, a math enthusiast looking to sharpen your skills, or a teacher preparing for exams/lessons, this application is here to support you.
