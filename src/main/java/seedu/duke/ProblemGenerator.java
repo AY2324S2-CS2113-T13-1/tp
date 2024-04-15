@@ -196,7 +196,7 @@ public class ProblemGenerator {
         return test;
     }
 
-    private static void buildFormula(int length, int max, StringBuilder descriptionBuilder, ArrayList<String> operations) {
+    private void buildFormula(int length, int max, StringBuilder descriptionBuilder, ArrayList<String> operations) {
         for (int j = 0; j < length; j++) {
             int tempRandomNumber = (int) (Math.random() * max);
             descriptionBuilder.append(tempRandomNumber);
