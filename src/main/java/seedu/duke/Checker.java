@@ -15,7 +15,7 @@ public class Checker {
     private long time;
 
     public Checker(Test test) {
-        assert test != null : "You must intialize the checker with a test!";
+        assert test != null : "Input null test!";
         this.userAnswer = new String[test.getNumber()];
         this.test = test;
         this.isCorrect = new Boolean[test.getNumber()];
@@ -25,39 +25,42 @@ public class Checker {
     }
 
     public static void showExplanation(Problem problem) {
-        assert problem != null : "You must give a problem to show the explanation!";
         String explanations = problem.getExplanations();
         Ui ui = new Ui("");
         ui.print("The explanation of the problem: " + problem.solved());
         ui.print("Let us caculate it step by step:");
         ui.print(explanations);
-        
+
         ui.print("From all the steps above, we can get the answer: " + problem.solved()+"\n");
 
     }
 
 
     Boolean checkCorrectness(Problem problem, double answer) {
-        if(Math.abs(problem.getAnswer() - answer) < 0.01) {
-            return true;
-        }
-        return false;
+        return Math.abs(problem.getAnswer() - answer) < 0.01;
     }
 
     void getUserAnswer() {
         long startTime = System.currentTimeMillis();
-        ui.startAnswerTest();
-        String userInput = ui.readCommand();
-
+        ui.print(
+                "you can type \"exit\" to quit the test when answering the question...");
+        //
+        boolean isQuit = false;
         for (int i = 0; i < test.getNumber(); i++) {
+
+            if (isQuit){
+                break;
+            }
+
             Problem problem = test.getProblem().get(i);
             ui.print(problem.unsolved());
-            userInput = ui.readCommand();
+            String userInput = ui.readCommand();
             userAnswer[i] = userInput;
             double answer = Double.NEGATIVE_INFINITY;
+
             boolean isValid = false;
             if (userInput.equals("exit")) {
-                ui.exitTest();
+                ui.print("Exit the test! All the test not finished will be marked as wrong!");
                 break;
             }
             while (!isValid) {
@@ -65,13 +68,21 @@ public class Checker {
                 try {
                     answer = Double.parseDouble(userInput);
                     isValid = true;
+
                 } catch (NumberFormatException e) {
-            
+
                     ui.print("Invalid Input, please enter a number");
                     ui.print(problem.unsolved());
                     userInput = ui.readCommand();
-
+                    if (userInput.equals("exit")) {
+                        ui.print("Exit the test! All the test not finished will be marked as wrong!");
+                        isQuit = true;
+                        break;
+                    }
                 }
+            }
+            if (isQuit){
+                break;
             }
 
             if (checkCorrectness(problem, answer)) {
@@ -86,12 +97,11 @@ public class Checker {
         // hand with time and acc
         long endTime = System.currentTimeMillis();
         accuracy = (double) correctNumber / test.getNumber();
-        // millisecond to second
+        //millisecond to second
         this.time = (endTime - startTime) / 1000;
         for (int i = 0; i < test.getNumber(); i++) {
             if (isCorrect[i] = false) {
-                Problem problem = test.getProblem().get(i);
-                wrongProblem.add(problem);
+                wrongProblem.add(test.getProblem().get(i));
                 wrongAnswer.add(userAnswer[i]);
             }
         }
