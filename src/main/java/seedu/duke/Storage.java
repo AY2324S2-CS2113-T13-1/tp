@@ -32,6 +32,12 @@ public class Storage {
         records.clear();
     }
 
+    /**
+     * Retrieves a Test object by its ID from the list of records.
+     *
+     * @param id The ID of the Test object to be retrieved.
+     * @return The Test object if found, null otherwise.
+     */
     public static Test problemSetByID(int id) {
         for (Record record : records) {
             if (record.getPsIndex() == id) {
@@ -41,6 +47,15 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Method for sorting the records
+     *
+     * @param dateSortOp the sorting option for date
+     * @param spdSortOp  the sorting option for speed
+     * @param accSortOp  the sorting option for accuracy
+     * @param probSortOp the sorting option for problem set index
+     * @return the sorted list of records
+     */
     public static ArrayList<Record> sortRecords(int dateSortOp, int spdSortOp, int accSortOp, int probSortOp) {
         int notSortOp = 0;
         int toSort = 1;

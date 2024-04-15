@@ -9,6 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Represents a problem generator test.
+ * A ProblemGeneratorTest object corresponds to a test that checks the correctness of the problem generator.
+ */
 public class ProblemGeneratorTest {
     public static String[] commands = {
         "generate -t + -n 1 -d 2 -l 2",

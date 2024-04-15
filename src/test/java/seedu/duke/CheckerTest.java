@@ -3,6 +3,10 @@ package seedu.duke;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Represents a checker test.
+ * A CheckerTest object corresponds to a test that checks the correctness of the answer.
+ */
 public class CheckerTest {
 
     @org.junit.jupiter.api.Test

@@ -7,8 +7,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Represents a storage test.
+ * A StorageTest object corresponds to a test that checks the correctness of the storage.
+ */
 public class StorageTest {
 
+    /**
+     * Tests the sortRecords method in Storage.
+     */
     public static void testSortRecords() {
         Record record1 = new Record(LocalDateTime.now().minusDays(2), 5.0, 0.8, new ArrayList<>(), "user-DIY");
         Record record2 = new Record(LocalDateTime.now().minusDays(1), 6.0, 0.7, new ArrayList<>(), "auto-generated");

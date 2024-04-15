@@ -4,7 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents a record.
+ * A Record object corresponds to a record of the user's attempt.
+ */
 public class Record {
+
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private LocalDateTime dateTime;
@@ -18,6 +23,15 @@ public class Record {
     private int psIndex;
     private String problemSetType;
 
+    /**
+     * Constructor for a record.
+     *
+     * @param dateTime the date and time of the record
+     * @param speed the speed of the record
+     * @param accuracy the accuracy of the record
+     * @param probSet the problem set of the record
+     * @param problemSetType the type of the problem set
+     */
     public Record(LocalDateTime dateTime,
                   double speed,
                   double accuracy,
@@ -32,6 +46,16 @@ public class Record {
 
     }
 
+    /**
+     * Constructor for a record.
+     *
+     * @param dateTime the date and time of the record
+     * @param speed the speed of the record
+     * @param accuracy the accuracy of the record
+     * @param probSet the problem set of the record
+     * @param psIndex the index of the problem set
+     * @param problemSetType the type of the problem set
+     */
     public Record(LocalDateTime dateTime,
                   double speed,
                   double accuracy,
@@ -46,7 +70,11 @@ public class Record {
         setProblemSetType(problemSetType);
     }
 
-
+    /**
+     * Prints the record.
+     *
+     * @param showProbDetails whether to show the problem details
+     */
     public void print(boolean showProbDetails) {
         if (getSpeed() <= 0.0) {
             System.out.println("--User DIY Problem Set--");
@@ -71,6 +99,11 @@ public class Record {
         }
     }
 
+    /**
+     * Writes the record to a file.
+     *
+     * @return the record as a string
+     */
     public String writeLine() {
         StringBuilder probStr = new StringBuilder();
         for (Problem problem : probSet) {

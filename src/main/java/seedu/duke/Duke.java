@@ -1,5 +1,9 @@
 package seedu.duke;
 
+/**
+ * Represents the Duke program.
+ * A Duke object corresponds to the Duke program that is created by the user.
+ */
 public class Duke {
 
     private static final String name = "MathGenius";
@@ -8,7 +12,6 @@ public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
-
     public static void run() {
         ui.greet();
 
