@@ -83,7 +83,7 @@ public class Checker {
         // hand with time and acc
         long endTime = System.currentTimeMillis();
         accuracy = (double) correctNumber / test.getNumber();
-        //millisecond to second
+        // millisecond to second
         this.time = (endTime - startTime) / 1000;
         for (int i = 0; i < test.getNumber(); i++) {
             if (isCorrect[i] = false) {

@@ -48,7 +48,6 @@ public class Record {
 
 
     public void print(boolean showProbDetails) {
-        // ui.printRecords(showProbDetails, this);
         if (getSpeed() <= 0.0) {
             System.out.println("--User DIY Problem Set--");
             System.out.println("ProblemSet ID: " + getPsIndex());

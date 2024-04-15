@@ -35,7 +35,7 @@ public class Storage {
     public static Test problemSetByID(int id) {
         for (Record record : records) {
             if (record.getPsIndex() == id) {
-                return new Test(record.getProbSet(),record.getProblemSetType());
+                return new Test(record.getProbSet(), record.getProblemSetType());
             }
         }
         return null;
@@ -48,22 +48,22 @@ public class Storage {
         ArrayList<Record> sortedRecords = new ArrayList<>(records);
         if (dateSortOp != notSortOp) {
             sortedRecords.sort(Comparator.comparing(Record::getDateTime));
-            if(dateSortOp == reverseSortOp) {
+            if (dateSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
-        } else if(spdSortOp != notSortOp) {
+        } else if (spdSortOp != notSortOp) {
             sortedRecords.sort(Comparator.comparing(Record::getSpeed));
-            if(spdSortOp == reverseSortOp) {
+            if (spdSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
-        } else if(accSortOp != notSortOp) {
+        } else if (accSortOp != notSortOp) {
             sortedRecords.sort(Comparator.comparing(Record::getAccuracy));
-            if(accSortOp == reverseSortOp) {
+            if (accSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
-        } else if(probSortOp != notSortOp) {
+        } else if (probSortOp != notSortOp) {
             sortedRecords.sort(Comparator.comparing(Record::getPsIndex));
-            if(probSortOp == reverseSortOp) {
+            if (probSortOp == reverseSortOp) {
                 Collections.reverse(sortedRecords);
             }
         }
@@ -72,6 +72,7 @@ public class Storage {
 
     /**
      * Method for processing a line of input
+     *
      * @param line the line to be processed
      * @throws Exception exception is thrown whenever the input format is corrupt.
      */
@@ -80,7 +81,7 @@ public class Storage {
 
         String[] words = line.split(" ");
 
-        if (words.length < minimumLength ) {
+        if (words.length < minimumLength) {
             throw new Exception();
         }
 
@@ -100,8 +101,7 @@ public class Storage {
         }
 
 
-
-        Record record = new Record(dateTime, speed, accuracy, probSet, psIndex,problemSetType);
+        Record record = new Record(dateTime, speed, accuracy, probSet, psIndex, problemSetType);
         addRecord(record);
     }
 
