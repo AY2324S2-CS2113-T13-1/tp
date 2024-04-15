@@ -27,6 +27,8 @@ public class DIYProblemSet {
             } catch (NumberFormatException e) {
                 ui.print("Invalid answer! Please input a number.");
             }
+            ui.print("input the explanations of the problem (e.g. 1+2*3=7): ");
+            explanations = scanner.nextLine();
             Problem problem = new Problem(description,answer,explanations);
             problemSet.add(problem);
             ui.print("Do you finish adding problems? y/n: ");

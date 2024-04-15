@@ -1,0 +1,70 @@
+@startuml
+actor User
+
+participant ":Ui" as Ui
+participant ":Parser" as Parser
+participant ":ProblemGenerator" as ProblemGenerator
+participant "test:Test" as Test
+participant ":Checker" as Checker
+participant ":Storage" as Storage
+participant "problem:Problem" as Problem
+participant ":Calculator" as Calculator
+
+
+
+User -> Duke: start
+activate Duke
+Duke -> Storage: readFile()
+activate Storage
+Storage -> Storage: read file
+deactivate Storage
+deactivate Duke
+
+Duke -> Ui: greet()
+activate Ui
+Ui -> Ui: Display greeting message
+deactivate Ui
+
+Duke -> Ui: readCommand()
+activate Ui
+Ui --> Duke: return command
+deactivate Ui
+
+loop until exit command
+    Duke -> Parser: parse(command, Ui)
+    activate Parser
+    Parser -> ProblemGenerator: typeChoose(command)
+    activate ProblemGenerator
+    ProblemGenerator -> ProblemGenerator: parseCommand(command)
+    ProblemGenerator -> ProblemGenerator: defaultOptions(command, options)
+    ProblemGenerator -> ProblemGenerator: generate(parameter)
+    deactivate ProblemGenerator
+    Parser -> Calculator: calculate(descriptionBuilder)
+    activate Calculator
+    Calculator -> Calculator: toFormula(sb)
+    Calculator -> Calculator: toSuffix(formula)
+    Calculator -> Calculator: calculateTwo(num1, num2, op)
+    deactivate Calculator
+    Parser -> Test: addToTest(p)
+    activate Test
+    Test -> Problem: Problem(description, answer)
+    deactivate Test
+    Parser -> Checker: new Checker(test)
+    activate Checker
+    Checker -> Checker: getUserAnswer()
+    Checker -> Checker: checkCorrectness(problem, answer)
+    deactivate Checker
+    deactivate Parser
+end
+
+Duke -> Storage: writeFile()
+activate Storage
+Storage -> Storage: write records to file
+deactivate Storage
+
+Duke -> Ui: exit()
+activate Ui
+Ui -> Ui: Display exit message
+deactivate Ui
+
+@enduml
