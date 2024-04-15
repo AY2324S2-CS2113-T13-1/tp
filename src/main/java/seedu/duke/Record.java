@@ -49,17 +49,27 @@ public class Record {
 
     public void print(boolean showProbDetails) {
         // ui.printRecords(showProbDetails, this);
-
-        System.out.println("Date Time: " + getDateTime().format(formatter));
-        System.out.println("ProblemSet ID: " + getPsIndex());
-        if (showProbDetails) {
-            for (Problem problem : probSet) {
-                System.out.println("    " + problem.getDescription());
+        if (getSpeed() <= 0.0) {
+            System.out.println("--User DIY Problem Set--");
+            System.out.println("ProblemSet ID: " + getPsIndex());
+            if (showProbDetails) {
+                for (Problem problem : probSet) {
+                    System.out.println("    " + problem.getDescription());
+                }
             }
+        } else {
+            System.out.println("--User Attempt Record--");
+            System.out.println("Date Time: " + getDateTime().format(formatter));
+            System.out.println("ProblemSet ID: " + getPsIndex());
+            if (showProbDetails) {
+                for (Problem problem : probSet) {
+                    System.out.println("    " + problem.getDescription());
+                }
+            }
+            System.out.println("Speed: " + getSpeed() + " problems per minute");
+            System.out.println("Accuracy: " + getAccuracy() * 100 + "%");
+            System.out.println("Problem Set type: " + getProblemSetType());
         }
-        System.out.println("Speed: " + getSpeed() + " problems per minute");
-        System.out.println("Accuracy: " + getAccuracy() * 100 + "%");
-        System.out.println("Problem Set type: " + getProblemSetType());
     }
 
     public String writeLine() {
