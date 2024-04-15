@@ -97,7 +97,11 @@ public class Storage {
 
         for (int i = minimumLength + 1; i < words.length; i++) {
             String[] term = words[i].split(",");
-            probSet.add(new Problem(term[0], Double.parseDouble(term[1]), null));
+            StringBuilder description = new StringBuilder(term[0]);
+            Calculator calculator = new Calculator();
+            Double answer = calculator.calculate(description);
+            String explanations = calculator.getExplanationsString();
+            probSet.add(new Problem(term[0], answer, explanations));
         }
 
 
