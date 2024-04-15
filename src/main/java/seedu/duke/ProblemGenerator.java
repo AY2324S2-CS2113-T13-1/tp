@@ -195,8 +195,6 @@ public class ProblemGenerator {
             explanations = calculator.getExplanationsString();
             String description = descriptionBuilder.toString();
 
-
-
             Problem p = new Problem(description, answer, explanations);
             System.out.println((i + 1) + ". " + p.unsolved());
             test.addToTest(p);

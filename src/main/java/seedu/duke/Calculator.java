@@ -7,7 +7,7 @@ import java.util.Stack;
 import static java.lang.Character.isDigit;
 
 public class Calculator {
-    
+
     private static List<String> explanations = new ArrayList<>();
 
     public double calculate(StringBuilder sb) {
@@ -35,14 +35,14 @@ public class Calculator {
     }
 
     private static String getExplanation(double num1, double num2, String op, double answer) {
-        String start = "The computation of the problem: "+
+        String start = "The computation of the problem: " +
                 String.valueOf(num1) + " " + op + " " +
                 String.valueOf(num2) + " = " +
                 String.valueOf(answer) + "\n\n";
         List<String> explanation = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
         String alignedProblem = "";
-        if (op.equals("/")){
+        if (op.equals("/")) {
             alignedProblem = "The division of " + num1 + " and " + num2 + " is " + answer + "\n";
         } else {
             String firstString = String.valueOf(num1);
@@ -54,7 +54,7 @@ public class Calculator {
                 firstString = secondString;
                 secondString = temp;
             }
-            if(op.equals("*")){
+            if (op.equals("*")) {
                 op = "x";
             }
             // align the problem to the . place
@@ -79,10 +79,6 @@ public class Calculator {
                 builder.append(String.format("%30s%n", element));
             }
             alignedProblem = builder.toString();
-
-            
-
-                
 
         }
         return start + alignedProblem + "\n";
@@ -117,7 +113,7 @@ public class Calculator {
         for (Object object : formula) {
             if (object instanceof Integer) {
                 suffix.add(object);
-            } else if (object instanceof String ) {
+            } else if (object instanceof String) {
                 String op = (String) object;
 
                 if (opStack.empty()) {

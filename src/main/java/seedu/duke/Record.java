@@ -48,8 +48,6 @@ public class Record {
 
 
     public void print(boolean showProbDetails) {
-        // ui.printRecords(showProbDetails, this);
-
         System.out.println("Date Time: " + getDateTime().format(formatter));
         System.out.println("ProblemSet ID: " + getPsIndex());
         if (showProbDetails) {
