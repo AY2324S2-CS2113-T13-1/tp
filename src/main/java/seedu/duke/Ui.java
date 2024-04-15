@@ -5,11 +5,12 @@ import java.util.Scanner;
 
 /**
  * Represents the user interface for interacting with the chatbot.
+ * This class handles all user interactions, including reading user input and displaying output.
  */
 public class Ui {
 
     // Pre-defined sentences
-    private static final String FIRSTTIME_INSTRUCTION =
+    private static final String FIRST_INSTRUCTION =
             "First time instruction: To generate a problem set, Input like below:\n" +
                     "< generate -t [type] -n [number] -d [maximum digit] -l [number of operands] >";
     private static final String INPUT_INSTRUCTION =
@@ -46,19 +47,14 @@ public class Ui {
     private static final String RETRY_COMMAND =
             "Retry a problem set you have solved before in the past: \t" + "retry PROBLEM_SET_ID\n" +
                     "PROBLEM_SET_ID is an integer, and can be found by using the 'records' command.\n";
-
     private static final String DIY_COMMAND =
             "Add user defined problem sets in to the problem database: \t" + "DIY\n";
-
-    private static final String EXIT_COMMAND = "Exit program: exit\n";
-
     private static final String EXPLANATION_START = 
             "\nExplanation Instruction: \n" +
-            "1.To view the explanation of a problem, type 'explanation' or 'exp'.\n" +
+            "1. To view the explanation of a problem, type 'explanation' or 'exp'.\n" +
             "2. The explanation of the problem will be shown step by step " +
-            "with the formulation of column caculation.\n" +
+            "with the formulation of column calculation.\n" +
             "3. If you want to exit the explanation, type 'exit'.";
-
     private static final String EXPLANATION_END = 
             "Explanation End.";
 
@@ -80,6 +76,7 @@ public class Ui {
             "TEST FINISHED! \n"+
             "Here is your test result: ";
 
+    private static final String EXIT_COMMAND = "Exit program: exit\n";
 
     private final String name;
     private final Scanner scanner = new Scanner(System.in);
@@ -96,7 +93,6 @@ public class Ui {
     /**
      * Displays a greeting message.
      */
-
     public void greet() {
         showLine();
         String logo = "__   __       _   _      ____            _\n" +
@@ -107,10 +103,15 @@ public class Ui {
         System.out.println(logo);
         System.out.println("Hello! I'm " + name + "!");
         System.out.println("Type 'help' to see all instructions.\n");
-        System.out.println(FIRSTTIME_INSTRUCTION);
+        System.out.println(FIRST_INSTRUCTION);
         showLine();
     }
 
+    /**
+     * Reads the user's command.
+     *
+     * @return The user's command as a String.
+     */
     public String readCommand() {
         if (scanner.hasNextLine()) {
             return scanner.nextLine().trim();
@@ -118,10 +119,18 @@ public class Ui {
         return "";
     }
 
+    /**
+     * Displays a line separator.
+     */
     public static void showLine() {
         System.out.println("=========================");
     }
 
+    /**
+     * Displays help information based on the helpType.
+     *
+     * @param helpType The type of help information to display.
+     */
     public void help(String helpType) {
         switch (helpType) {
         case "gen":
@@ -148,12 +157,21 @@ public class Ui {
         showLine();
     }
 
-    // print functions
+    /**
+     * Prints the given string.
+     *
+     * @param string The string to print.
+     */
     public void print(String string) {
         System.out.println(string);
     }
 
-    // records input
+    /**
+     * Displays the records.
+     *
+     * @param records The records to display.
+     * @param showProbDetails Whether to show problem details.
+     */
     public void printRecords(ArrayList<Record> records, boolean showProbDetails) {
         for (Record record : records) {
             showLine();
@@ -162,11 +180,10 @@ public class Ui {
         showLine();
     }
 
-    // invalid input
-
     /**
-     * Displays an error message for an invalid command.
+     * Displays an error message for an invalid inputs.
      */
+
     public void invalidCommand() {
         System.out.println("Invalid command! Please try again or enter 'help' for help.");
         showLine();
@@ -186,6 +203,9 @@ public class Ui {
         System.out.println("Using default " + parameters + " instead!");
     }
 
+    /**
+     * Displays the explanation start message.
+     */
     public void showExplanation() {
         System.out.println(EXPLANATION_START);
         showLine();
@@ -196,6 +216,11 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Displays the wrong answer message.
+     *
+     * @param i The number of wrong answers.
+     */
     public void showWrongAnswer(int i) {
         System.out.println("You have " + i + " wrong answers.");
         System.out.println(WRONG_ANSWER);
@@ -213,7 +238,13 @@ public class Ui {
         System.out.println(EXIT_TEST);
         showLine();
     }
-
+    
+    /**
+     * Displays the test result.
+     *
+     * @param acc The accuracy of the test.
+     * @param time The time spent on the test.
+     */
     public void showTestResult(double acc, long time) {
         System.out.println(TEST_FINISH);
         String accRate = String.format("%.2f", acc * 100);

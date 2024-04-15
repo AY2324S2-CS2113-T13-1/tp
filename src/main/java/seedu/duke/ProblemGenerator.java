@@ -3,8 +3,11 @@ package seedu.duke;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static java.lang.Character.isDigit;
-
+/**
+ * The ProblemGenerator class is responsible for generating math problems based on user input.
+ * It provides methods to parse user commands, check the validity of input parameters, generate problems,
+ * and apply specific rules to the generated problems.
+ */
 public class ProblemGenerator {
 
     private static final int MINIMUM_NUMBER = 0;
@@ -19,6 +22,13 @@ public class ProblemGenerator {
     private static final String DEFAULT_OPERATORS = VALID_OPERATORS;
     private static final String DEFAULT_LENGTH = "2";
 
+    /**
+     * This method parses the user command and returns a HashMap of options.
+     * It splits the command into tokens and processes each token.
+     *
+     * @param command The command to be parsed.
+     * @return A HashMap containing the parsed options.
+     */
     public static HashMap<String, String> parseCommand(String command) {
         HashMap<String, String> options = new HashMap<>();
         String[] tokens = command.split("\\s+");
@@ -45,10 +55,15 @@ public class ProblemGenerator {
             }
         }
 
-        //defaultOptions(command, options);
         return options;
     }
 
+    /**
+     * This method applies default options to the provided HashMap if certain options are missing.
+     *
+     * @param options The HashMap containing the parsed options.
+     * @return The updated HashMap with default options applied.
+     */
     private static HashMap<String, String> defaultOptions(HashMap<String, String> options) {
         if (!options.containsKey("operators")) {
             options.put("operators", DEFAULT_OPERATORS);
@@ -69,6 +84,13 @@ public class ProblemGenerator {
         return options;
     }
 
+    /**
+     * This method processes the user command, checks the validity of the parameters,
+     * applies default options, and generates a Test object based on the parameters.
+     *
+     * @param command The user command.
+     * @return The generated Test object.
+     */
     public Test typeChoose(String command) {
         HashMap<String, String> parameter = parseCommand(command);
         parameter = checkValidity(parameter);
@@ -76,14 +98,19 @@ public class ProblemGenerator {
         return generate(parameter);
     }
 
+    /**
+     * This method checks the validity of the parameters in the provided HashMap.
+     * It validates the number of problems, maximum digits, length, and operators.
+     *
+     * @param parameter The HashMap containing the parameters.
+     * @return The updated HashMap with valid parameters.
+     */
     private HashMap<String, String> checkValidity(HashMap<String, String> parameter) {
-
         try {
             NumberFormatException e = new NumberFormatException();
             int number = Integer.parseInt(parameter.get("number"));
             if (number < MINIMUM_NUMBER) {
                 System.out.println("Number of problems should be at least 1!");
-
                 throw e;
             }
             if (number > MAXIMUM_NUMBER) {
@@ -121,7 +148,6 @@ public class ProblemGenerator {
             if (length > MAXIMUM_LENGTH) {
                 System.out.println("Number of operands should be at most 10!");
                 throw e;
-
             }
         } catch (NumberFormatException e) {
             parameter.remove("length");
@@ -145,15 +171,18 @@ public class ProblemGenerator {
         return parameter;
     }
 
+    /**
+     * This method generates a Test object based on the provided parameters.
+     * It generates the specified number of problems with the given maximum digits, length, and operators.
+     *
+     * @param parameter The HashMap containing the parameters.
+     * @return The generated Test object.
+     */
     private Test generate(HashMap<String, String> parameter) {
-
         int number = Integer.parseInt(parameter.get("number"));
-
         int maxDigit = Integer.parseInt(parameter.get("maximumDigits"));
         String op = parameter.get("operators");
-
         int length = Integer.parseInt(parameter.get("length"));
-
         ArrayList<String> operations = new ArrayList<>();
 
         if (op.contains("+")) {
@@ -169,15 +198,12 @@ public class ProblemGenerator {
             operations.add("/");
         }
 
-
         Test test = new Test(op, maxDigit, number, length);
-        
+
         Ui.showLine();
         System.out.println("Generating " + number + " problems, you can preview them below:");
-        
 
         for (int i = 0; i < number; i++) {
-
             StringBuilder descriptionBuilder = new StringBuilder();
             double answer;
             String explanations;
@@ -202,17 +228,20 @@ public class ProblemGenerator {
             Problem p = new Problem(description, answer, explanations);
             System.out.println((i + 1) + ". " + p.unsolved());
             test.addToTest(p);
-
         }
         return test;
     }
 
-
+    /**
+     * This method checks the generated description for division operations and replaces the divisor
+     * with a non-zero one-digit number.
+     *
+     * @param sb The StringBuilder containing the description.
+     * @return The updated StringBuilder with replaced divisors.
+     */
     private StringBuilder division_check(StringBuilder sb) {
-        // change the divisor to a non-zero one-digit number
         for (int i = 0; i < sb.length(); i++) {
             if (sb.charAt(i) == '/') {
-
                 int numStart = i + 1;
                 int numEnd = numStart;
                 while (numEnd < sb.length() && isDigit(sb.charAt(numEnd))) {
@@ -228,6 +257,10 @@ public class ProblemGenerator {
         return sb;
     }
 
+    // Helper method to check if a character is a digit
+    private boolean isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
 }
 
 

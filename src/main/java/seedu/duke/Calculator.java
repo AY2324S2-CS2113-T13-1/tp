@@ -6,10 +6,20 @@ import java.util.Stack;
 
 import static java.lang.Character.isDigit;
 
+/**
+ * This class is responsible for calculating the result of the user input.
+ * It also generates the explanation of the calculation.
+ */
 public class Calculator {
-    
+
     private static List<String> explanations;
 
+    /**
+     * This method calculates the result of the user input.
+     *
+     * @param sb The user input.
+     * @return The result of the calculation.
+     */
     public double calculate(StringBuilder sb) {
         Stack<Double> numStack = new Stack<>();
         Stack<String> opStack = new Stack<>();
@@ -33,6 +43,15 @@ public class Calculator {
         return Math.round(numStack.peek() * 1000.0) / 1000.0;
     }
 
+    /**
+     * This method generates the explanation of the calculation.
+     *
+     * @param num1   The first number in the calculation.
+     * @param num2   The second number in the calculation.
+     * @param op     The operator in the calculation.
+     * @param answer The result of the calculation.
+     * @return The explanation of the calculation.
+     */
     private static String getExplanation(double num1, double num2, String op, double answer) {
         String start = "The computation of the problem: " +
                 num1 + " " + op + " " +
@@ -84,6 +103,14 @@ public class Calculator {
         return start + alignedProblem + "\n";
     }
 
+    /**
+     * This method calculates the result of the two numbers.
+     *
+     * @param num1 The first number in the calculation.
+     * @param num2 The second number in the calculation.
+     * @param op   The operator in the calculation.
+     * @return The result of the calculation.
+     */
     private static double calculateTwo(double num1, double num2, String op) {
 
         double answer;
@@ -106,6 +133,12 @@ public class Calculator {
         return answer;
     }
 
+    /**
+     * This method converts the formula to suffix notation.
+     *
+     * @param formula The formula to be converted.
+     * @return The formula in suffix notation.
+     */
     private static ArrayList<Object> toSuffix(ArrayList<Object> formula) {
         ArrayList<Object> suffix = new ArrayList<>();
         Stack<String> opStack = new Stack<>();
@@ -129,9 +162,7 @@ public class Calculator {
                     }
                 }
                 opStack.push(op);
-
             }
-
         }
 
         while (!opStack.empty()) {
@@ -140,16 +171,27 @@ public class Calculator {
         return suffix;
     }
 
+    /**
+     * This method checks if the first operator has higher priority than the second operator.
+     *
+     * @param op1 The first operator.
+     * @param op2 The second operator.
+     * @return True if the first operator has higher priority than the second operator, false otherwise.
+     */
     private static boolean prior(String op1, String op2) {
         int priority1;
         int priority2;
-
         priority1 = getPriority(op1);
         priority2 = getPriority(op2);
-
         return priority1 > priority2;
     }
 
+    /**
+     * This method returns the priority of the operator.
+     *
+     * @param op The operator.
+     * @return The priority of the operator.
+     */
     static int getPriority(String op) {
         int priority = 0;
         switch (op) {
@@ -167,6 +209,12 @@ public class Calculator {
         return priority;
     }
 
+    /**
+     * This method converts the formula to separate objects.
+     *
+     * @param sb The formula to be converted.
+     * @return The formula in separate objects.
+     */
     private static ArrayList<Object> toFormula(StringBuilder sb) {
         ArrayList<Object> formula = new ArrayList<>();
         for (int i = 0; i < sb.length(); ) { // change to separate objects
@@ -189,6 +237,11 @@ public class Calculator {
         return formula;
     }
 
+    /**
+     * This method returns the explanation of the calculation.
+     *
+     * @return The explanation of the calculation.
+     */
     public String getExplanationsString() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < explanations.size(); i++) {

@@ -8,6 +8,10 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Represents a UI test.
+ * A UiTest object corresponds to a test that checks the correctness of the UI.
+ */
 public class UiTest {
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
     private Ui ui;

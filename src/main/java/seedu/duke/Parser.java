@@ -3,8 +3,18 @@ package seedu.duke;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Represents a parser.
+ * A Parser object corresponds to a parser that parses the user input.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input.
+     *
+     * @param description the user input
+     * @param ui the ui for the user to interact with the program
+     */
     public static void parseRetry(String description, Ui ui) {
         try {
             int id = Integer.parseInt(description);
@@ -22,6 +32,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input.
+     *
+     * @param description the user input
+     * @param ui the ui for the user to interact with the program
+     */
     public static void parseRecord(String description, Ui ui) {
         String[] tokens = description.split(" ");
         int spdSortOp = 0;
@@ -68,12 +84,19 @@ public class Parser {
         ui.printRecords(Storage.sortRecords(dateSortOp, spdSortOp, accSortOp, probSortOp), probShowDetails);
     }
 
+    /**
+     * Solves the problem set.
+     *
+     * @param test the test to be solved
+     * @param ui the ui for the user to interact with the program
+     * @param retry whether the problem set is a retry
+     * @param id the id of the problem set
+     */
     public static void solveProbSet(Test test, Ui ui, boolean retry, int id) {
         Checker checker = new Checker(test);
         checker.getUserAnswer();
         // Use the % format to print acc
         ui.showTestResult(checker.getAccuracy(), checker.getTime());
-        
 
         // Show the wrong answer
         List<String> wrongAnswer = checker.getWrongAnswer();
@@ -117,6 +140,12 @@ public class Parser {
         Storage.writeFile();
     }
 
+    /**
+     * Parses the user input.
+     *
+     * @param command the user input
+     * @param ui the ui for the user to interact with the program
+     */
     public static void parse(String command, Ui ui) {
 
         /*
