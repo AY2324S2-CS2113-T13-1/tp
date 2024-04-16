@@ -1,22 +1,26 @@
 # User Guide of MathGenius
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Get Started](#get-started)
-3. [Features and Commands](#features-and-commands)
-   1. [Show Help Instructions: `help`](#show-help-instructions-help)
-   2. [Generate Problem Set: `generate`](#generate-problem-set-generate)
-   3. [Autosaving/Loading Past Attempts](#autosavingloading-past-attempts)
-   4. [View Past Records: `records`](#view-past-records-records)
-   5. [Submit Answer](#submit-answer-enterreturn)
-   6. [Judge Answer](#judge-answer)
-   7. [Create DIY Problem Sets: `DIY`](#create-diy-problem-sets-diy)
-   8. [Retry Previous Problem Sets: `retry`](#retry-previous-problem-sets-retry)
-   9. [Exit: `exit`](#exit-exit)
-   10. [Command Summary](#command-summary)
-4. [FAQ](#faq)
-	1. [Interaction Guide](#interaction-guide)
-5. [Final Words](#final-words)
+- [User Guide of MathGenius](#user-guide-of-mathgenius)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Get Started:](#get-started)
+  - [Features and Commands:](#features-and-commands)
+    - [Show help instructions: `help`](#show-help-instructions-help)
+    - [Generate problem set: `generate`](#generate-problem-set-generate)
+    - [Autosaving/Loading past attempts](#autosavingloading-past-attempts)
+    - [View past records: `records`](#view-past-records-records)
+    - [Submit Answer: `ENTER/RETURN`](#submit-answer-enterreturn)
+    - [Judge Answer:](#judge-answer)
+    - [Create DIY Problem Sets: `DIY`](#create-diy-problem-sets-diy)
+    - [Retry previous problem sets: `retry`](#retry-previous-problem-sets-retry)
+    - [Exit: `exit`](#exit-exit)
+    - [Example Commands Summary](#example-commands-summary)
+    - [Command summary:](#command-summary)
+  - [FAQ](#faq)
+    - [Interaction Guide](#interaction-guide)
+    - [*Infinite Decimal Answers*](#infinite-decimal-answers)
+  - [Final Words](#final-words)
 
 ## Introduction
 
@@ -28,7 +32,7 @@ Whether you're a student learning calculation, a math enthusiast looking to shar
 
 To start using **MathGenius**, run the following command: 
 ```
-java mathGenius.java
+java -jar CS2113-T13-1.MathGenius.jar
 ```
 
 ## Features and Commands:
@@ -46,6 +50,7 @@ For a comprehensive list of all possible commands and their usage, run the `help
 	help generate
 	help exit
 ```
+
 ### Generate problem set: `generate`
 Generate the problem based on a series of parameters. For example, what operators do you wish to include in the set **`+ - * /`**, the number of problems in the set, etc. As you enter the answers in order, the program will auto-check your answers for correction.
 
